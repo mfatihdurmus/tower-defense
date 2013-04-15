@@ -50,6 +50,7 @@ public class TDGame implements ApplicationListener {
 		if (screenWidth == -1) {
 			screenWidth = Gdx.graphics.getWidth();
 			screenHeight = Gdx.graphics.getHeight();
+			
 		}
 
 		tiledMapHelper = new TiledMapHelper();
