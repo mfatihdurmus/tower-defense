@@ -5,25 +5,40 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.tiled.TileAtlas;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
+import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 
 public class TiledMapHelper {
-	private static final int[] layersList = { 0 };
+	
+	private final int START_POINT = 6;
+	private final int END_POINT = 7;
+	private int[][] pathTiles;
 
+	public int[][] getTiles(String layerName)
+	{
+		for(TiledLayer tl : map.layers)
+		{
+			if(tl.name.equals(layerName))
+			{
+				return tl.tiles;
+			}
+		}
+		return null;
+	}
 	/**
 	 * Renders the part of the map that should be visible to the user.
 	 */
-	public void render() {
-		tileMapRenderer.getProjectionMatrix().set(camera.combined);
-
-		Vector3 tmp = new Vector3();
-		tmp.set(0, 0, 0);
-		camera.unproject(tmp);
-
-		tileMapRenderer.render((int) tmp.x, (int) tmp.y,
-				Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), layersList);
+	
+	public int[][] getPathTiles()
+	{
+		return pathTiles;
+	}
+	
+	public void render()
+	{
+		tileMapRenderer.render(getCamera());
 	}
 
 	/**
@@ -43,6 +58,44 @@ public class TiledMapHelper {
 	public int getWidth() {
 		return map.width * map.tileWidth;
 	}
+	
+	public Vector2 getStartPoint()
+	{
+		Vector2 p = new Vector2();
+		for(int y = 0; y < pathTiles.length; ++y)
+		{
+			for(int x = 0; x < pathTiles[y].length; ++x)
+			{
+				if(pathTiles[y][x] == START_POINT)
+				{
+					p.set(x, y);
+					return p;
+				}
+			}
+		}
+		p.set(-1, -1);
+		return p;
+	}
+
+	public Vector2 getEndPoint()
+	{
+		Vector2 p = new Vector2();
+		for(int y = 0; y < pathTiles.length; ++y)
+		{
+			for(int x = 0; x < pathTiles[y].length; ++x)
+			{
+				if(pathTiles[y][x] == END_POINT)
+				{
+					p.set(x, y);
+					return p;
+				}
+			}
+		}
+		p.set(-1, -1);
+		return p;
+	}
+
+
 
 	/**
 	 * Get the map, useful for iterating over the set of tiles found within
@@ -84,6 +137,7 @@ public class TiledMapHelper {
 		tileAtlas = new TileAtlas(map, packFileDirectory);
 
 		tileMapRenderer = new TileMapRenderer(map, tileAtlas, 16, 16);
+		pathTiles = getTiles("Path");
 	}
 
 	/**
