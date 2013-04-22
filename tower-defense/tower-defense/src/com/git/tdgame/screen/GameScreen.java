@@ -15,14 +15,19 @@ public class GameScreen implements Screen{
 	private TiledMapHelper tiledMapHelper;
 	private TDGame game;
 	private Stage stage;
+	
+	// Wave variables
 	private long spawnTime = 0;
+	private int spawnLeft = 10;
 	
 	public GameScreen(TDGame game)
 	{
 		this.game = game;
 	}
+	
 	@Override
-	public void render(float delta) {
+	public void render(float delta)
+	{
         Gdx.gl.glClearColor( 1f, 0f, 0f, 1f );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
         
@@ -30,46 +35,47 @@ public class GameScreen implements Screen{
 		tiledMapHelper.getCamera().position.y = 512;
 		tiledMapHelper.getCamera().update();
 		tiledMapHelper.render();
+		
         stage.act(delta);
         stage.draw();
-        if(System.currentTimeMillis() - spawnTime > 2000)
+        
+        // Spawn actors
+        if(spawnLeft > 0)
         {
-        	spawnTime = System.currentTimeMillis();
-    		Vector2 startPoint = tiledMapHelper.getStartPoint();
-    		Vector2 endPoint = tiledMapHelper.getEndPoint();
-    		Ball newBall = new Ball((int)startPoint.x, (int)startPoint.y,tiledMapHelper.getPathTiles(),(int)endPoint.x,(int)endPoint.y);
-    		
-            stage.addActor(newBall);
+            if(System.currentTimeMillis() - spawnTime > 2000)
+            {
+            	spawnTime = System.currentTimeMillis();
+        		Vector2 startPoint = tiledMapHelper.getStartPoint();
+        		Vector2 endPoint = tiledMapHelper.getEndPoint();
+        		Ball newBall = new Ball((int)startPoint.x, (int)startPoint.y,tiledMapHelper.getPathTiles(),(int)endPoint.x,(int)endPoint.y);
+        		
+                stage.addActor(newBall);
+                --spawnLeft;
+            }
         }
 	}
 
 	@Override
 	public void resize(int width, int height)
 	{
-		stage.setViewport(1024, 1024, false);
-		tiledMapHelper.getCamera().viewportWidth = 1024;
-		tiledMapHelper.getCamera().viewportHeight = 1024;
-		tiledMapHelper.getCamera().update();
 	}
 
 	@Override
-	public void show() {
+	public void show()
+	{
 		stage = new Stage();
+		
 		tiledMapHelper = new TiledMapHelper();
-
 		tiledMapHelper.setPackerDirectory("data/packer");
-
 		tiledMapHelper.loadMap("data/world/level1/level.tmx");
-		
 		tiledMapHelper.prepareCamera(game.getScreenWidth(), game.getScreenHeight());
+		tiledMapHelper.getCamera().viewportWidth = 1024;
+		tiledMapHelper.getCamera().viewportHeight = 1024;
+		tiledMapHelper.getCamera().update();
 		
-		Vector2 startPoint = tiledMapHelper.getStartPoint();
-		Vector2 endPoint = tiledMapHelper.getEndPoint();
-		Ball ball = new Ball((int)startPoint.x, (int)startPoint.y,tiledMapHelper.getPathTiles(),(int)endPoint.x,(int)endPoint.y);
+		stage.setViewport(1024, 1024, false);
 		
-        stage.addActor(ball);
         spawnTime = System.currentTimeMillis();
-
 	}
 
 	@Override
@@ -95,5 +101,4 @@ public class GameScreen implements Screen{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

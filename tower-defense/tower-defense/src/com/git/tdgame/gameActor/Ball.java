@@ -4,79 +4,95 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 
 public class Ball extends Actor
 {
     public enum Direction {UP, RIGHT, DOWN, LEFT};
+
+    // Actor variables
+    private int speed = 3;
     private Direction direction;
-    private Texture texture;
-    private MoveToAction action;
+    
+    // Path variables
     private int[][] path;
-    private int tX = 0;
-    private int tY = 0;
-    private int fX = 0;
-    private int fY = 0;
-    private int speed = 5;
+    private int currentX = 0;
+    private int currentY = 0;
+    private int finalX = 0;
+    private int finalY = 0;
+    
+    // Sprite variables
+    private Texture texture;
     private Sprite sprite;
     private double spritePos = 0;
     private int numberOfFrames = 0;
 
-    public Ball (int x, int y, int[][]path, int fX, int fY)
+    public Ball (int currentX, int currentY, int[][]path, int finalX, int finalY)
     {
-    	this.fX = fX;
-    	this.fY = fY;
-    	this.tX = x;
-    	this.tY = y;
+    	this.finalX = finalX;
+    	this.finalY = finalY;
+    	this.currentX = currentX;
+    	this.currentY = currentY;
     	this.path = path;
-    	setPosition(tX*32, 1024-(tY+1)*32);
+    	
+    	setPosition(currentX*32, 1024-(currentY+1)*32);
+    	
     	texture = new Texture(Gdx.files.internal("data/game/ball.png"));
     	numberOfFrames = texture.getWidth()/32;
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,32,32);
-    	direction = Direction.RIGHT;
-        moveAction();
+        
+        findNewPath();
     }
     
     public void moveAction()
     {
-        action = new MoveToAction();
-        this.setPosition(this.getX(), this.getY());
-        
+    	// Create actions
+        SequenceAction sequenceAction = new SequenceAction();
+        MoveToAction moveToAction = new MoveToAction();
+
+        // Set action parameters according to direction and speed
         if(direction == Direction.LEFT)
         {
-            action.setPosition(getX()-32, getY());
-            tX--;
+            moveToAction.setPosition(getX()-32, getY());
+            currentX--;
         } else if(direction == Direction.RIGHT)
         {
-            action.setPosition(getX()+32, getY());
-            tX++;
+            moveToAction.setPosition(getX()+32, getY());
+            currentX++;
         } else if(direction == Direction.DOWN)
         {
-            action.setPosition(getX(), getY()-32);
-            tY++;
+            moveToAction.setPosition(getX(), getY()-32);
+            currentY++;
         } else if(direction == Direction.UP)
         {
-            action.setPosition(getX(), getY()+32);
-            tY--;
+            moveToAction.setPosition(getX(), getY()+32);
+            currentY--;
         }
-        action.setDuration(0.7f / speed);
-        this.addAction(action);
+        moveToAction.setDuration(0.7f / speed);
+
+        // Add actions to sequence
+        // After moveToAction finishes, runnable action calls findNewPath method
+        sequenceAction.addAction(moveToAction);
+        sequenceAction.addAction(new RunnableAction(){
+            @Override
+            public void run() {
+            	findNewPath();
+            }});
+        this.addAction(sequenceAction);
     }
 
 	public void draw (SpriteBatch batch, float parentAlpha)
 	{
+		// Move sprite draw region
 		spritePos = (spritePos+0.2) % numberOfFrames;
 		
 		sprite.setPosition(getX(), getY());
 		sprite.setRegion((int)spritePos*32, 0, 32, 32);
 	    sprite.draw(batch);
-        if(this.getActions().size <= 0)
-        {
-        	findNewPath();
-        }
     }
 
 	private void findNewPath()
@@ -84,21 +100,24 @@ public class Ball extends Actor
 		// Path finder yazýlacak!!!
 		// Bu kod deðiþtirilecek!!!
 		
-        if(tX == fX && tY == fY)
+        if(currentX == finalX && currentY == finalY)
         {
-        	action.finish();
+    		// Actor reached to final point
         	this.remove();
-        } else {
-			if(path[tY][tX+1] != 0 && direction != Direction.LEFT)
+        }
+        else
+        {
+        	// Select new direction in path
+			if(path[currentY][currentX+1] != 0 && direction != Direction.LEFT && currentX+1 < 32)
 			{
 		    	direction = Direction.RIGHT;
-			} else if(path[tY+1][tX] != 0 && direction != Direction.UP)
+			} else if(path[currentY+1][currentX] != 0 && direction != Direction.UP && currentY+1 < 32)
 			{
 		    	direction = Direction.DOWN;
-			} else if(path[tY-1][tX] != 0 && direction != Direction.DOWN)
+			} else if(path[currentY-1][currentX] != 0 && direction != Direction.DOWN && currentY-1 >= 0)
 			{
 		    	direction = Direction.UP;
-			} else if(path[tY][tX-1] != 0 && direction != Direction.RIGHT)
+			} else if(path[currentY][currentX-1] != 0 && direction != Direction.RIGHT && currentX-1 >= 0)
 			{
 		    	direction = Direction.LEFT;
 			}
@@ -106,4 +125,3 @@ public class Ball extends Actor
         }
 	}
 }
-    
