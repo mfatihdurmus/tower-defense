@@ -5,9 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.git.tdgame.Ball;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.TiledMapHelper;
+import com.git.tdgame.gameActor.Ball;
 
 
 public class GameScreen implements Screen{

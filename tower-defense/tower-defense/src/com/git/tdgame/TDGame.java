@@ -2,8 +2,12 @@ package com.git.tdgame;
 
 import com.badlogic.gdx.Game;
 import com.git.tdgame.screen.GameScreen;
+import com.git.tdgame.screen.LevelSelectScreen;
+import com.git.tdgame.screen.MenuScreen;
 
 public class TDGame extends Game {
+	private MenuScreen menuScreen;
+	private LevelSelectScreen levelSelectScreen;
 	private GameScreen gameScreen;
 
 	private int screenWidth;
@@ -24,7 +28,14 @@ public class TDGame extends Game {
 	@Override
 	public void create() {
 		
+		menuScreen = new MenuScreen(this);
+		levelSelectScreen = new LevelSelectScreen(this);
 		gameScreen = new GameScreen(this);
+		setScreen(menuScreen);
+	}
+	
+	public void goToGameScreen()
+	{
 		setScreen(gameScreen);
 	}
 

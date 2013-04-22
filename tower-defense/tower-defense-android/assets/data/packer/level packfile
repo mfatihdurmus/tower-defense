@@ -96,11 +96,39 @@ level
   index: 12
 level
   rotate: false
+  xy: 34, 136
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 13
+level
+  rotate: false
+  xy: 68, 136
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 14
+level
+  rotate: false
   xy: 0, 170
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 15
+level
+  rotate: false
+  xy: 34, 170
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 16
+level
+  rotate: false
+  xy: 68, 170
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 17
 level
   rotate: false
   xy: 0, 204
@@ -110,8 +138,8 @@ level
   index: 18
 level
   rotate: false
-  xy: 34, 136
+  xy: 34, 204
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 13
+  index: 19
