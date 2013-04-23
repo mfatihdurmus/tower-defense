@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 public class TiledMapHelper {
 	
@@ -31,9 +32,58 @@ public class TiledMapHelper {
 	 * Renders the part of the map that should be visible to the user.
 	 */
 	
-	public int[][] getPathTiles()
+	private int[][] getPathTiles()
 	{
 		return pathTiles;
+	}
+	
+	public Array<Vector2> getPath()
+	{
+		Array<Vector2> path = new Array<Vector2>();
+		
+		int[][] pathTiles = getPathTiles();
+		
+		Vector2 startPoint = getStartPoint();
+		Vector2 endPoint = getEndPoint();
+		int x = (int)startPoint.x;
+		int y = (int)startPoint.y;
+		int fX = (int)endPoint.x;
+		int fY = (int)endPoint.y;
+		
+		path.add(startPoint);
+		int direction = 0;
+		while(x != fX || y != fY)
+		{
+			if(y+1 < 32 && pathTiles[y+1][x] != 0 && direction != 2)
+			{
+				Vector2 newVector = new Vector2(x,y+1);
+				path.add(newVector);
+				y++;
+				direction = 1;
+			}
+			else if(y-1 >= 0 && pathTiles[y-1][x] != 0 && direction != 1)
+			{
+				Vector2 newVector = new Vector2(x,y-1);
+				path.add(newVector);
+				y--;
+				direction = 2;
+		    }        
+			else if(x+1 < 32 && pathTiles[y][x+1] != 0 && direction != 4)
+			{
+				Vector2 newVector = new Vector2(x+1,y);
+				path.add(newVector);
+				x++;
+				direction = 3;
+			} 
+			else if(x-1 >= 0 && pathTiles[y][x-1] != 0 && direction != 3)
+			{
+				Vector2 newVector = new Vector2(x-1,y);
+				path.add(newVector);
+				x--;
+				direction = 4;
+			}
+		}
+		return path;
 	}
 	
 	public void render()

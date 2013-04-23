@@ -3,7 +3,6 @@ package com.git.tdgame.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.TiledMapHelper;
@@ -45,9 +44,7 @@ public class GameScreen implements Screen{
             if(System.currentTimeMillis() - spawnTime > 2000)
             {
             	spawnTime = System.currentTimeMillis();
-        		Vector2 startPoint = tiledMapHelper.getStartPoint();
-        		Vector2 endPoint = tiledMapHelper.getEndPoint();
-        		Ball newBall = new Ball((int)startPoint.x, (int)startPoint.y,tiledMapHelper.getPathTiles(),(int)endPoint.x,(int)endPoint.y);
+        		Ball newBall = new Ball(tiledMapHelper.getPath());
         		
                 stage.addActor(newBall);
                 --spawnLeft;

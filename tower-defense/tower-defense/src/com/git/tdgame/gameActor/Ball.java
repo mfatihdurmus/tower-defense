@@ -4,26 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.utils.Array;
 
 
 public class Ball extends Actor
 {
-    public enum Direction {UP, RIGHT, DOWN, LEFT};
 
-    // Actor variables
-    private int speed = 3;
-    private Direction direction;
+	// Actor variables
+	private Vector2 direction;
+    private int speed = 128;		//pixel per second
+    private int currentPath = 0;
     
-    // Path variables
-    private int[][] path;
-    private int currentX = 0;
-    private int currentY = 0;
-    private int finalX = 0;
-    private int finalY = 0;
+    private Array<Vector2> path;
     
     // Sprite variables
     private Texture texture;
@@ -31,97 +25,92 @@ public class Ball extends Actor
     private double spritePos = 0;
     private int numberOfFrames = 0;
 
-    public Ball (int currentX, int currentY, int[][]path, int finalX, int finalY)
+    public Ball (Array<Vector2>path)
     {
-    	this.finalX = finalX;
-    	this.finalY = finalY;
-    	this.currentX = currentX;
-    	this.currentY = currentY;
     	this.path = path;
-    	
-    	setPosition(currentX*32, 1024-(currentY+1)*32);
+    	direction = new Vector2();
+    	setPosition(path.get(currentPath).x*32, (32 - (path.get(currentPath).y+1))*32);
+    	++currentPath;
+    	direction = findPosition();
     	
     	texture = new Texture(Gdx.files.internal("data/game/ball.png"));
     	numberOfFrames = texture.getWidth()/32;
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,32,32);
-        
-        findNewPath();
+    }
+
+    public void draw (SpriteBatch batch, float parentAlpha)
+    {
+    	// Move sprite draw region
+    	spritePos = (spritePos+0.2) % numberOfFrames;
+    	
+    	sprite.setPosition(getX(), getY());
+    	sprite.setRegion((int)spritePos*32, 0, 32, 32);
+    	sprite.draw(batch);
+    }
+
+    public void act (float delta)
+    {
+    	super.act(delta);
+    	
+    	float targetX = getX() + direction.x*speed*delta;
+    	float targetY = getY() + direction.y*speed*delta;
+
+    	// Target Tile Reached
+    	if(direction.x > 0 && targetX >= 32*path.get(currentPath).x)
+		{
+            	setX(32*path.get(currentPath).x);
+        		++currentPath;
+            	direction = findPosition();
+        		return;
+    	} else if(direction.x < 0 && targetX <= 32*path.get(currentPath).x)
+		{
+        	setX(32*path.get(currentPath).x);
+    		++currentPath;
+        	direction = findPosition();
+    		return;
+    	}
+    	
+    	if(direction.y > 0 && targetY >= 32*(31-path.get(currentPath).y))
+		{
+        	setY(32*(31-path.get(currentPath).y));
+    		++currentPath;
+        	direction = findPosition();
+    		return;
+    	} else if(direction.y < 0 && targetY <= 32*(31-path.get(currentPath).y))
+		{
+        	setY(32*(31-path.get(currentPath).y));
+    		++currentPath;
+        	direction = findPosition();
+    		return;
+    	}
+    	
+    	setX(targetX);
+    	setY(targetY);
+
     }
     
-    public void moveAction()
+    private Vector2 findPosition()
     {
-    	// Create actions
-        SequenceAction sequenceAction = new SequenceAction();
-        MoveToAction moveToAction = new MoveToAction();
-
-        // Set action parameters according to direction and speed
-        if(direction == Direction.LEFT)
-        {
-            moveToAction.setPosition(getX()-32, getY());
-            currentX--;
-        } else if(direction == Direction.RIGHT)
-        {
-            moveToAction.setPosition(getX()+32, getY());
-            currentX++;
-        } else if(direction == Direction.DOWN)
-        {
-            moveToAction.setPosition(getX(), getY()-32);
-            currentY++;
-        } else if(direction == Direction.UP)
-        {
-            moveToAction.setPosition(getX(), getY()+32);
-            currentY--;
-        }
-        moveToAction.setDuration(0.7f / speed);
-
-        // Add actions to sequence
-        // After moveToAction finishes, runnable action calls findNewPath method
-        sequenceAction.addAction(moveToAction);
-        sequenceAction.addAction(new RunnableAction(){
-            @Override
-            public void run() {
-            	findNewPath();
-            }});
-        this.addAction(sequenceAction);
+    	Vector2 newPosition = new Vector2();
+    	if(currentPath >= path.size)
+    	{
+    		this.remove();
+    		return newPosition;
+    	}
+    	
+		if(path.get(currentPath).x > path.get(currentPath-1).x)
+		{
+			newPosition.set(1,0);
+		} else if(path.get(currentPath).x < path.get(currentPath-1).x)
+		{
+			newPosition.set(-1,0);
+		} else if(path.get(currentPath).y < path.get(currentPath-1).y)
+		{
+			newPosition.set(0,1);
+		} else if(path.get(currentPath).y > path.get(currentPath-1).y)
+		{
+			newPosition.set(0,-1);
+		}
+		return newPosition;
     }
-
-	public void draw (SpriteBatch batch, float parentAlpha)
-	{
-		// Move sprite draw region
-		spritePos = (spritePos+0.2) % numberOfFrames;
-		
-		sprite.setPosition(getX(), getY());
-		sprite.setRegion((int)spritePos*32, 0, 32, 32);
-	    sprite.draw(batch);
-    }
-
-	private void findNewPath()
-	{
-		// Path finder yazýlacak!!!
-		// Bu kod deðiþtirilecek!!!
-		
-        if(currentX == finalX && currentY == finalY)
-        {
-    		// Actor reached to final point
-        	this.remove();
-        }
-        else
-        {
-        	// Select new direction in path
-			if(path[currentY][currentX+1] != 0 && direction != Direction.LEFT && currentX+1 < 32)
-			{
-		    	direction = Direction.RIGHT;
-			} else if(path[currentY+1][currentX] != 0 && direction != Direction.UP && currentY+1 < 32)
-			{
-		    	direction = Direction.DOWN;
-			} else if(path[currentY-1][currentX] != 0 && direction != Direction.DOWN && currentY-1 >= 0)
-			{
-		    	direction = Direction.UP;
-			} else if(path[currentY][currentX-1] != 0 && direction != Direction.RIGHT && currentX-1 >= 0)
-			{
-		    	direction = Direction.LEFT;
-			}
-	    	moveAction();
-        }
-	}
 }
