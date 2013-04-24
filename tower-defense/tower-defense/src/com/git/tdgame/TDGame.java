@@ -10,12 +10,11 @@ public class TDGame extends Game {
 	private LevelSelectScreen levelSelectScreen;
 	private GameScreen gameScreen;
 
-	private int screenWidth;
-	private int screenHeight;
+	private int screenWidth = 0;
+	private int screenHeight = 0;
 
-	public TDGame() {
-		screenWidth = -1;
-		screenHeight = -1;
+	public TDGame()
+	{
 	}
 
 	public TDGame(int width, int height)
@@ -26,11 +25,12 @@ public class TDGame extends Game {
 	}
 
 	@Override
-	public void create() {
-		
+	public void create()
+	{
 		menuScreen = new MenuScreen(this);
 		levelSelectScreen = new LevelSelectScreen(this);
 		gameScreen = new GameScreen(this);
+		
 		setScreen(menuScreen);
 	}
 	
@@ -39,25 +39,40 @@ public class TDGame extends Game {
 		setScreen(gameScreen);
 	}
 
-	@Override
-	public void resume() {
+	public void goToMenuScreen()
+	{
+		setScreen(menuScreen);
+	}
+
+	public void goToLevelSelectScreen()
+	{
+		setScreen(levelSelectScreen);
 	}
 
 	@Override
-	public void render() {
+	public void resume()
+	{
+	}
+
+	@Override
+	public void render()
+	{
 		super.render();
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize(int width, int height)
+	{
 	}
 
 	@Override
-	public void pause() {
+	public void pause()
+	{
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose()
+	{
 	}
 	
 	public int getScreenWidth()

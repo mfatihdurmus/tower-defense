@@ -14,10 +14,13 @@ public class Ball extends Actor
 
 	// Actor variables
 	private Vector2 direction;
-    private int speed = 128;		//pixel per second
-    private int currentPath = 0;
-    
+    private int speed = 128;
+
+    // Path variables
     private Array<Vector2> path;
+    private int currentPath = 0;
+    private Vector2 tileSize;
+    private int mapHeight;
     
     // Sprite variables
     private Texture texture;
@@ -25,26 +28,30 @@ public class Ball extends Actor
     private double spritePos = 0;
     private int numberOfFrames = 0;
 
-    public Ball (Array<Vector2>path)
+    public Ball (Array<Vector2>path, Vector2 tileSize, int mapHeight)
     {
     	this.path = path;
-    	direction = new Vector2();
-    	setPosition(path.get(currentPath).x*32, (32 - (path.get(currentPath).y+1))*32);
+    	this.tileSize = tileSize;
+    	this.mapHeight = mapHeight;
+    	
+    	setPosition(path.get(currentPath).x*tileSize.x, (mapHeight-1 - path.get(currentPath).y)*tileSize.y);
     	++currentPath;
-    	direction = findPosition();
+    	
+    	direction = new Vector2();
+    	direction = findNewDirection();
     	
     	texture = new Texture(Gdx.files.internal("data/game/ball.png"));
-    	numberOfFrames = texture.getWidth()/32;
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,32,32);
+    	numberOfFrames = (int)(texture.getWidth()/tileSize.x);
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,(int)tileSize.x,(int)tileSize.y);
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	// Move sprite draw region
+    	// Move sprite region
     	spritePos = (spritePos+0.2) % numberOfFrames;
     	
     	sprite.setPosition(getX(), getY());
-    	sprite.setRegion((int)spritePos*32, 0, 32, 32);
+    	sprite.setRegion((int)spritePos*(int)tileSize.x, 0, (int)tileSize.x, (int)tileSize.x);
     	sprite.draw(batch);
     }
 
@@ -56,31 +63,32 @@ public class Ball extends Actor
     	float targetY = getY() + direction.y*speed*delta;
 
     	// Target Tile Reached
-    	if(direction.x > 0 && targetX >= 32*path.get(currentPath).x)
+    	// Get new direction
+    	if(direction.x > 0 && targetX >= tileSize.x*path.get(currentPath).x)
 		{
-            	setX(32*path.get(currentPath).x);
+            	setX(tileSize.x*path.get(currentPath).x);
         		++currentPath;
-            	direction = findPosition();
+            	direction = findNewDirection();
         		return;
-    	} else if(direction.x < 0 && targetX <= 32*path.get(currentPath).x)
+    	} else if(direction.x < 0 && targetX <= tileSize.x*path.get(currentPath).x)
 		{
-        	setX(32*path.get(currentPath).x);
+        	setX(tileSize.x*path.get(currentPath).x);
     		++currentPath;
-        	direction = findPosition();
+        	direction = findNewDirection();
     		return;
     	}
     	
-    	if(direction.y > 0 && targetY >= 32*(31-path.get(currentPath).y))
+    	if(direction.y > 0 && targetY >= tileSize.y*(mapHeight-1-path.get(currentPath).y))
 		{
-        	setY(32*(31-path.get(currentPath).y));
+        	setY(tileSize.y*(mapHeight-1-path.get(currentPath).y));
     		++currentPath;
-        	direction = findPosition();
+        	direction = findNewDirection();
     		return;
-    	} else if(direction.y < 0 && targetY <= 32*(31-path.get(currentPath).y))
+    	} else if(direction.y < 0 && targetY <= tileSize.y*(mapHeight-1-path.get(currentPath).y))
 		{
-        	setY(32*(31-path.get(currentPath).y));
+        	setY(tileSize.y*(mapHeight-1-path.get(currentPath).y));
     		++currentPath;
-        	direction = findPosition();
+        	direction = findNewDirection();
     		return;
     	}
     	
@@ -89,7 +97,7 @@ public class Ball extends Actor
 
     }
     
-    private Vector2 findPosition()
+    private Vector2 findNewDirection()
     {
     	Vector2 newPosition = new Vector2();
     	if(currentPath >= path.size)

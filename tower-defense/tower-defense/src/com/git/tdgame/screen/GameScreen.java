@@ -3,7 +3,9 @@ package com.git.tdgame.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.TiledMapHelper;
 import com.git.tdgame.gameActor.Ball;
@@ -11,13 +13,22 @@ import com.git.tdgame.gameActor.Ball;
 
 public class GameScreen implements Screen{
 
-	private TiledMapHelper tiledMapHelper;
+	// To access game functions
 	private TDGame game;
+
+	// Stage
 	private Stage stage;
+
+	// Map variables
+	private TiledMapHelper tiledMapHelper;
+	private Array<Vector2> path;
+	private Vector2 tileSize;
+	private int mapHeight;
 	
 	// Wave variables
-	private long spawnTime = 0;
+	private float spawnTime = 0;
 	private int spawnLeft = 10;
+	private final int spawnDelay = 1; 
 	
 	public GameScreen(TDGame game)
 	{
@@ -27,27 +38,27 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta)
 	{
-        Gdx.gl.glClearColor( 1f, 0f, 0f, 1f );
+		// Clear screen
+        Gdx.gl.glClearColor( 0f, 0f, 0f, 1f );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
-        
-		tiledMapHelper.getCamera().position.x = 512;
-		tiledMapHelper.getCamera().position.y = 512;
-		tiledMapHelper.getCamera().update();
+
+        // Map render
 		tiledMapHelper.render();
-		
+
+		// Stage update
         stage.act(delta);
         stage.draw();
         
-        // Spawn actors
+        // Spawn enemies
         if(spawnLeft > 0)
         {
-            if(System.currentTimeMillis() - spawnTime > 2000)
+        	spawnTime += delta;
+            if(spawnTime > spawnDelay)
             {
-            	spawnTime = System.currentTimeMillis();
-        		Ball newBall = new Ball(tiledMapHelper.getPath());
-        		
-                stage.addActor(newBall);
+            	spawnTime = 0;
                 --spawnLeft;
+        		
+                stage.addActor(new Ball(path, tileSize, mapHeight));
             }
         }
 	}
@@ -60,42 +71,48 @@ public class GameScreen implements Screen{
 	@Override
 	public void show()
 	{
-		stage = new Stage();
-		
+		// Map load
 		tiledMapHelper = new TiledMapHelper();
 		tiledMapHelper.setPackerDirectory("data/packer");
 		tiledMapHelper.loadMap("data/world/level1/level.tmx");
+		tileSize = new Vector2(tiledMapHelper.getMap().tileWidth,tiledMapHelper.getMap().tileHeight);
+		path = tiledMapHelper.getPath();
+		mapHeight = tiledMapHelper.getMap().height;
+		
+		// Camera configuration
 		tiledMapHelper.prepareCamera(game.getScreenWidth(), game.getScreenHeight());
-		tiledMapHelper.getCamera().viewportWidth = 1024;
-		tiledMapHelper.getCamera().viewportHeight = 1024;
+		tiledMapHelper.getCamera().viewportWidth = tiledMapHelper.getWidth();
+		tiledMapHelper.getCamera().viewportHeight = tiledMapHelper.getHeight();
+		tiledMapHelper.getCamera().position.x = tiledMapHelper.getWidth()/2;
+		tiledMapHelper.getCamera().position.y = tiledMapHelper.getHeight()/2;
 		tiledMapHelper.getCamera().update();
-		
-		stage.setViewport(1024, 1024, false);
-		
-        spawnTime = System.currentTimeMillis();
+
+		// Stage configuration
+		stage = new Stage();
+		stage.setViewport(tiledMapHelper.getWidth(), tiledMapHelper.getHeight(), false);
 	}
 
 	@Override
-	public void hide() {
+	public void hide()
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void pause() {
+	public void pause()
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void resume() {
+	public void resume()
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose()
+	{
 		// TODO Auto-generated method stub
-		
 	}
 }

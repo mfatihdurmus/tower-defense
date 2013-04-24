@@ -11,12 +11,19 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class TiledMapHelper {
+public class TiledMapHelper
+{
+	private FileHandle packFileDirectory;
+	private OrthographicCamera camera;
+
+	private TileAtlas tileAtlas;
+	private TileMapRenderer tileMapRenderer;
+	private TiledMap map;
 	
 	private final int START_POINT = 6;
 	private final int END_POINT = 7;
 	private int[][] pathTiles;
-
+	
 	public int[][] getTiles(String layerName)
 	{
 		for(TiledLayer tl : map.layers)
@@ -50,39 +57,51 @@ public class TiledMapHelper {
 		int fX = (int)endPoint.x;
 		int fY = (int)endPoint.y;
 		
-		path.add(startPoint);
 		int direction = 0;
 		while(x != fX || y != fY)
 		{
 			if(y+1 < 32 && pathTiles[y+1][x] != 0 && direction != 2)
 			{
-				Vector2 newVector = new Vector2(x,y+1);
-				path.add(newVector);
+				if(direction != 1)
+				{
+					Vector2 newVector = new Vector2(x,y);
+					path.add(newVector);
+					direction = 1;
+				}
 				y++;
-				direction = 1;
 			}
 			else if(y-1 >= 0 && pathTiles[y-1][x] != 0 && direction != 1)
 			{
-				Vector2 newVector = new Vector2(x,y-1);
-				path.add(newVector);
+				if(direction != 2)
+				{
+					Vector2 newVector = new Vector2(x,y);
+					path.add(newVector);
+					direction = 2;
+				}
 				y--;
-				direction = 2;
 		    }        
 			else if(x+1 < 32 && pathTiles[y][x+1] != 0 && direction != 4)
 			{
-				Vector2 newVector = new Vector2(x+1,y);
-				path.add(newVector);
+				if(direction != 3)
+				{
+					Vector2 newVector = new Vector2(x,y);
+					path.add(newVector);
+					direction = 3;
+				}
 				x++;
-				direction = 3;
 			} 
 			else if(x-1 >= 0 && pathTiles[y][x-1] != 0 && direction != 3)
 			{
-				Vector2 newVector = new Vector2(x-1,y);
-				path.add(newVector);
+				if(direction != 4)
+				{
+					Vector2 newVector = new Vector2(x,y);
+					path.add(newVector);
+					direction = 4;
+				}
 				x--;
-				direction = 4;
 			}
 		}
+		path.add(getEndPoint());
 		return path;
 	}
 	
@@ -184,6 +203,7 @@ public class TiledMapHelper {
 		}
 
 		map = TiledLoader.createMap(Gdx.files.internal(tmxFile));
+		
 		tileAtlas = new TileAtlas(map, packFileDirectory);
 
 		tileMapRenderer = new TileMapRenderer(map, tileAtlas, 16, 16);
@@ -214,13 +234,4 @@ public class TiledMapHelper {
 		}
 		return camera;
 	}
-
-	private FileHandle packFileDirectory;
-
-	private OrthographicCamera camera;
-
-	private TileAtlas tileAtlas;
-	private TileMapRenderer tileMapRenderer;
-
-	private TiledMap map;
 }
