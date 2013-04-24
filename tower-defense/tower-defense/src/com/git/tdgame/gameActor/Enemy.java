@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 
-public class Ball extends Actor
+public class Enemy extends Actor
 {
-
 	// Actor variables
 	private Vector2 direction;
     private int speed = 128;
+    private boolean alive = true;
 
     // Path variables
     private Array<Vector2> path;
@@ -27,8 +27,12 @@ public class Ball extends Actor
     private Sprite sprite;
     private double spritePos = 0;
     private int numberOfFrames = 0;
+    
+    private float traveledDist=0;
+    
+    private int health = 30;
 
-    public Ball (Array<Vector2>path, Vector2 tileSize, int mapHeight)
+    public Enemy (Array<Vector2>path, Vector2 tileSize, int mapHeight)
     {
     	this.path = path;
     	this.tileSize = tileSize;
@@ -94,7 +98,8 @@ public class Ball extends Actor
     	
     	setX(targetX);
     	setY(targetY);
-
+    	
+    	traveledDist += speed*delta;
     }
     
     private Vector2 findNewDirection()
@@ -102,7 +107,7 @@ public class Ball extends Actor
     	Vector2 newPosition = new Vector2();
     	if(currentPath >= path.size)
     	{
-    		this.remove();
+    		die();
     		return newPosition;
     	}
     	
@@ -121,4 +126,26 @@ public class Ball extends Actor
 		}
 		return newPosition;
     }
+    
+    public boolean isAlive(){
+    	return alive;
+    }
+
+	public float getTraveledDist() {
+		return traveledDist;
+	}
+    
+	public void takeDamage(int d){
+		health-=d;
+		
+		if(health<=0){
+			die();
+		}
+	}
+
+	private void die() {
+		this.remove();
+		alive=false;
+	}
+    
 }

@@ -8,7 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.TiledMapHelper;
-import com.git.tdgame.gameActor.Ball;
+import com.git.tdgame.gameActor.BasicTower;
+import com.git.tdgame.gameActor.Enemy;
 
 
 public class GameScreen implements Screen{
@@ -28,7 +29,7 @@ public class GameScreen implements Screen{
 	// Wave variables
 	private float spawnTime = 0;
 	private int spawnLeft = 10;
-	private final int spawnDelay = 1; 
+	private final float spawnDelay = 0.7f; 
 	
 	public GameScreen(TDGame game)
 	{
@@ -58,7 +59,10 @@ public class GameScreen implements Screen{
             	spawnTime = 0;
                 --spawnLeft;
         		
-                stage.addActor(new Ball(path, tileSize, mapHeight));
+                Enemy e = new Enemy(path, tileSize, mapHeight);
+                e.setName(""+spawnLeft);
+                stage.addActor(e);
+                
             }
         }
 	}
@@ -90,6 +94,10 @@ public class GameScreen implements Screen{
 		// Stage configuration
 		stage = new Stage();
 		stage.setViewport(tiledMapHelper.getWidth(), tiledMapHelper.getHeight(), false);
+		//stage.addActor(new Tower(new Vector2(128,64),tileSize,mapHeight));
+		
+		stage.addActor(new BasicTower(new Vector2(16*tileSize.x,16*tileSize.y),tileSize,mapHeight));
+		stage.addActor(new BasicTower(new Vector2(10*tileSize.x,16*tileSize.y),tileSize,mapHeight));
 	}
 
 	@Override
