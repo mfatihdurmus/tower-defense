@@ -97,7 +97,8 @@ public class MenuScreen implements Screen, InputProcessor{
 		return false;
 	}
 	@Override
-	public boolean touchDragged(int arg0, int arg1, int arg2) {
+	public boolean touchDragged(int arg0, int arg1, int arg2)
+	{
 		return false;
 	}
 	@Override

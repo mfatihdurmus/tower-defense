@@ -10,36 +10,32 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class Tower extends Actor
 {
+    // Tower Variables
+    private final int WIDTH 	= 32;
+    private final int HEIGHT 	= 32;
+    private float fireRate = 1;
+    private float range = 300;
+    private float timeToFire = 0;
+
     // Sprite variables
     private Texture texture;
     private Sprite sprite;
-    
-    int mapHeight;
-    Vector2 tileSize;
-    
-    //addition
-    private float fireRate = 1;
-    private float range = 300;
-    private float timeToFire=0;
-    
+
     Enemy target;
     
     
-    public Tower (Vector2 position, Vector2 tileSize, int mapHeight)
+    public Tower (Vector2 position)
     {
-    	this.mapHeight = mapHeight;
-    	this.tileSize=tileSize;
     	
-    	setPosition(position.x, tileSize.y*(this.mapHeight-1) - position.y);
+    	setPosition(position.x, position.y);
     	
     	texture = new Texture(Gdx.files.internal("data/game/tower.png"));
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,(int)tileSize.x,(int)tileSize.y);
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	sprite.setPosition(getX(), getY());
-    	sprite.draw(batch);
+    	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
     }
 
     public void act (float delta)

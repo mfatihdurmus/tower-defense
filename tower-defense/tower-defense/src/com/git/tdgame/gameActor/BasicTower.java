@@ -4,14 +4,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class BasicTower extends Tower {
 
-	public BasicTower(Vector2 position, Vector2 tileSize,
-			int mapHeight) {
-		super(position, tileSize, mapHeight);
+	public BasicTower(Vector2 position) {
+		super(position);
 	}
 
 	@Override
 	Projectile createProjectile() {
-		return new BasicProjectile(this, target, tileSize);
+		return new BasicProjectile(this, target);
 	}
 
 }

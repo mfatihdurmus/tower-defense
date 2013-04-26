@@ -9,6 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class Projectile extends Actor
 {
+	// Projectile Variables
+    private final int WIDTH 	= 32;
+    private final int HEIGHT 	= 32;
+    
 	private float speed = 512;
 	Actor source;
 	Actor target;
@@ -17,17 +21,15 @@ public abstract class Projectile extends Actor
     // Sprite variables
     private Texture texture;
     private Sprite sprite;
-    private Vector2 tileSize; 
 	
-	public Projectile(Actor source, Actor target, Vector2 tileSize)
+	public Projectile(Actor source, Actor target)
 	{
 		this.source = source;
 		this.target = target;
-		this.tileSize = tileSize;
 		this.setPosition(this.source.getX(), this.source.getY());
 		
     	texture = new Texture(Gdx.files.internal("data/game/arrow.png"));
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,(int)this.tileSize.x,(int)this.tileSize.y);
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
 	}
 	
     public void draw (SpriteBatch batch, float parentAlpha)

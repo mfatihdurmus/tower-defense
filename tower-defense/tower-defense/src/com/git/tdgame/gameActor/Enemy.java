@@ -15,12 +15,13 @@ public class Enemy extends Actor
 	private Vector2 direction;
     private int speed = 128;
     private boolean alive = true;
+    private final int WIDTH 	= 32;
+    private final int HEIGHT 	= 32;
+    
 
     // Path variables
     private Array<Vector2> path;
     private int currentPath = 0;
-    private Vector2 tileSize;
-    private int mapHeight;
     
     // Sprite variables
     private Texture texture;
@@ -30,33 +31,32 @@ public class Enemy extends Actor
     
     private float traveledDist=0;
     
-    private int health = 30;
+    private int health = 40;
 
-    public Enemy (Array<Vector2>path, Vector2 tileSize, int mapHeight)
+    public Enemy (Array<Vector2>path)
     {
     	this.path = path;
-    	this.tileSize = tileSize;
-    	this.mapHeight = mapHeight;
+    	this.setWidth(WIDTH);
+    	this.setHeight(HEIGHT);
     	
-    	setPosition(path.get(currentPath).x*tileSize.x, (mapHeight-1 - path.get(currentPath).y)*tileSize.y);
+    	setPosition(path.get(currentPath).x, path.get(currentPath).y);
     	++currentPath;
     	
     	direction = new Vector2();
     	direction = findNewDirection();
     	
     	texture = new Texture(Gdx.files.internal("data/game/ball.png"));
-    	numberOfFrames = (int)(texture.getWidth()/tileSize.x);
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,(int)tileSize.x,(int)tileSize.y);
+    	numberOfFrames = (int)(texture.getWidth()/WIDTH);
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
     	// Move sprite region
     	spritePos = (spritePos+0.2) % numberOfFrames;
+    	sprite.setRegion((int)spritePos*WIDTH, 0, WIDTH, HEIGHT);
     	
-    	sprite.setPosition(getX(), getY());
-    	sprite.setRegion((int)spritePos*(int)tileSize.x, 0, (int)tileSize.x, (int)tileSize.x);
-    	sprite.draw(batch);
+    	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
     }
 
     public void act (float delta)
@@ -68,29 +68,29 @@ public class Enemy extends Actor
 
     	// Target Tile Reached
     	// Get new direction
-    	if(direction.x > 0 && targetX >= tileSize.x*path.get(currentPath).x)
+    	if(direction.x > 0 && targetX >= path.get(currentPath).x)
 		{
-            	setX(tileSize.x*path.get(currentPath).x);
+            	setX(path.get(currentPath).x);
         		++currentPath;
             	direction = findNewDirection();
         		return;
-    	} else if(direction.x < 0 && targetX <= tileSize.x*path.get(currentPath).x)
+    	} else if(direction.x < 0 && targetX <= path.get(currentPath).x)
 		{
-        	setX(tileSize.x*path.get(currentPath).x);
+        	setX(path.get(currentPath).x);
     		++currentPath;
         	direction = findNewDirection();
     		return;
     	}
     	
-    	if(direction.y > 0 && targetY >= tileSize.y*(mapHeight-1-path.get(currentPath).y))
+    	if(direction.y > 0 && targetY >= path.get(currentPath).y)
 		{
-        	setY(tileSize.y*(mapHeight-1-path.get(currentPath).y));
+        	setY(path.get(currentPath).y);
     		++currentPath;
         	direction = findNewDirection();
     		return;
-    	} else if(direction.y < 0 && targetY <= tileSize.y*(mapHeight-1-path.get(currentPath).y))
+    	} else if(direction.y < 0 && targetY <= path.get(currentPath).y)
 		{
-        	setY(tileSize.y*(mapHeight-1-path.get(currentPath).y));
+        	setY(path.get(currentPath).y);
     		++currentPath;
         	direction = findNewDirection();
     		return;
@@ -119,10 +119,10 @@ public class Enemy extends Actor
 			newPosition.set(-1,0);
 		} else if(path.get(currentPath).y < path.get(currentPath-1).y)
 		{
-			newPosition.set(0,1);
+			newPosition.set(0,-1);
 		} else if(path.get(currentPath).y > path.get(currentPath-1).y)
 		{
-			newPosition.set(0,-1);
+			newPosition.set(0,1);
 		}
 		return newPosition;
     }

@@ -1,4 +1,4 @@
-package com.git.tdgame;
+package com.git.tdgame.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class TiledMapHelper
+public class TDGameMapHelper
 {
 	private FileHandle packFileDirectory;
 	private OrthographicCamera camera;
@@ -22,7 +22,7 @@ public class TiledMapHelper
 	
 	private final int START_POINT = 6;
 	private final int END_POINT = 7;
-	private int[][] pathTiles;
+	private final int PATH_LAYER = 1;
 	
 	public int[][] getTiles(String layerName)
 	{
@@ -38,19 +38,34 @@ public class TiledMapHelper
 	/**
 	 * Renders the part of the map that should be visible to the user.
 	 */
-	
-	private int[][] getPathTiles()
+
+	public Array<Vector2> getStartPoints()
 	{
-		return pathTiles;
+		Array<Vector2> startPoints = new Array<Vector2>();
+		int[][] pathTiles = map.layers.get(PATH_LAYER).tiles;
+		
+		int y = 0;
+		for(int[] col : pathTiles)
+		{
+			int x = 0;
+			for(int row : col)
+			{
+				if(row == START_POINT)
+					startPoints.add(new Vector2(x,y));
+				++x;
+			}
+			++y;
+		}
+		return startPoints;
 	}
 	
-	public Array<Vector2> getPath()
+	public Array<Vector2> getPath(Vector2 startPoint)
 	{
+		// TO DO : Backtracking for branching paths
 		Array<Vector2> path = new Array<Vector2>();
 		
-		int[][] pathTiles = getPathTiles();
+		int[][] pathTiles = map.layers.get(PATH_LAYER).tiles;
 		
-		Vector2 startPoint = getStartPoint();
 		Vector2 endPoint = getEndPoint();
 		int x = (int)startPoint.x;
 		int y = (int)startPoint.y;
@@ -64,7 +79,7 @@ public class TiledMapHelper
 			{
 				if(direction != 1)
 				{
-					Vector2 newVector = new Vector2(x,y);
+					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
 					path.add(newVector);
 					direction = 1;
 				}
@@ -74,7 +89,7 @@ public class TiledMapHelper
 			{
 				if(direction != 2)
 				{
-					Vector2 newVector = new Vector2(x,y);
+					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
 					path.add(newVector);
 					direction = 2;
 				}
@@ -84,7 +99,7 @@ public class TiledMapHelper
 			{
 				if(direction != 3)
 				{
-					Vector2 newVector = new Vector2(x,y);
+					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
 					path.add(newVector);
 					direction = 3;
 				}
@@ -94,14 +109,17 @@ public class TiledMapHelper
 			{
 				if(direction != 4)
 				{
-					Vector2 newVector = new Vector2(x,y);
+					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
 					path.add(newVector);
 					direction = 4;
 				}
 				x--;
+			} else {
+				// Dead end
+				return path;
 			}
 		}
-		path.add(getEndPoint());
+		path.add(new Vector2(fX*map.tileWidth,fY*map.tileHeight));
 		return path;
 	}
 	
@@ -127,41 +145,24 @@ public class TiledMapHelper
 	public int getWidth() {
 		return map.width * map.tileWidth;
 	}
-	
-	public Vector2 getStartPoint()
-	{
-		Vector2 p = new Vector2();
-		for(int y = 0; y < pathTiles.length; ++y)
-		{
-			for(int x = 0; x < pathTiles[y].length; ++x)
-			{
-				if(pathTiles[y][x] == START_POINT)
-				{
-					p.set(x, y);
-					return p;
-				}
-			}
-		}
-		p.set(-1, -1);
-		return p;
-	}
 
 	public Vector2 getEndPoint()
 	{
-		Vector2 p = new Vector2();
-		for(int y = 0; y < pathTiles.length; ++y)
+		int[][] pathTiles = map.layers.get(PATH_LAYER).tiles;
+		
+		int y = 0;
+		for(int[] col : pathTiles)
 		{
-			for(int x = 0; x < pathTiles[y].length; ++x)
+			int x = 0;
+			for(int row : col)
 			{
-				if(pathTiles[y][x] == END_POINT)
-				{
-					p.set(x, y);
-					return p;
-				}
+				if(row == END_POINT)
+					return new Vector2(x,y);
+				++x;
 			}
+			++y;
 		}
-		p.set(-1, -1);
-		return p;
+		return null;
 	}
 
 
@@ -207,7 +208,6 @@ public class TiledMapHelper
 		tileAtlas = new TileAtlas(map, packFileDirectory);
 
 		tileMapRenderer = new TileMapRenderer(map, tileAtlas, 16, 16);
-		pathTiles = getTiles("Path");
 	}
 
 	/**
