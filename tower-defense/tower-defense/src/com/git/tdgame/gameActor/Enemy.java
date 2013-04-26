@@ -31,7 +31,7 @@ public class Enemy extends Actor
     
     private float traveledDist=0;
     
-    private int health = 40;
+    private int health = 10;
 
     public Enemy (Array<Vector2>path)
     {
@@ -141,6 +141,16 @@ public class Enemy extends Actor
 		if(health<=0){
 			die();
 		}
+	}
+	
+	public int getSpeed()
+	{
+		return speed;
+	}
+
+	public Vector2 getDirection()
+	{
+		return direction;
 	}
 
 	private void die() {

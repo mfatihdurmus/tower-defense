@@ -1,4 +1,4 @@
-package com.git.tdgame.gameActor;
+package com.git.tdgame.gameActor.tower;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,24 +7,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.Enemy;
+import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 
-public abstract class Tower extends Actor
+public abstract class AbstractTower extends Actor
 {
     // Tower Variables
-    private final int WIDTH 	= 32;
-    private final int HEIGHT 	= 32;
-    private float fireRate = 1;
-    private float range = 300;
-    private float timeToFire = 0;
-
-    // Sprite variables
-    private Texture texture;
-    private Sprite sprite;
-
+    final int WIDTH 	= 32;
+    final int HEIGHT 	= 32;
+    float fireRate = 1;
+    float range = 300;
+    float timeToFire = 0;
     Enemy target;
+    Texture texture;
+    Sprite sprite;
     
     
-    public Tower (Vector2 position)
+    public AbstractTower (Vector2 position)
     {
     	
     	setPosition(position.x, position.y);
@@ -70,7 +69,11 @@ public abstract class Tower extends Actor
     	}
     }
     
-    //find a best possible target realative to position
+    public float getRange() {
+		return range;
+	}
+
+	//find a best possible target realative to position
     public Enemy findTarget(){
     	//TODO: implement
     	
@@ -107,5 +110,5 @@ public abstract class Tower extends Actor
     	
     }
     
-    abstract Projectile createProjectile();
+    abstract AbstractProjectile createProjectile();
 }

@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
-import com.git.tdgame.gameActor.BasicTower;
 import com.git.tdgame.gameActor.Enemy;
+import com.git.tdgame.gameActor.tower.BasicTower;
 import com.git.tdgame.map.TDGameMapHelper;
 
 
@@ -28,7 +28,7 @@ public class GameScreen implements Screen{
 	
 	// Wave variables
 	private float spawnTime = 0;
-	private int spawnLeft = 10;
+	private int spawnLeft = 20;
 	private final float spawnDelay = 0.5f;
 	
 	public GameScreen(TDGame game)
@@ -56,7 +56,7 @@ public class GameScreen implements Screen{
         	spawnTime += delta;
             if(spawnTime > spawnDelay)
             {
-            	spawnTime = 0;
+            	spawnTime -= spawnDelay;
                 --spawnLeft;
         		
                 // TO DO : Spawn from selected path
@@ -107,7 +107,7 @@ public class GameScreen implements Screen{
 		stage.getCamera().update();
 		stage.setViewport(tdGameMapHelper.getWidth(), tdGameMapHelper.getHeight(), false);
 		
-		stage.addActor(new BasicTower(new Vector2(16*tileSize.x,16*tileSize.y)));
+		//stage.addActor(new BasicTower(new Vector2(16*tileSize.x,16*tileSize.y)));
 		stage.addActor(new BasicTower(new Vector2(10*tileSize.x,16*tileSize.y)));
 	}
 
