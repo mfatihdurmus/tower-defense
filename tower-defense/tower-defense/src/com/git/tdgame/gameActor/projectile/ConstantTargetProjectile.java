@@ -3,7 +3,8 @@ package com.git.tdgame.gameActor.projectile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.git.tdgame.gameActor.Enemy;
+import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.enemy.Enemy;
 import com.git.tdgame.gameActor.tower.AbstractTower;
 
 public class ConstantTargetProjectile extends AbstractProjectile
@@ -86,6 +87,8 @@ public class ConstantTargetProjectile extends AbstractProjectile
 	{
     	Vector2 deflectionVector = new Vector2(target.getX()-getX(),target.getY()-getY());
     	
+    	Array<Actor> damagedEnemies = new Array<Actor>();
+    	
     	// Successful prediction
     	if(deflectionVector.len() <= projectileBound.len())
     	{
@@ -94,7 +97,14 @@ public class ConstantTargetProjectile extends AbstractProjectile
 	    	{
 	    		Enemy e = (Enemy)target;
 	    		e.takeDamage(damage);
+	    		e.setProperty(slowAmount, slowDuration);
+	    		damagedEnemies.add(e);
 	    	}
+    	}
+    	if(damageRadius == 0)
+    	{
+    		this.remove();
+    		return;
     	}
 
     	// TO DO : Control it for circle
@@ -108,10 +118,12 @@ public class ConstantTargetProjectile extends AbstractProjectile
     	    	Actor a = getStage().hit(x, y, true);
         		if(a != null)
         		{
-        	    	if(a instanceof Enemy && !a.equals(target))
+        	    	if(a instanceof Enemy && !damagedEnemies.contains(a, false))
         	    	{
         	    		Enemy e = (Enemy)a;
         	    		e.takeDamage(damage);
+        	    		e.setProperty(slowAmount, slowDuration);
+        	    		damagedEnemies.add(e);
         	    	}
         		}
         	}

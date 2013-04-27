@@ -8,8 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
-import com.git.tdgame.gameActor.Enemy;
-import com.git.tdgame.gameActor.tower.BasicTower;
+import com.git.tdgame.gameActor.Gold;
+import com.git.tdgame.gameActor.enemy.Enemy;
+import com.git.tdgame.gameActor.tower.SingleTargetTower;
+import com.git.tdgame.gameActor.tower.SlowingTower;
+import com.git.tdgame.gameActor.tower.SplashDamageTower;
 import com.git.tdgame.map.TDGameMapHelper;
 
 
@@ -56,7 +59,7 @@ public class GameScreen implements Screen{
         	spawnTime += delta;
             if(spawnTime > spawnDelay)
             {
-            	spawnTime -= spawnDelay;
+            	spawnTime = 0;
                 --spawnLeft;
         		
                 // TO DO : Spawn from selected path
@@ -69,7 +72,7 @@ public class GameScreen implements Screen{
             }
         }
 	}
-
+	
 	@Override
 	public void resize(int width, int height)
 	{
@@ -107,8 +110,11 @@ public class GameScreen implements Screen{
 		stage.getCamera().update();
 		stage.setViewport(tdGameMapHelper.getWidth(), tdGameMapHelper.getHeight(), false);
 		
-		//stage.addActor(new BasicTower(new Vector2(16*tileSize.x,16*tileSize.y)));
-		stage.addActor(new BasicTower(new Vector2(10*tileSize.x,16*tileSize.y)));
+		stage.addActor(new Gold(new Vector2(0,(tdGameMapHelper.getMap().height-1)*tileSize.y)));
+		
+		stage.addActor(new SlowingTower(new Vector2(10*tileSize.x,16*tileSize.y)));
+		stage.addActor(new SingleTargetTower(new Vector2(16*tileSize.x,16*tileSize.y)));
+		stage.addActor(new SplashDamageTower(new Vector2(15*tileSize.x,9*tileSize.y)));
 	}
 
 	@Override

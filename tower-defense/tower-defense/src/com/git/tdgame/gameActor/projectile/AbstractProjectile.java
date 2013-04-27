@@ -14,6 +14,8 @@ public abstract class AbstractProjectile extends Actor
 	float speed = 1024;
 	int damage = 10;
     float damageRadius = 0;
+    float slowAmount = 0f;
+    float slowDuration = 1;
 	Actor source;
     Texture texture;
     Sprite sprite;
@@ -27,7 +29,7 @@ public abstract class AbstractProjectile extends Actor
 		setWidth(WIDTH);
 		setHeight(HEIGHT);
 		
-    	texture = new Texture(Gdx.files.internal("data/game/arrow.png"));
+    	texture = new Texture(Gdx.files.internal("data/game/projectile/arrow.png"));
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
 	}
 	

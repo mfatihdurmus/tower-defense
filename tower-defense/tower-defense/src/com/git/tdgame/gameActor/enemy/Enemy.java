@@ -1,4 +1,4 @@
-package com.git.tdgame.gameActor;
+package com.git.tdgame.gameActor.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,18 +7,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.Gold;
 
 
 public class Enemy extends Actor
 {
 	// Actor variables
 	private Vector2 direction;
-    private int speed = 128;
+	private int defaultSpeed = 128;
+    private float speed = 128;
     private boolean alive = true;
     private final int WIDTH 	= 32;
     private final int HEIGHT 	= 32;
+    private float traveledDist = 0;
+    private int health = 20;
+    private float slowTime = 0;
+    private int gold = 10;
     
-
     // Path variables
     private Array<Vector2> path;
     private int currentPath = 0;
@@ -28,10 +33,6 @@ public class Enemy extends Actor
     private Sprite sprite;
     private double spritePos = 0;
     private int numberOfFrames = 0;
-    
-    private float traveledDist=0;
-    
-    private int health = 10;
 
     public Enemy (Array<Vector2>path)
     {
@@ -45,7 +46,7 @@ public class Enemy extends Actor
     	direction = new Vector2();
     	direction = findNewDirection();
     	
-    	texture = new Texture(Gdx.files.internal("data/game/ball.png"));
+    	texture = new Texture(Gdx.files.internal("data/game/enemy/ball.png"));
     	numberOfFrames = (int)(texture.getWidth()/WIDTH);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
     }
@@ -62,6 +63,12 @@ public class Enemy extends Actor
     public void act (float delta)
     {
     	super.act(delta);
+    	
+    	slowTime -= delta;
+    	if(slowTime <= 0)
+    	{
+    		speed = defaultSpeed;
+    	}
     	
     	float targetX = getX() + direction.x*speed*delta;
     	float targetY = getY() + direction.y*speed*delta;
@@ -135,15 +142,26 @@ public class Enemy extends Actor
 		return traveledDist;
 	}
     
-	public void takeDamage(int d){
-		health-=d;
+	public void takeDamage(int d)
+	{
+		health -= d;
 		
-		if(health<=0){
+		if(health <= 0)
+		{
 			die();
 		}
 	}
 	
-	public int getSpeed()
+	public void setProperty(float property, float time)
+	{
+		if(slowTime <= 0)
+		{
+			slowTime = time;
+			speed *= (1-property);
+		}
+	}
+	
+	public float getSpeed()
 	{
 		return speed;
 	}
@@ -153,9 +171,23 @@ public class Enemy extends Actor
 		return direction;
 	}
 
-	private void die() {
-		this.remove();
+	private void die()
+	{
+		if(alive)
+		{
+			Array<Actor> actors = getStage().getActors();
+			for(Actor a : actors)
+			{
+				if(a instanceof Gold)
+				{
+					Gold g = (Gold) a;
+					g.addGold(gold);
+					break;
+				}
+			}
+		}
 		alive=false;
+		this.remove();
 	}
     
 }

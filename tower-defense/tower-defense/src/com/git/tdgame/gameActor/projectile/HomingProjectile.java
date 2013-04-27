@@ -1,8 +1,10 @@
 package com.git.tdgame.gameActor.projectile;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.git.tdgame.gameActor.Enemy;
+import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.enemy.Enemy;
 import com.git.tdgame.gameActor.tower.AbstractTower;
 
 public class HomingProjectile extends AbstractProjectile {
@@ -15,6 +17,31 @@ public class HomingProjectile extends AbstractProjectile {
 		this.target = target;
 	}
 
+	public void setSlowAmount(float slowAmount)
+	{
+		this.slowAmount = slowAmount;
+	}
+	
+	public void setTexture(Texture texture)
+	{
+		this.texture = texture;
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
+	}
+	
+	public void setDamage(int damage)
+	{
+		this.damage = damage;
+	}
+	
+	public void setSpeed(float speed)
+	{
+		this.speed = speed;
+	}
+	
+	public void setDamageRadius(int damageRadius)
+	{
+		this.damageRadius = damageRadius;
+	}
     public void act (float delta)
     {
     	super.act(delta);
@@ -54,13 +81,23 @@ public class HomingProjectile extends AbstractProjectile {
 	@Override
 	void finish()
 	{
+    	Array<Actor> damagedEnemies = new Array<Actor>();
+    	
 		// Give damage to target
     	if(target instanceof Enemy)
     	{
     		Enemy e = (Enemy)target;
     		e.takeDamage(damage);
+    		e.setProperty(slowAmount, slowDuration);
+    		damagedEnemies.add(e);
     	}
 
+    	if(damageRadius == 0)
+    	{
+    		this.remove();
+    		return;
+    	}
+    	
     	// TO DO : Control it for circle
     	// Control Rectangle Area For Damage
     	
@@ -72,10 +109,12 @@ public class HomingProjectile extends AbstractProjectile {
     	    	Actor a = getStage().hit(x, y, true);
         		if(a != null)
         		{
-        	    	if(a instanceof Enemy && !a.equals(target))
+        	    	if(a instanceof Enemy && !damagedEnemies.contains(a, false))
         	    	{
         	    		Enemy e = (Enemy)a;
         	    		e.takeDamage(damage);
+        	    		e.setProperty(slowAmount, slowDuration);
+        	    		damagedEnemies.add(e);
         	    	}
         		}
         	}

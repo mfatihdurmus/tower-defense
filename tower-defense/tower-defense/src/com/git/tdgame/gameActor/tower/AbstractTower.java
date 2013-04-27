@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.gameActor.Enemy;
+import com.git.tdgame.gameActor.enemy.Enemy;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 
 public abstract class AbstractTower extends Actor
@@ -15,7 +15,7 @@ public abstract class AbstractTower extends Actor
     // Tower Variables
     final int WIDTH 	= 32;
     final int HEIGHT 	= 32;
-    float fireRate = 1;
+    float fireRate = 1f;
     float range = 300;
     float timeToFire = 0;
     Enemy target;
@@ -28,7 +28,7 @@ public abstract class AbstractTower extends Actor
     	
     	setPosition(position.x, position.y);
     	
-    	texture = new Texture(Gdx.files.internal("data/game/tower.png"));
+    	texture = new Texture(Gdx.files.internal("data/game/tower/tower.png"));
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
     }
 
@@ -41,40 +41,42 @@ public abstract class AbstractTower extends Actor
     {
     	super.act(delta);
     	
-    	timeToFire -= delta;
+    	timeToFire += delta;
     	
     	// check enemy is still alive
-    	if(target!=null)
-    	{
-    		if(target.isAlive()){
-            	// check enemy is still in range
-        		float dx= target.getX() - getX();
-        		float dy= target.getY() - getY();
-        		if(Math.sqrt(dx*dx+dy*dy) <= range){
-                	// check if can fire, if possible fire
-        			if(timeToFire<=0){
+		target= findTarget();
+    	// check if can fire, if possible fire
+		if(timeToFire >= fireRate)
+		{
+	    	if(target != null)
+	    	{
+	    		if(target.isAlive())
+	    		{
+	            	// check enemy is still in range
+	        		Vector2 dist = new Vector2(target.getX() - getX(),target.getY() - getY());
+	        		if(dist.len() <= range)
+	        		{
+        				timeToFire = 0;
         				fire();
-        			}
-        		}
-        		else{
-        			target=null;
-        		}
-    		}
-    		else{
-    			target=null;
-    		}
-    	}
-    	else{
-    		target= findTarget();
-    	}
+	        		} else {
+	        			target=null;
+	        		}
+	    		} else {
+	    			target=null;
+	    		}
+	    	} else {
+	    		target= findTarget();
+	    	}
+		}
     }
     
     public float getRange() {
 		return range;
 	}
 
-	//find a best possible target realative to position
-    public Enemy findTarget(){
+	//find a best possible target relative to position
+    public Enemy findTarget()
+    {
     	//TODO: implement
     	
     	//ask for list of target in range
@@ -84,7 +86,8 @@ public abstract class AbstractTower extends Actor
     	float maxTraveled= 0;
     	Enemy bestTarget= null;
     	for(Actor a: actors){
-    		if(a instanceof Enemy){
+    		if(a instanceof Enemy)
+    		{
     			Enemy e= (Enemy)a;
 
         		float dx= e.getX() - getX();
@@ -103,11 +106,9 @@ public abstract class AbstractTower extends Actor
     }
     
     //fire to target
-    public void fire(){
+    public void fire()
+    {
     	getStage().addActor(createProjectile());
-    	
-    	timeToFire= fireRate;
-    	
     }
     
     abstract AbstractProjectile createProjectile();
