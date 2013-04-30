@@ -61,7 +61,7 @@ public class ConstantTargetProjectile extends AbstractProjectile
     	
     	Vector2 vel= d.cpy().nor().mul(speed*delta);
     	
-    	// Range bound reached
+/*    	// Range bound reached
     	Vector2 sourceDistance = new Vector2(getX() - source.getX(),getY() - source.getY());
     	
     	if(source instanceof AbstractTower)
@@ -72,7 +72,7 @@ public class ConstantTargetProjectile extends AbstractProjectile
         		this.remove();
         		return;
         	}
-    	}
+    	}*/
     	
     	if(d.len() <= speed*delta)
     	{
@@ -111,9 +111,9 @@ public class ConstantTargetProjectile extends AbstractProjectile
     	// Control Rectangle Area For Damage
     	
     	// Give damage to others
-    	for(int x = (int)getX() - (int)damageRadius; x <= (int)getX() + damageRadius; ++x)
+    	for(int x = (int)getX() - (int)damageRadius; x <= (int)getX() + damageRadius; x += 16)
     	{
-        	for(int y = (int)getY() - (int)damageRadius; y <= getY() + damageRadius; ++y)
+        	for(int y = (int)getY() - (int)damageRadius; y <= getY() + damageRadius; y += 16)
         	{
     	    	Actor a = getStage().hit(x, y, true);
         		if(a != null)

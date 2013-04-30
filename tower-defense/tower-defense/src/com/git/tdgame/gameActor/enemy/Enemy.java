@@ -1,13 +1,17 @@
 package com.git.tdgame.gameActor.enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.gameActor.Gold;
+import com.sun.org.apache.xml.internal.security.utils.HelperNodeList;
 
 
 public class Enemy extends Actor
@@ -20,9 +24,11 @@ public class Enemy extends Actor
     private final int WIDTH 	= 32;
     private final int HEIGHT 	= 32;
     private float traveledDist = 0;
-    private int health = 20;
+    private int maxHealth = 20;
+    private int currentHealth = 20;
     private float slowTime = 0;
     private int gold = 10;
+    private final int healthBarHeight = 10;
     
     // Path variables
     private Array<Vector2> path;
@@ -33,6 +39,7 @@ public class Enemy extends Actor
     private Sprite sprite;
     private double spritePos = 0;
     private int numberOfFrames = 0;
+	private ShapeRenderer shapeRenderer;
 
     public Enemy (Array<Vector2>path)
     {
@@ -49,6 +56,7 @@ public class Enemy extends Actor
     	texture = new Texture(Gdx.files.internal("data/game/enemy/ball.png"));
     	numberOfFrames = (int)(texture.getWidth()/WIDTH);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
+        shapeRenderer = new ShapeRenderer();
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
@@ -58,6 +66,23 @@ public class Enemy extends Actor
     	sprite.setRegion((int)spritePos*WIDTH, 0, WIDTH, HEIGHT);
     	
     	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
+    	
+    	getStage().getCamera().update();
+		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
+
+		float healthLeftBar = getWidth() * ((float)currentHealth/maxHealth);
+    	batch.end();
+        shapeRenderer.begin(ShapeType.Rectangle);
+        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.rect(getX(), getY()-healthBarHeight, getWidth()+2, healthBarHeight+2);
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.FilledRectangle);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.filledRect(getX()+1, getY()-healthBarHeight+1, getWidth(), healthBarHeight);
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.filledRect(getX()+1, getY()-healthBarHeight+1, healthLeftBar, healthBarHeight);
+        shapeRenderer.end();
+        batch.begin();
     }
 
     public void act (float delta)
@@ -144,9 +169,9 @@ public class Enemy extends Actor
     
 	public void takeDamage(int d)
 	{
-		health -= d;
+		currentHealth -= d;
 		
-		if(health <= 0)
+		if(currentHealth <= 0)
 		{
 			die();
 		}

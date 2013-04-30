@@ -2,7 +2,7 @@ package com.git.tdgame.gameActor.tower;
 
 import com.badlogic.gdx.math.Vector2;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
-import com.git.tdgame.gameActor.projectile.ConstantTargetProjectile;
+import com.git.tdgame.gameActor.projectile.HomingProjectile;
 
 public class SingleTargetTower extends AbstractTower {
 
@@ -18,7 +18,7 @@ public class SingleTargetTower extends AbstractTower {
 		// Take all properties in constructor
 		// return new HomingProjectile(this, target, projectileProperties);
 		
-		return new ConstantTargetProjectile(this, target);
+		return new HomingProjectile(this, target);
 	}
 
 }

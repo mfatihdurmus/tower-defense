@@ -22,7 +22,6 @@ public abstract class AbstractTower extends Actor
     Texture texture;
     Sprite sprite;
     
-    
     public AbstractTower (Vector2 position)
     {
     	

@@ -51,7 +51,7 @@ public class HomingProjectile extends AbstractProjectile {
     	
     	
     	// Range bound reached
-    	Vector2 sourceDistance = new Vector2(getX() - source.getX(),getY() - source.getY());
+/*    	Vector2 sourceDistance = new Vector2(getX() - source.getX(),getY() - source.getY());
     	
     	if(source instanceof AbstractTower)
     	{
@@ -61,7 +61,7 @@ public class HomingProjectile extends AbstractProjectile {
         		this.remove();
         		return;
         	}
-    	}
+    	}*/
     		
     	if(d.y > 0)
     	{
@@ -102,9 +102,9 @@ public class HomingProjectile extends AbstractProjectile {
     	// Control Rectangle Area For Damage
     	
     	// Give damage to others
-    	for(int x = (int)getX() - (int)damageRadius; x <= (int)getX() + damageRadius; ++x)
+    	for(int x = (int)getX() - (int)damageRadius; x <= (int)getX() + damageRadius; x += 16)
     	{
-        	for(int y = (int)getY() - (int)damageRadius; y <= getY() + damageRadius; ++y)
+        	for(int y = (int)getY() - (int)damageRadius; y <= getY() + damageRadius; y += 16)
         	{
     	    	Actor a = getStage().hit(x, y, true);
         		if(a != null)
