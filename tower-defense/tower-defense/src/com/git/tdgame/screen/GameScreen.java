@@ -1,15 +1,22 @@
 package com.git.tdgame.screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
+import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Gold;
 import com.git.tdgame.gameActor.enemy.Enemy;
+import com.git.tdgame.gameActor.enemy.Wave;
 import com.git.tdgame.gameActor.tower.SingleTargetTower;
 import com.git.tdgame.gameActor.tower.SlowingTower;
 import com.git.tdgame.gameActor.tower.SplashDamageTower;
@@ -23,6 +30,10 @@ public class GameScreen implements Screen{
 
 	// Stage
 	private Stage stage;
+	private Image splashImage;
+	private boolean defeat = false;
+	private ArrayList<Wave> waves = new ArrayList();
+	private int currentWave = 0;
 
 	// Map variables
 	private TDGameMapHelper tdGameMapHelper;
@@ -33,6 +44,7 @@ public class GameScreen implements Screen{
 	private float spawnTime = 0;
 	private int spawnLeft = 20;
 	private final float spawnDelay = 0.5f;
+	private float waveDelay;
 	
 	public GameScreen(TDGame game)
 	{
@@ -50,10 +62,42 @@ public class GameScreen implements Screen{
 		tdGameMapHelper.render();
 
 		// Stage update
-        stage.act(delta);
+		if(!defeat)
+			stage.act(delta);
         stage.draw();
-        
+
         // Spawn enemies
+        waveDelay -= delta;
+        if(waveDelay < 0 && !defeat)
+        {
+        	++currentWave;
+        	if(waves.size() > currentWave)
+        	{
+        		waveDelay = waves.get(currentWave).getDelay();
+    			spawnLeft = waves.get(currentWave).getEnemies().size();
+        	} else {
+        		// To Do : Victory
+        		boolean isKilledAll = true;
+            	Array<Actor> actors = stage.getActors();
+            	for(Actor a: actors) {
+            		if(a instanceof Enemy)
+            		{
+            			Enemy e = (Enemy)a;
+            			if(e.isAlive())
+            			{
+            				isKilledAll = false;
+            				break;
+            			}
+            		}
+            	}
+            	if(isKilledAll)
+            	{
+            		victory();
+            	}
+        		
+        	}
+        }
+        
         if(spawnLeft > 0)
         {
         	spawnTime += delta;
@@ -73,6 +117,15 @@ public class GameScreen implements Screen{
         }
 	}
 	
+	private void victory() {
+		// TODO Auto-generated method stub
+		splashImage = new Image(new Texture(Gdx.files.internal("data/game/victory.png")));
+		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
+
+		stage.addActor(splashImage);
+		defeat = true;
+	}
+
 	@Override
 	public void resize(int width, int height)
 	{
@@ -112,9 +165,30 @@ public class GameScreen implements Screen{
 		
 		stage.addActor(new Gold(new Vector2(0,(tdGameMapHelper.getMap().height-1)*tileSize.y)));
 		
+		Vector2 endPoint = tdGameMapHelper.getEndPoint();
+		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this));
+		
 		stage.addActor(new SlowingTower(new Vector2(10*tileSize.x,16*tileSize.y)));
 		stage.addActor(new SingleTargetTower(new Vector2(16*tileSize.x,16*tileSize.y)));
 		stage.addActor(new SplashDamageTower(new Vector2(15*tileSize.x,9*tileSize.y)));
+		
+		waves.add(new Wave());
+		waves.add(new Wave());
+		
+		if(waves.size()>currentWave)
+		{
+			waveDelay = waves.get(currentWave).getDelay();
+			spawnLeft = waves.get(currentWave).getEnemies().size();
+		}
+	}
+	
+	public void defeat()
+	{
+		splashImage = new Image(new Texture(Gdx.files.internal("data/game/defeat.png")));
+		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
+
+		stage.addActor(splashImage);
+		defeat = true;
 	}
 
 	@Override

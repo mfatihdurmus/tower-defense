@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Gold;
-import com.sun.org.apache.xml.internal.security.utils.HelperNodeList;
 
 
 public class Enemy extends Actor
@@ -29,6 +29,7 @@ public class Enemy extends Actor
     private float slowTime = 0;
     private int gold = 10;
     private final int healthBarHeight = 10;
+    private int damage = 5;
     
     // Path variables
     private Array<Vector2> path;
@@ -61,10 +62,6 @@ public class Enemy extends Actor
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	// Move sprite region
-    	spritePos = (spritePos+0.2) % numberOfFrames;
-    	sprite.setRegion((int)spritePos*WIDTH, 0, WIDTH, HEIGHT);
-    	
     	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
     	
     	getStage().getCamera().update();
@@ -88,6 +85,11 @@ public class Enemy extends Actor
     public void act (float delta)
     {
     	super.act(delta);
+    	
+    	// Move sprite region
+    	spritePos = (spritePos+0.2) % numberOfFrames;
+    	sprite.setRegion((int)spritePos*WIDTH, 0, WIDTH, HEIGHT);
+    	
     	
     	slowTime -= delta;
     	if(slowTime <= 0)
@@ -139,6 +141,16 @@ public class Enemy extends Actor
     	Vector2 newPosition = new Vector2();
     	if(currentPath >= path.size)
     	{
+        	Array<Actor> actors=getStage().getActors();
+        	for(Actor a: actors){
+        		if(a instanceof Base)
+        		{
+        			Base b = (Base)a;
+        			if(b.isAlive())
+        				b.takeDamage(damage);
+        		}
+        	}
+
     		die();
     		return newPosition;
     	}
