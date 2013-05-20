@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.gameActor.enemy.Enemy;
-import com.git.tdgame.gameActor.tower.AbstractTower;
 
 public class ConstantTargetProjectile extends AbstractProjectile
 {
@@ -14,9 +13,9 @@ public class ConstantTargetProjectile extends AbstractProjectile
 	
 	Vector2 projectileBound;
 	
-	public ConstantTargetProjectile(Actor source, Actor target)
+	public ConstantTargetProjectile(Actor source, Actor target, String projectileJson)
 	{
-		super(source);
+		super(source, projectileJson);
 		this.target = target;
 		
     	projectileBound = new Vector2(getX()+getWidth()/2-getX(),getY()+getHeight()/2-getY());

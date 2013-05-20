@@ -7,5 +7,6 @@
 			<attribute name="javadoc_location" value="file:/C:/Users/pc/Downloads/Programs/lib gdx/libgdx-0.9.8/docs/api/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

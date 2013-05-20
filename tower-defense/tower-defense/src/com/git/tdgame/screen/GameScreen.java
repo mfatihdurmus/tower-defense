@@ -1,6 +1,8 @@
 package com.git.tdgame.screen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -13,13 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
+import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Gold;
 import com.git.tdgame.gameActor.enemy.Enemy;
 import com.git.tdgame.gameActor.enemy.Wave;
-import com.git.tdgame.gameActor.tower.SingleTargetTower;
-import com.git.tdgame.gameActor.tower.SlowingTower;
-import com.git.tdgame.gameActor.tower.SplashDamageTower;
+import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.map.TDGameMapHelper;
 
 
@@ -35,6 +36,11 @@ public class GameScreen implements Screen{
 	private ArrayList<Wave> waves = new ArrayList<Wave>();
 	private int currentWave = 0;
 	private String map;
+	
+	private HashMap<String, HashMap<String,String>> enemyTypes;
+	private HashMap<String, HashMap<String,String>> towerTypes;
+	private HashMap<String, HashMap<String,String>> base;
+	private List<Object> waveList;
 
 	// Map variables
 	private TDGameMapHelper tdGameMapHelper;
@@ -51,6 +57,8 @@ public class GameScreen implements Screen{
 	{
 		this.game = game;
 		this.map = map;
+		this.enemyTypes = DataProvider.getEnemyTypes();
+		this.towerTypes = DataProvider.getTowerTypes();
 	}
 	
 	@Override
@@ -111,7 +119,7 @@ public class GameScreen implements Screen{
                 // TO DO : Spawn from selected path
                 for(Array<Vector2> path : paths)
                 {
-                	Enemy e = new Enemy(path);
+                	Enemy e = new Enemy(path, enemyTypes.get("pikeman"));
 	                e.setName(""+spawnLeft);
 	                stage.addActor(e);
                 }
@@ -170,9 +178,9 @@ public class GameScreen implements Screen{
 		Vector2 endPoint = tdGameMapHelper.getEndPoint();
 		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this));
 		
-		stage.addActor(new SlowingTower(new Vector2(10*tileSize.x,16*tileSize.y)));
-		stage.addActor(new SingleTargetTower(new Vector2(16*tileSize.x,16*tileSize.y)));
-		stage.addActor(new SplashDamageTower(new Vector2(15*tileSize.x,9*tileSize.y)));
+		stage.addActor(new Tower(new Vector2(10*tileSize.x,16*tileSize.y), towerTypes.get("slowingTower")));
+		stage.addActor(new Tower(new Vector2(16*tileSize.x,16*tileSize.y), towerTypes.get("singleTargetTower")));
+		stage.addActor(new Tower(new Vector2(15*tileSize.x,9*tileSize.y), towerTypes.get("splashDamageTower")));
 		
 		waves.add(new Wave());
 		waves.add(new Wave());

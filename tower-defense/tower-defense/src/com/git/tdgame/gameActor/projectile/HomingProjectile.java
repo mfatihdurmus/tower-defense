@@ -5,15 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.gameActor.enemy.Enemy;
-import com.git.tdgame.gameActor.tower.AbstractTower;
 
 public class HomingProjectile extends AbstractProjectile {
 
 	Actor target;
 	
-	public HomingProjectile(Actor source, Actor target)
+	public HomingProjectile(Actor source, Actor target, String projectileJson)
 	{
-		super(source);
+		super(source, projectileJson);
 		this.target = target;
 	}
 

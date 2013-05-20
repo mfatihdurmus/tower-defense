@@ -1,5 +1,7 @@
 package com.git.tdgame.gameActor.enemy;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,16 +20,16 @@ public class Enemy extends Actor
 {
 	// Actor variables
 	private Vector2 direction;
-	private int defaultSpeed = 128;
+	private int width;
+	private int height;
+	private int defaultSpeed;
+	private int maxHealth;
+	private int gold;
     private float speed = 128;
     private boolean alive = true;
-    private final int WIDTH 	= 32;
-    private final int HEIGHT 	= 32;
     private float traveledDist = 0;
-    private int maxHealth = 20;
-    private int currentHealth = 20;
+    private int currentHealth = 0;
     private float slowTime = 0;
-    private int gold = 10;
     private final int healthBarHeight = 10;
     private int damage = 5;
     
@@ -42,11 +44,19 @@ public class Enemy extends Actor
     private int numberOfFrames = 0;
 	private ShapeRenderer shapeRenderer;
 
-    public Enemy (Array<Vector2>path)
+    public Enemy (Array<Vector2>path, HashMap<String,String> properties)
     {
+    	//set properties
+    	this.width = Integer.valueOf(properties.get("width"));
+    	this.height = Integer.valueOf(properties.get("height"));
+    	this.defaultSpeed = Integer.valueOf(properties.get("defaultSpeed"));
+    	this.maxHealth = Integer.valueOf(properties.get("maxHealth"));
+    	this.gold = Integer.valueOf(properties.get("gold"));
+    	
     	this.path = path;
-    	this.setWidth(WIDTH);
-    	this.setHeight(HEIGHT);
+    	this.setWidth(this.width);
+    	this.setHeight(this.height);
+    	this.currentHealth = this.maxHealth;
     	
     	setPosition(path.get(currentPath).x, path.get(currentPath).y);
     	++currentPath;
@@ -55,14 +65,14 @@ public class Enemy extends Actor
     	direction = findNewDirection();
     	
     	texture = new Texture(Gdx.files.internal("data/game/enemy/ball.png"));
-    	numberOfFrames = (int)(texture.getWidth()/WIDTH);
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
+    	numberOfFrames = (int)(texture.getWidth()/this.width);
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,this.width,this.height);
         shapeRenderer = new ShapeRenderer();
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
+    	batch.draw(sprite,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,1,-1,0);
     	
     	getStage().getCamera().update();
 		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
@@ -88,7 +98,7 @@ public class Enemy extends Actor
     	
     	// Move sprite region
     	spritePos = (spritePos+0.2) % numberOfFrames;
-    	sprite.setRegion((int)spritePos*WIDTH, 0, WIDTH, HEIGHT);
+    	sprite.setRegion((int)spritePos*this.width, 0, this.width, this.height);
     	
     	
     	slowTime -= delta;
