@@ -32,8 +32,9 @@ public class GameScreen implements Screen{
 	private Stage stage;
 	private Image splashImage;
 	private boolean defeat = false;
-	private ArrayList<Wave> waves = new ArrayList();
+	private ArrayList<Wave> waves = new ArrayList<Wave>();
 	private int currentWave = 0;
+	private String map;
 
 	// Map variables
 	private TDGameMapHelper tdGameMapHelper;
@@ -46,9 +47,10 @@ public class GameScreen implements Screen{
 	private final float spawnDelay = 0.5f;
 	private float waveDelay;
 	
-	public GameScreen(TDGame game)
+	public GameScreen(TDGame game, String map)
 	{
 		this.game = game;
+		this.map = map;
 	}
 	
 	@Override
@@ -137,7 +139,7 @@ public class GameScreen implements Screen{
 		// Map load
 		tdGameMapHelper = new TDGameMapHelper();
 		tdGameMapHelper.setPackerDirectory("data/packer");
-		tdGameMapHelper.loadMap("data/world/level1/level.tmx");
+		tdGameMapHelper.loadMap(map);
 		tileSize = new Vector2(tdGameMapHelper.getMap().tileWidth,tdGameMapHelper.getMap().tileHeight);
 
 		// Set paths

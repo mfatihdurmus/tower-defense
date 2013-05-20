@@ -12,6 +12,7 @@ public class TDGame extends Game {
 
 	private int screenWidth = 0;
 	private int screenHeight = 0;
+	private String selectedMap;
 
 	public TDGame()
 	{
@@ -28,15 +29,19 @@ public class TDGame extends Game {
 	public void create()
 	{
 		menuScreen = new MenuScreen(this);
-		levelSelectScreen = new LevelSelectScreen(this);
-		gameScreen = new GameScreen(this);
 		
 		setScreen(menuScreen);
 	}
 	
 	public void goToGameScreen()
 	{
+		gameScreen = new GameScreen(this, selectedMap);
 		setScreen(gameScreen);
+	}
+	
+	public void setSelectedMap(String selectedMap)
+	{
+		this.selectedMap = selectedMap;
 	}
 
 	public void goToMenuScreen()
@@ -46,6 +51,7 @@ public class TDGame extends Game {
 
 	public void goToLevelSelectScreen()
 	{
+		levelSelectScreen = new LevelSelectScreen(this);
 		setScreen(levelSelectScreen);
 	}
 

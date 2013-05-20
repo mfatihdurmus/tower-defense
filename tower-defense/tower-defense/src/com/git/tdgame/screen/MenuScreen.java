@@ -22,7 +22,7 @@ public class MenuScreen implements Screen, InputProcessor{
 	}
 	@Override
 	public void render(float delta) {
-        Gdx.gl.glClearColor( 1f, 0f, 0f, 1f );
+        Gdx.gl.glClearColor( 0f, 0f, 0f, 1f );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
         stage.draw();
 	}
@@ -71,7 +71,7 @@ public class MenuScreen implements Screen, InputProcessor{
 		if(arg0 == Keys.ENTER)
 		{
 			Gdx.input.setInputProcessor(null);
-			game.goToGameScreen();
+			game.goToLevelSelectScreen();
 			this.dispose();
 		}
 		return false;
@@ -105,7 +105,7 @@ public class MenuScreen implements Screen, InputProcessor{
 	public boolean touchUp(int arg0, int arg1, int arg2, int arg3)
 	{
 		Gdx.input.setInputProcessor(null);
-		game.goToGameScreen();
+		game.goToLevelSelectScreen();
 		this.dispose();
 		return false;
 	}
