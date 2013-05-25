@@ -5,6 +5,7 @@
 					"height" : "32",
 					"maxHealth" : "40",
 					"gold" : "10",
+					"damage" : "10",
 					"texturePath" : "data/game/enemy/ball.png"
 				},
 	"pikeman" : {
@@ -13,6 +14,7 @@
 					"height" : "32",
 					"maxHealth" : "20",
 					"gold" : "10",
+					"damage" : "5",
 					"texturePath" : "data/game/enemy/ball.png"
 				}
 }

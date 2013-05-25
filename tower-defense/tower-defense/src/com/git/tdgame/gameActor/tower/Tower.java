@@ -49,7 +49,6 @@ public class Tower extends Actor
     	setPosition(position.x, position.y);
     	setHeight(32);
     	setWidth(32);
-    	this.setTouchable(Touchable.enabled);
     	
     	texture = new Texture(properties.get("texturePath"));
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,width,height);
