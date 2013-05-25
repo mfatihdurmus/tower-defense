@@ -76,5 +76,75 @@
 										]
 						}
 					]
+	},
+	{
+		"name" : "level 3",
+		"selectScreenImagePath" : "data/world/level3/splash.png",
+		"mapPath" : "data/world/level3/level.tmx",
+		"gold" : "250",
+		"baseHealth" : "500",
+		"waveList": [
+						{
+							"delay" : "5",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						}
+					]
 	}
 ]

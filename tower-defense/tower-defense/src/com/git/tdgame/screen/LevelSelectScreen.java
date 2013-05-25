@@ -8,9 +8,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.data.DataProvider;
-import com.git.tdgame.gameActor.LevelBox;
+import com.git.tdgame.gameActor.level.LevelBox;
 import com.git.tdgame.gameActor.level.LevelModel;
 
 
@@ -19,11 +20,13 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 	public TDGame game;
 	private Stage stage;
 	private List<LevelModel> levels;
+	private int unlockedLevels;
 	
-	public LevelSelectScreen(TDGame game)
+	public LevelSelectScreen(TDGame game, int unlockedLevels)
 	{
 		levels = DataProvider.getLevels();
 		this.game = game;
+		this.unlockedLevels = unlockedLevels;
 	}
 	
 	@Override
@@ -45,13 +48,22 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 		stage = new Stage();
 		Gdx.input.setInputProcessor(this);
 
+		int levelIndex = 0;
 		for(int j = 0; j< (levels.size()-1)/3+1; j++)
 		{
 			
 			for(int i = 0; i < (((j+1)*3 > levels.size() ? levels.size()%3 : 3)); ++i)
 			{
 				LevelBox l = new LevelBox(i * (256 + 16), j * (256+16), 256, 256, levels.get(j*3+i), stage.getHeight());
+				
+				if(levelIndex > unlockedLevels)
+				{
+					l.setTouchable(Touchable.disabled);
+					l.setActive(false);
+				}
+				
 				stage.addActor(l);
+				++levelIndex;
 			}
 		}
 	}
@@ -101,7 +113,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button)
 	{
-		Actor a = stage.hit(screenX, screenY, false); 
+		Actor a = stage.hit(screenX, screenY, true); 
 		if(a instanceof LevelBox)
 		{
 			LevelBox l = (LevelBox) a;

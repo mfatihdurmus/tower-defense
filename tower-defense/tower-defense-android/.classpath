@@ -7,5 +7,10 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/tower-defense"/>
 	<classpathentry exported="true" kind="lib" path="/tower-defense/libs/gdx.jar" sourcepath="/tower-defense/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/tower-defense/libs/gson-2.2.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/tower-defense/libs/gson-2.2.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

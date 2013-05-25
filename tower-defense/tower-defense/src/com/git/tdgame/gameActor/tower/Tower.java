@@ -160,6 +160,6 @@ public class Tower extends Actor
     	this.projectileModel.setDamage((int)(this.projectileModel.getDamage()*this.upgradeRatio));
     	this.projectileModel.setDamageRadius(this.projectileModel.getDamageRadius()*this.upgradeRatio);
     	this.range = this.range * this.upgradeRatio;
-    	this.fireRate = this.fireRate * this.upgradeRatio;
+    	this.fireRate = this.fireRate / this.upgradeRatio;
     }
 }

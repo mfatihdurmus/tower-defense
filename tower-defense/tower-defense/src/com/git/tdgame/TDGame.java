@@ -14,6 +14,7 @@ public class TDGame extends Game {
 	private int screenWidth = 0;
 	private int screenHeight = 0;
 	private LevelModel selectedLevel;
+	private int unlockedLevels = 0;
 
 	public TDGame()
 	{
@@ -49,10 +50,20 @@ public class TDGame extends Game {
 	{
 		setScreen(menuScreen);
 	}
+	
+	public void unlockLevels(int lastLevelNumber)
+	{
+		unlockedLevels = lastLevelNumber;
+	}
+
+	
+	public int getUnlockedLevels() {
+		return unlockedLevels;
+	}
 
 	public void goToLevelSelectScreen()
 	{
-		levelSelectScreen = new LevelSelectScreen(this);
+		levelSelectScreen = new LevelSelectScreen(this, unlockedLevels);
 		setScreen(levelSelectScreen);
 	}
 

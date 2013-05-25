@@ -1,4 +1,4 @@
-package com.git.tdgame.gameActor;
+package com.git.tdgame.gameActor.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.git.tdgame.gameActor.level.LevelModel;
 
 public class LevelBox extends Actor
 {
@@ -17,7 +16,16 @@ public class LevelBox extends Actor
 	private Texture texture;
     private Sprite sprite;
     private float viewPortHeight;
+    private boolean isActive = true;
 	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	public ShapeRenderer getShapeRenderer() {
 		return shapeRenderer;
 	}
@@ -46,13 +54,19 @@ public class LevelBox extends Actor
     	texture = new Texture(Gdx.files.internal(level.getSelectScreenImagePath()));
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,texture.getWidth(),texture.getHeight());
         
-        
         shapeRenderer = new ShapeRenderer();
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	batch.draw(sprite,getX(),viewPortHeight-getY()-this.height,getOriginX(),getOriginY(),this.width,this.height,1,1,0);
+    	if(isActive)
+    	{
+        	batch.draw(sprite,getX(),viewPortHeight-getY()-this.height,getOriginX(),getOriginY(),this.width,this.height,1,1,0);
+    	} else {
+    		batch.setColor(1, 1, 1, 0.5f);
+    		batch.draw(sprite,getX(),viewPortHeight-getY()-this.height,getOriginX(),getOriginY(),this.width,this.height,1,1,0);
+    		batch.setColor(1, 1, 1, 1);
+    	}
     	
     }
 

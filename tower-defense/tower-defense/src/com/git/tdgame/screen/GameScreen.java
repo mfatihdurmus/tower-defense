@@ -2,9 +2,6 @@ package com.git.tdgame.screen;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-
-import javax.swing.event.ChangeEvent;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -40,6 +37,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private Stage stage;
 	private Image splashImage;
 	private boolean defeat = false;
+	private boolean victory = false;
 	private List<Wave> waves;
 	private int currentWave = 0;
 	private LevelModel levelModel;
@@ -55,9 +53,10 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	// Wave variables
 	private float spawnTime = 0;
-	private int spawnLeft = 20;
+	private int spawnLeft;
 	private final float spawnDelay = 0.5f;
 	private float waveDelay;
+	private int totalSpawnLeft = 0;
 	
 	// Tower gui popup
 	private TowerUpgradeButton towerUpgradeButton;
@@ -86,7 +85,7 @@ public class GameScreen implements Screen, InputProcessor{
 		tdGameMapHelper.render();
 
 		// Stage update
-		if(!defeat)
+		if(!defeat && !victory)
 			stage.act(delta);
         stage.draw();
 
@@ -107,8 +106,7 @@ public class GameScreen implements Screen, InputProcessor{
         			spawnLeft = 0;
         		
         		currentWave++;
-    			
-        	} else {
+        	} else if(totalSpawnLeft <= 0) {
         		// To Do : Victory
         		boolean isKilledAll = true;
             	Array<Actor> actors = stage.getActors();
@@ -123,7 +121,7 @@ public class GameScreen implements Screen, InputProcessor{
             			}
             		}
             	}
-            	if(isKilledAll && spawnLeft <= 0)
+            	if(isKilledAll)
             	{
             		victory();
             	}
@@ -143,22 +141,24 @@ public class GameScreen implements Screen, InputProcessor{
                 {
                 	String currentEnemy = waves.get(currentWave-1).getEnemies().get(waves.get(currentWave-1).getEnemies().size()-spawnLeft);
                 	Enemy e = new Enemy(path, enemyTypes.get(currentEnemy));
-	                e.setName(""+spawnLeft);
 	                stage.addActor(e);
                 }
                 
                 --spawnLeft;
+                --totalSpawnLeft;
             }
         }
 	}
 	
 	private void victory() {
-		// TODO Auto-generated method stub
 		splashImage = new Image(new Texture(Gdx.files.internal("data/game/victory.png")));
 		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
 
 		stage.addActor(splashImage);
-		defeat = true;
+		if(!victory)
+			game.unlockLevels(game.getUnlockedLevels()+1);
+		
+		victory = true;
 	}
 
 	@Override
@@ -205,15 +205,9 @@ public class GameScreen implements Screen, InputProcessor{
 		Vector2 endPoint = tdGameMapHelper.getEndPoint();
 		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this, levelModel.getBaseHealth()));
 		
-		stage.addActor(new Tower(new Vector2(10*tileSize.x,16*tileSize.y), towerTypes.get("slowingTower")));
-		stage.addActor(new Tower(new Vector2(16*tileSize.x,16*tileSize.y), towerTypes.get("singleTargetTower")));
-		stage.addActor(new Tower(new Vector2(15*tileSize.x,9*tileSize.y), towerTypes.get("splashDamageTower")));
-		
-		//stage.addActor(new TowerConstructButton(DataProvider));
-		
 		int guiPosition = 0;
 		for( String key : towerTypes.keySet()  )
-		{	
+		{
 			TowerConstructButton btn = new TowerConstructButton(towerTypes.get(key).get("texturePath"), key);
 			btn.setPosition(guiPosition, 0);
 			
@@ -222,12 +216,14 @@ public class GameScreen implements Screen, InputProcessor{
 			stage.addActor( btn );
 		}
 		
-		waves.add(new Wave());
-		waves.add(new Wave());
-		
 		if(waves.size()>currentWave)
 		{
 			waveDelay = waves.get(currentWave).getDelay();
+		}
+		totalSpawnLeft = 0;
+		for(Wave w : waves)
+		{
+			totalSpawnLeft += w.getEnemies().size();
 		}
 	}
 	
@@ -284,13 +280,14 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if(defeat || victory)
+			return false;
 		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
 		Actor a = stage.hit(hover.x,hover.y,true);
 		
 		if(a instanceof Tower)
 		{
 			Tower t = (Tower) a;
-			Gdx.app.log("tower", "message");
 			
 			towerUpgradeButton = new TowerUpgradeButton(t);
 			towerUpgradeButton.setPosition(t.getX() + 32, t.getY());
@@ -320,32 +317,43 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if(defeat || victory)
+		{
+			game.goToLevelSelectScreen();
+		}
+
 		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
 		Actor a = stage.hit(hover.x,hover.y,true);
-		
-		Gdx.app.log("touchup", "message");
 		
 		if(a instanceof TowerUpgradeButton)
 		{
 			towerUpgradeButton = (TowerUpgradeButton) a;
-			
-			//towerUpgradeButton.getTower();
 			//upgrade tower
+			Tower tower = towerUpgradeButton.getTower();
+			if(gold.spentGold(tower.getUpgradeCost()))
+			{
+				tower.upgrade();
+			}
+			
 		}
 		
 		if(a instanceof TowerRemoveButton)
 		{
 			towerRemoveButton = (TowerRemoveButton) a;
-			towerUpgradeButton.getTower().remove();
-			
+			Tower tower = towerUpgradeButton.getTower(); 
+			gold.addGold(tower.getRefund());
+			tower.remove();
 		}
-				
+		
 		if(selectedTower != null)
 		{
 			selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
-			stage.addActor(new Tower(new Vector2((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y),
-					towerTypes.get(selectedTower.getTowerName())));
-			
+			Tower newTower = new Tower(new Vector2((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y),
+					towerTypes.get(selectedTower.getTowerName()));
+			if(gold.spentGold(newTower.getCost()))
+			{
+				stage.addActor(newTower);
+			}
 			selectedTower.remove();
 			selectedTower = null;
 		}
