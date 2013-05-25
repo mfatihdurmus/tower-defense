@@ -108,7 +108,6 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 			game.setSelectedLevel(l.getLevel());
 			game.goToGameScreen();
 			this.dispose();
-			Gdx.input.setInputProcessor(null);
 		}
 		return false;
 	}

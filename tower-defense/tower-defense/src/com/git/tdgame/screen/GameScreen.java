@@ -2,8 +2,12 @@ package com.git.tdgame.screen;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+
+import javax.swing.event.ChangeEvent;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,10 +25,13 @@ import com.git.tdgame.gameActor.level.Enemy;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.tower.Tower;
+import com.git.tdgame.gameActor.tower.TowerConstructButton;
+import com.git.tdgame.gameActor.tower.TowerRemoveButton;
+import com.git.tdgame.gameActor.tower.TowerUpgradeButton;
 import com.git.tdgame.map.TDGameMapHelper;
 
 
-public class GameScreen implements Screen{
+public class GameScreen implements Screen, InputProcessor{
 
 	// To access game functions
 	private TDGame game;
@@ -52,6 +59,13 @@ public class GameScreen implements Screen{
 	private final float spawnDelay = 0.5f;
 	private float waveDelay;
 	
+	// Tower gui popup
+	private TowerUpgradeButton towerUpgradeButton;
+	private TowerRemoveButton towerRemoveButton;
+	
+	// Selected tower
+	private TowerConstructButton selectedTower; 
+
 	public GameScreen(TDGame game, LevelModel levelModel)
 	{
 		this.game = game;
@@ -155,6 +169,7 @@ public class GameScreen implements Screen{
 	@Override
 	public void show()
 	{
+		Gdx.input.setInputProcessor(this);
 		// Map load
 		tdGameMapHelper = new TDGameMapHelper();
 		tdGameMapHelper.setPackerDirectory("data/packer");
@@ -194,6 +209,22 @@ public class GameScreen implements Screen{
 		stage.addActor(new Tower(new Vector2(16*tileSize.x,16*tileSize.y), towerTypes.get("singleTargetTower")));
 		stage.addActor(new Tower(new Vector2(15*tileSize.x,9*tileSize.y), towerTypes.get("splashDamageTower")));
 		
+		//stage.addActor(new TowerConstructButton(DataProvider));
+		
+		int guiPosition = 0;
+		for( String key : towerTypes.keySet()  )
+		{	
+			TowerConstructButton btn = new TowerConstructButton(towerTypes.get(key).get("texturePath"), key);
+			btn.setPosition(guiPosition, 0);
+			
+			guiPosition += 64;
+			
+			stage.addActor( btn );
+		}
+		
+		waves.add(new Wave());
+		waves.add(new Wave());
+		
 		if(waves.size()>currentWave)
 		{
 			waveDelay = waves.get(currentWave).getDelay();
@@ -231,5 +262,134 @@ public class GameScreen implements Screen{
 	public void dispose()
 	{
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
+		Actor a = stage.hit(hover.x,hover.y,true);
+		
+		if(a instanceof Tower)
+		{
+			Tower t = (Tower) a;
+			Gdx.app.log("tower", "message");
+			
+			towerUpgradeButton = new TowerUpgradeButton(t);
+			towerUpgradeButton.setPosition(t.getX() + 32, t.getY());
+			towerUpgradeButton.setZIndex(2);
+			
+			towerRemoveButton = new TowerRemoveButton(t);
+			towerRemoveButton.setPosition(t.getX() + 32, t.getY() + 64);
+			towerRemoveButton.setZIndex(2);
+			
+			stage.addActor( towerUpgradeButton );
+			stage.addActor( towerRemoveButton );
+		}
+		
+		if(a instanceof TowerConstructButton)
+		{
+			if( selectedTower == null )
+			{
+				selectedTower = new TowerConstructButton((TowerConstructButton) a);
+				stage.addActor(selectedTower);
+			}
+				
+		}
+		
+		return false;
+	}
+
+	
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
+		Actor a = stage.hit(hover.x,hover.y,true);
+		
+		Gdx.app.log("touchup", "message");
+		
+		if(a instanceof TowerUpgradeButton)
+		{
+			towerUpgradeButton = (TowerUpgradeButton) a;
+			
+			//towerUpgradeButton.getTower();
+			//upgrade tower
+		}
+		
+		if(a instanceof TowerRemoveButton)
+		{
+			towerRemoveButton = (TowerRemoveButton) a;
+			towerUpgradeButton.getTower().remove();
+			
+		}
+				
+		if(selectedTower != null)
+		{
+			selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
+			stage.addActor(new Tower(new Vector2((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y),
+					towerTypes.get(selectedTower.getTowerName())));
+			
+			selectedTower.remove();
+			selectedTower = null;
+		}
+		
+		hidePopupButtons();
+		return false;
+	}
+
+	private void hidePopupButtons()
+	{
+		if(towerUpgradeButton != null)
+		{
+			towerUpgradeButton.remove();
+			towerUpgradeButton = null;	
+		}
+		if(towerRemoveButton != null)
+		{
+			towerRemoveButton.remove();
+			towerRemoveButton = null;
+		}
+		
+	}
+	
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
+		if(selectedTower != null)
+		{
+			selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
+		}
+		
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
