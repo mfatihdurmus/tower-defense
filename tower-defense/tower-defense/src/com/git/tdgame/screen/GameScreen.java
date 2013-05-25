@@ -1,6 +1,5 @@
 package com.git.tdgame.screen;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,8 +17,9 @@ import com.git.tdgame.TDGame;
 import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Gold;
-import com.git.tdgame.gameActor.enemy.Enemy;
-import com.git.tdgame.gameActor.enemy.Wave;
+import com.git.tdgame.gameActor.level.Enemy;
+import com.git.tdgame.gameActor.level.LevelModel;
+import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.map.TDGameMapHelper;
 
@@ -33,14 +33,13 @@ public class GameScreen implements Screen{
 	private Stage stage;
 	private Image splashImage;
 	private boolean defeat = false;
-	private ArrayList<Wave> waves = new ArrayList<Wave>();
+	private List<Wave> waves;
 	private int currentWave = 0;
-	private String map;
+	private LevelModel levelModel;
+	private Gold gold;
 	
 	private HashMap<String, HashMap<String,String>> enemyTypes;
 	private HashMap<String, HashMap<String,String>> towerTypes;
-	private HashMap<String, HashMap<String,String>> base;
-	private List<Object> waveList;
 
 	// Map variables
 	private TDGameMapHelper tdGameMapHelper;
@@ -53,12 +52,13 @@ public class GameScreen implements Screen{
 	private final float spawnDelay = 0.5f;
 	private float waveDelay;
 	
-	public GameScreen(TDGame game, String map)
+	public GameScreen(TDGame game, LevelModel levelModel)
 	{
 		this.game = game;
-		this.map = map;
+		this.levelModel = levelModel;
 		this.enemyTypes = DataProvider.getEnemyTypes();
 		this.towerTypes = DataProvider.getTowerTypes();
+		this.waves = levelModel.getWaveList();
 	}
 	
 	@Override
@@ -80,11 +80,20 @@ public class GameScreen implements Screen{
         waveDelay -= delta;
         if(waveDelay < 0 && !defeat)
         {
-        	++currentWave;
         	if(waves.size() > currentWave)
         	{
-        		waveDelay = waves.get(currentWave).getDelay();
-    			spawnLeft = waves.get(currentWave).getEnemies().size();
+        		if(currentWave+1 == waves.size())
+        			waveDelay = 0;
+        		else
+        			waveDelay = waves.get(currentWave+1).getDelay();
+        		
+        		if(waves.get(currentWave).getEnemies() != null)
+        			spawnLeft = waves.get(currentWave).getEnemies().size();
+        		else
+        			spawnLeft = 0;
+        		
+        		currentWave++;
+    			
         	} else {
         		// To Do : Victory
         		boolean isKilledAll = true;
@@ -100,7 +109,7 @@ public class GameScreen implements Screen{
             			}
             		}
             	}
-            	if(isKilledAll)
+            	if(isKilledAll && spawnLeft <= 0)
             	{
             		victory();
             	}
@@ -108,21 +117,23 @@ public class GameScreen implements Screen{
         	}
         }
         
-        if(spawnLeft > 0)
+        if(spawnLeft > 0 && currentWave > 0)
         {
         	spawnTime += delta;
             if(spawnTime > spawnDelay)
             {
             	spawnTime = 0;
-                --spawnLeft;
         		
                 // TO DO : Spawn from selected path
                 for(Array<Vector2> path : paths)
                 {
-                	Enemy e = new Enemy(path, enemyTypes.get("pikeman"));
+                	String currentEnemy = waves.get(currentWave-1).getEnemies().get(waves.get(currentWave-1).getEnemies().size()-spawnLeft);
+                	Enemy e = new Enemy(path, enemyTypes.get(currentEnemy));
 	                e.setName(""+spawnLeft);
 	                stage.addActor(e);
                 }
+                
+                --spawnLeft;
             }
         }
 	}
@@ -147,7 +158,7 @@ public class GameScreen implements Screen{
 		// Map load
 		tdGameMapHelper = new TDGameMapHelper();
 		tdGameMapHelper.setPackerDirectory("data/packer");
-		tdGameMapHelper.loadMap(map);
+		tdGameMapHelper.loadMap(levelModel.getMapPath());
 		tileSize = new Vector2(tdGameMapHelper.getMap().tileWidth,tdGameMapHelper.getMap().tileHeight);
 
 		// Set paths
@@ -173,22 +184,19 @@ public class GameScreen implements Screen{
 		stage.getCamera().update();
 		stage.setViewport(tdGameMapHelper.getWidth(), tdGameMapHelper.getHeight(), false);
 		
-		stage.addActor(new Gold(new Vector2(0,(tdGameMapHelper.getMap().height-1)*tileSize.y)));
+		gold = new Gold(new Vector2(0,(tdGameMapHelper.getMap().height-1)*tileSize.y), levelModel.getGold());
+		stage.addActor(gold);
 		
 		Vector2 endPoint = tdGameMapHelper.getEndPoint();
-		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this));
+		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this, levelModel.getBaseHealth()));
 		
 		stage.addActor(new Tower(new Vector2(10*tileSize.x,16*tileSize.y), towerTypes.get("slowingTower")));
 		stage.addActor(new Tower(new Vector2(16*tileSize.x,16*tileSize.y), towerTypes.get("singleTargetTower")));
 		stage.addActor(new Tower(new Vector2(15*tileSize.x,9*tileSize.y), towerTypes.get("splashDamageTower")));
 		
-		waves.add(new Wave());
-		waves.add(new Wave());
-		
 		if(waves.size()>currentWave)
 		{
 			waveDelay = waves.get(currentWave).getDelay();
-			spawnLeft = waves.get(currentWave).getEnemies().size();
 		}
 	}
 	

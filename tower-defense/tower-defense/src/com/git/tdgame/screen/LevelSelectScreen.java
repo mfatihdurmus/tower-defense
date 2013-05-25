@@ -1,6 +1,6 @@
 package com.git.tdgame.screen;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -9,24 +9,23 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.git.tdgame.TDGame;
+import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.LevelBox;
+import com.git.tdgame.gameActor.level.LevelModel;
 
 
 public class LevelSelectScreen implements Screen, InputProcessor{
 
 	public TDGame game;
 	private Stage stage;
-	private int levelSize = 2;
-	private ArrayList<String> levels = new ArrayList<String>();
+	private List<LevelModel> levels;
 	
 	public LevelSelectScreen(TDGame game)
 	{
+		levels = DataProvider.getLevels();
 		this.game = game;
-		int ctr = 1;
-		levels.add("data/world/level"+ctr+"/level.tmx");
-		ctr++;
-		levels.add("data/world/level"+ctr+"/level.tmx");
 	}
+	
 	@Override
 	public void render(float delta) {
         Gdx.gl.glClearColor( 1f, 1f, 1f, 1f );
@@ -45,13 +44,15 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 	public void show() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(this);
-		int width = (int)stage.getWidth() / (levelSize+1);
-		int height = (int)stage.getHeight() / (levelSize+1);
-		
-		for(int ctr = 0; ctr < levelSize; ++ctr)
+
+		for(int j = 0; j< (levels.size()-1)/3+1; j++)
 		{
-			LevelBox l = new LevelBox(ctr * stage.getWidth() / levelSize + 10, stage.getHeight()/ (levelSize+1), width, height,levels.get(ctr));
-			stage.addActor(l);
+			
+			for(int i = 0; i < (((j+1)*3 > levels.size() ? levels.size()%3 : 3)); ++i)
+			{
+				LevelBox l = new LevelBox(i * (256 + 16), j * (256+16), 256, 256, levels.get(j*3+i), stage.getHeight());
+				stage.addActor(l);
+			}
 		}
 	}
 
@@ -104,7 +105,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 		if(a instanceof LevelBox)
 		{
 			LevelBox l = (LevelBox) a;
-			game.setSelectedMap(l.getPath());
+			game.setSelectedLevel(l.getLevel());
 			game.goToGameScreen();
 			this.dispose();
 			Gdx.input.setInputProcessor(null);

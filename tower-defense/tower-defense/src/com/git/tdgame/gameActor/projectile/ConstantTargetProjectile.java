@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.gameActor.enemy.Enemy;
+import com.git.tdgame.gameActor.level.Enemy;
 
 public class ConstantTargetProjectile extends AbstractProjectile
 {
@@ -13,9 +13,9 @@ public class ConstantTargetProjectile extends AbstractProjectile
 	
 	Vector2 projectileBound;
 	
-	public ConstantTargetProjectile(Actor source, Actor target, String projectileJson)
+	public ConstantTargetProjectile(Actor source, Actor target, ProjectileModel pm)
 	{
-		super(source, projectileJson);
+		super(source, pm);
 		this.target = target;
 		
     	projectileBound = new Vector2(getX()+getWidth()/2-getX(),getY()+getHeight()/2-getY());

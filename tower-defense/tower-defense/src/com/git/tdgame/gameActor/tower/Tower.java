@@ -2,25 +2,31 @@ package com.git.tdgame.gameActor.tower;
 
 import java.util.HashMap;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.gameActor.enemy.Enemy;
+import com.git.tdgame.gameActor.level.Enemy;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 import com.git.tdgame.gameActor.projectile.HomingProjectile;
+import com.git.tdgame.gameActor.projectile.ProjectileModel;
+import com.google.gson.Gson;
 
 public class Tower extends Actor
 {
+	int towerLevel = 1;
+	
     // Tower Variables
     private int width 	= 32;
     private int height 	= 32;
     float fireRate = 1f;
     float range = 300;
-    String projectileJson;
+    ProjectileModel projectileModel;
+    int cost;
+    float upgradeRatio;
+    String name;
     
     float timeToFire = 0;
     Enemy target;
@@ -29,12 +35,16 @@ public class Tower extends Actor
     
     public Tower (Vector2 position, HashMap<String, String> properties)
     {
+    	Gson gson = new Gson();
     	//properties
     	this.width = Integer.valueOf(properties.get("width"));
     	this.height = Integer.valueOf(properties.get("height"));
     	this.fireRate = Integer.valueOf(properties.get("fireRate"));
     	this.range = Integer.valueOf(properties.get("range"));
-    	this.projectileJson = properties.get("projectile");
+    	this.cost = Integer.valueOf(properties.get("cost"));
+    	this.projectileModel = gson.fromJson(properties.get("projectile"), ProjectileModel.class);
+    	this.upgradeRatio = Float.valueOf(properties.get("upgradeRatio"));
+    	this.name = properties.get("name");
     	
     	setPosition(position.x, position.y);
     	
@@ -83,6 +93,19 @@ public class Tower extends Actor
     public float getRange() {
 		return range;
 	}
+    
+    public int getRefund()
+    {
+    	return cost / 2;
+    }
+
+	public int getCost() {
+		return cost;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
 
 	//find a best possible target relative to position
     public Enemy findTarget()
@@ -122,6 +145,18 @@ public class Tower extends Actor
     }
     
     AbstractProjectile createProjectile(){
-    	return new HomingProjectile(this, target, projectileJson);
+    	return new HomingProjectile(this, target, projectileModel);
+    }
+    
+    public int getUpgradeCost(){
+    	return (towerLevel+1)*this.cost;
+    }
+    
+    public void upgrade(){
+    	towerLevel+=1;
+    	this.projectileModel.setDamage((int)(this.projectileModel.getDamage()*this.upgradeRatio));
+    	this.projectileModel.setDamageRadius(this.projectileModel.getDamageRadius()*this.upgradeRatio);
+    	this.range = this.range * this.upgradeRatio;
+    	this.fireRate = this.fireRate * this.upgradeRatio;
     }
 }

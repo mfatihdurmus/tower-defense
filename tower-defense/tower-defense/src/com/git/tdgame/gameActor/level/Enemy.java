@@ -1,4 +1,4 @@
-package com.git.tdgame.gameActor.enemy;
+package com.git.tdgame.gameActor.level;
 
 import java.util.HashMap;
 
@@ -52,6 +52,7 @@ public class Enemy extends Actor
     	this.defaultSpeed = Integer.valueOf(properties.get("defaultSpeed"));
     	this.maxHealth = Integer.valueOf(properties.get("maxHealth"));
     	this.gold = Integer.valueOf(properties.get("gold"));
+    	this.damage = Integer.valueOf(properties.get("damage"));
     	
     	this.path = path;
     	this.setWidth(this.width);

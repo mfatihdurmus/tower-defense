@@ -1,30 +1,23 @@
 package com.git.tdgame.gameActor.projectile;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.gameActor.enemy.Enemy;
+import com.git.tdgame.gameActor.level.Enemy;
 
 public class HomingProjectile extends AbstractProjectile {
 
 	Actor target;
 	
-	public HomingProjectile(Actor source, Actor target, String projectileJson)
+	public HomingProjectile(Actor source, Actor target, ProjectileModel pm)
 	{
-		super(source, projectileJson);
+		super(source, pm);
 		this.target = target;
 	}
 
 	public void setSlowAmount(float slowAmount)
 	{
 		this.slowAmount = slowAmount;
-	}
-	
-	public void setTexture(Texture texture)
-	{
-		this.texture = texture;
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
 	}
 	
 	public void setDamage(int damage)
@@ -48,19 +41,6 @@ public class HomingProjectile extends AbstractProjectile {
     	Vector2 d= new Vector2(target.getX()-getX(), target.getY()-getY());
     	float degree = (float) (Math.atan(d.x/d.y)*180/Math.PI);
     	
-    	
-    	// Range bound reached
-/*    	Vector2 sourceDistance = new Vector2(getX() - source.getX(),getY() - source.getY());
-    	
-    	if(source instanceof AbstractTower)
-    	{
-    		AbstractTower t = (AbstractTower)source;
-        	if(sourceDistance.len() >= t.getRange())
-        	{
-        		this.remove();
-        		return;
-        	}
-    	}*/
     		
     	if(d.y > 0)
     	{

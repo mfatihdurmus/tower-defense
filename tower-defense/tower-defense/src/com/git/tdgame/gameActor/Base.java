@@ -27,10 +27,12 @@ public class Base extends Actor
     Sprite sprite;
 	private ShapeRenderer shapeRenderer;
     
-    public Base (Vector2 position, GameScreen gameScreen)
+    public Base (Vector2 position, GameScreen gameScreen, int health)
     {
     	this.setWidth(WIDTH);
     	this.setHeight(HEIGHT);
+    	this.maxHealth = health;
+    	this.currentHealth = this.maxHealth;
     	this.gameScreen = gameScreen;
     	
     	setPosition(position.x, position.y);

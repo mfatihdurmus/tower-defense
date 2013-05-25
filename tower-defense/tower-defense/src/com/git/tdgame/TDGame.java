@@ -1,6 +1,7 @@
 package com.git.tdgame;
 
 import com.badlogic.gdx.Game;
+import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.screen.GameScreen;
 import com.git.tdgame.screen.LevelSelectScreen;
 import com.git.tdgame.screen.MenuScreen;
@@ -12,7 +13,7 @@ public class TDGame extends Game {
 
 	private int screenWidth = 0;
 	private int screenHeight = 0;
-	private String selectedMap;
+	private LevelModel selectedLevel;
 
 	public TDGame()
 	{
@@ -35,13 +36,13 @@ public class TDGame extends Game {
 	
 	public void goToGameScreen()
 	{
-		gameScreen = new GameScreen(this, selectedMap);
+		gameScreen = new GameScreen(this, selectedLevel);
 		setScreen(gameScreen);
 	}
 	
-	public void setSelectedMap(String selectedMap)
+	public void setSelectedLevel(LevelModel selectedLevel)
 	{
-		this.selectedMap = selectedMap;
+		this.selectedLevel = selectedLevel;
 	}
 
 	public void goToMenuScreen()

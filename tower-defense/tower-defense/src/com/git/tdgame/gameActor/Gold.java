@@ -23,10 +23,11 @@ public class Gold extends Actor
     
     private BitmapFont font;
 
-    public Gold (Vector2 position)
+    public Gold (Vector2 position, int cash)
     {
     	this.setWidth(WIDTH);
     	this.setHeight(HEIGHT);
+    	this.cash = cash;
     	
     	setPosition(position.x,position.y);
     	
