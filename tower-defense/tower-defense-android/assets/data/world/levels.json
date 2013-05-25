@@ -1,0 +1,80 @@
+[
+	{
+		"name" : "level 1",
+		"selectScreenImagePath" : "data/world/level1/splash.png",
+		"mapPath" : "data/world/level1/level.tmx",
+		"gold" : "100",
+		"baseHealth" : "10",
+		"waveList": [
+						{
+							"delay" : "1",
+							"enemies" : [
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "20",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"swordman",
+											"swordman"
+										]
+						}
+					]
+	},
+	{
+		"name" : "level 2",
+		"selectScreenImagePath" : "data/world/level2/splash.png",
+		"mapPath" : "data/world/level2/level.tmx",
+		"gold" : "200",
+		"baseHealth" : "1000",
+		"waveList": [
+						{
+							"delay" : "5",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "20",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "30",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"pikeman",
+											"swordman"
+										]
+						}
+					]
+	}
+]

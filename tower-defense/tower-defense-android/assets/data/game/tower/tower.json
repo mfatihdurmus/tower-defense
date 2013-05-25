@@ -1,25 +1,34 @@
 {
 	"singleTargetTower" : {
+								"name" : "Single Target Tower",
 								"width" : "32",
 								"height" : "32",
 								"fireRate" : "1",
 								"range" : "300",
+								"cost" : "50",
+								"upgradeRatio" : "1.1",
 								"texturePath" : "data/game/tower/tower.png",
 								"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"1024\",\"damage\" : \"10\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/projectile/arrow.png\"}"
 							},
 	"slowingTower" : {
+						"name" : "Slowing Tower",
 						"width" : "32",
 						"height" : "32",
 						"fireRate" : "2",
 						"range" : "300",
+						"cost" : "70",
+						"upgradeRatio" : "1.2",
 						"texturePath" : "data/game/tower/slowTower.png",
 						"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"5\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0.5\",\"slowDuration\" : \"1\",\"texturePath\" : \"data/game/projectile/snowBall.png\"}"
 						},
 	"splashDamageTower" : {
+							"name" : "Splash Damage Tower",
 							"width" : "32",
 							"height" : "32",
 							"fireRate" : "2",
 							"range" : "150",
+							"cost" : "100",
+							"upgradeRatio" : "1.3",
 							"texturePath" : "data/game/tower/splashDamageTower.png",
 							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"10\",\"damageRadius\" : \"32\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/projectile/cannonball.png\"}"
 							}
