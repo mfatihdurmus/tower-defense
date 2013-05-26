@@ -306,9 +306,9 @@ public class GameScreen implements Screen, InputProcessor{
 			if( selectedTower == null )
 			{
 				selectedTower = new TowerConstructButton((TowerConstructButton) a);
+				selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
 				stage.addActor(selectedTower);
 			}
-				
 		}
 		
 		return false;
@@ -348,9 +348,10 @@ public class GameScreen implements Screen, InputProcessor{
 		if(selectedTower != null)
 		{
 			selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
-			Tower newTower = new Tower(new Vector2((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y),
-					towerTypes.get(selectedTower.getTowerName()));
-			if(gold.spentGold(newTower.getCost()))
+			Vector2 constructionTile = new Vector2((int)(hover.x / tileSize.x), (int)(hover.y / tileSize.y));
+			Vector2 constructionPixel = new Vector2(constructionTile.x * tileSize.x, constructionTile.y * tileSize.y);
+			Tower newTower = new Tower(constructionPixel, towerTypes.get(selectedTower.getTowerName()));
+			if(isConstructableTile(constructionTile) && gold.spentGold(newTower.getCost()))
 			{
 				stage.addActor(newTower);
 			}
@@ -360,6 +361,32 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		hidePopupButtons();
 		return false;
+	}
+
+	private boolean isConstructableTile(Vector2 constructionTile)
+	{
+		int x = (int)constructionTile.x;
+		int y = (int)constructionTile.y;
+		
+		// On first row
+		if(y <= 0)
+			return false;
+		
+		// On path
+		if(tdGameMapHelper.getTiles(tdGameMapHelper.getPATH_LAYER())[y][x] != 0)
+			return false;
+		
+		// On other tower
+		for(Actor a : stage.getActors())
+		{
+			if(a instanceof Tower)
+			{
+				Tower t = (Tower) a;
+				if((int)(t.getX()/tileSize.x) == x && (int)(t.getY()/tileSize.y) == y)
+					return false;
+			}
+		}
+		return true;
 	}
 
 	private void hidePopupButtons()

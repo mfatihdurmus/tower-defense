@@ -12,5 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/tower-defense/libs/gson-2.2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

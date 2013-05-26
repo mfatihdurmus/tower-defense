@@ -291,5 +291,590 @@
 										]
 						}
 					]
+	},
+	{
+		"name" : "level 5",
+		"selectScreenImagePath" : "data/world/level5/splash.png",
+		"mapPath" : "data/world/level5/level.tmx",
+		"gold" : "170",
+		"baseHealth" : "17",
+		"waveList": [
+						{
+							"delay" : "5",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "15",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "20",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						}
+					]
+	},
+	{
+		"name" : "level 6",
+		"selectScreenImagePath" : "data/world/level6/splash.png",
+		"mapPath" : "data/world/level6/level.tmx",
+		"gold" : "180",
+		"baseHealth" : "18",
+		"waveList": [
+						{
+							"delay" : "5",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "15",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "25",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						}
+					]
+	},
+	{
+		"name" : "level 7",
+		"selectScreenImagePath" : "data/world/level7/splash.png",
+		"mapPath" : "data/world/level7/level.tmx",
+		"gold" : "100",
+		"baseHealth" : "19",
+		"waveList": [
+						{
+							"delay" : "2",
+							"enemies" : [
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "4",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "4",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "8",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "8",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "16",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						}
+					]
+	},
+	{
+		"name" : "level 8",
+		"selectScreenImagePath" : "data/world/level8/splash.png",
+		"mapPath" : "data/world/level8/level.tmx",
+		"gold" : "190",
+		"baseHealth" : "20",
+		"waveList": [
+						{
+							"delay" : "2",
+							"enemies" : [
+											"knight",
+											"pikeman",
+											"pikeman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "7",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman",
+											"swordman",
+											"pikeman"
+										]
+						}
+					]
+	},
+	{
+		"name" : "level 9",
+		"selectScreenImagePath" : "data/world/level9/splash.png",
+		"mapPath" : "data/world/level9/level.tmx",
+		"gold" : "200",
+		"baseHealth" : "25",
+		"waveList": [
+						{
+							"delay" : "1",
+							"enemies" : [
+											"knight"
+										]
+						},
+						{
+							"delay" : "2",
+							"enemies" : [
+											"swordman",
+											"swordman"
+										]
+						},
+						{
+							"delay" : "5",
+							"enemies" : [
+											"knight",
+											"knight"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"knight",
+											"knight",
+											"knight",
+											"knight",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"swordman",
+											"knight",
+											"knight",
+											"knight",
+											"knight"
+										]
+						}
+					]
 	}
 ]

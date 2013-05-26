@@ -16,5 +16,14 @@
 					"gold" : "10",
 					"damage" : "5",
 					"texturePath" : "data/game/enemy/ball.png"
+				},
+	"knight" : {
+					"defaultSpeed" : "100",
+					"width" : "32",
+					"height" : "32",
+					"maxHealth" : "150",
+					"gold" : "25",
+					"damage" : "17",
+					"texturePath" : "data/game/enemy/ball.png"
 				}
 }

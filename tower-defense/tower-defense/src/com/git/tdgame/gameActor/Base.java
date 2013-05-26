@@ -48,17 +48,20 @@ public class Base extends Actor
     	getStage().getCamera().update();
 		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
 
+		float y = getY()-healthBarHeight;
+		if(y < 0)
+			y = 0;
 		float healthLeftBar = getWidth() * ((float)currentHealth/maxHealth);
     	batch.end();
         shapeRenderer.begin(ShapeType.Rectangle);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(getX(), getY()-healthBarHeight, getWidth()+2, healthBarHeight+2);
+        shapeRenderer.rect(getX(), y, getWidth()+2, healthBarHeight+2);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeType.FilledRectangle);
         shapeRenderer.setColor(Color.RED);
-        shapeRenderer.filledRect(getX()+1, getY()-healthBarHeight+1, getWidth(), healthBarHeight);
+        shapeRenderer.filledRect(getX()+1, y+1, getWidth(), healthBarHeight);
         shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.filledRect(getX()+1, getY()-healthBarHeight+1, healthLeftBar, healthBarHeight);
+        shapeRenderer.filledRect(getX()+1, y+1, healthLeftBar, healthBarHeight);
         shapeRenderer.end();
         batch.begin();
     }

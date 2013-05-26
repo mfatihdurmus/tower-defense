@@ -5,7 +5,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.tiled.TileAtlas;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
@@ -24,20 +23,24 @@ public class TDGameMapHelper
 	private final int END_POINT = 7;
 	private final int PATH_LAYER = 1;
 	
-	public int[][] getTiles(String layerName)
+	public int[][] getTiles(int layer)
 	{
-		for(TiledLayer tl : map.layers)
-		{
-			if(tl.name.equals(layerName))
-			{
-				return tl.tiles;
-			}
-		}
+		if(layer < map.layers.size())
+			return map.layers.get(layer).tiles;
 		return null;
 	}
-	/**
-	 * Renders the part of the map that should be visible to the user.
-	 */
+
+	public int getSTART_POINT() {
+		return START_POINT;
+	}
+
+	public int getEND_POINT() {
+		return END_POINT;
+	}
+
+	public int getPATH_LAYER() {
+		return PATH_LAYER;
+	}
 
 	public Array<Vector2> getStartPoints()
 	{
