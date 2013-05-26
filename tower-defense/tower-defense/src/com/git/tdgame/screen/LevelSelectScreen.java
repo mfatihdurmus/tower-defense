@@ -51,10 +51,9 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 		int levelIndex = 0;
 		for(int j = 0; j< (levels.size()-1)/3+1; j++)
 		{
-			
 			for(int i = 0; i < (((j+1)*3 > levels.size() ? levels.size()%3 : 3)); ++i)
 			{
-				LevelBox l = new LevelBox(i * (256 + 16), j * (256+16), 256, 256, levels.get(j*3+i), stage.getHeight());
+				LevelBox l = new LevelBox(i * (stage.getWidth()/3 + 10)+10, j * (stage.getHeight()/3+10), (int)stage.getWidth()/4, (int)stage.getHeight()/4, levels.get(j*3+i), stage.getHeight());
 				
 				if(levelIndex > unlockedLevels)
 				{

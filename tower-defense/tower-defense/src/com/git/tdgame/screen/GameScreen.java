@@ -91,7 +91,7 @@ public class GameScreen implements Screen, InputProcessor{
 
         // Spawn enemies
         waveDelay -= delta;
-        if(waveDelay < 0 && !defeat)
+        if(waveDelay < 0 && !defeat && spawnLeft <= 0)
         {
         	if(waves.size() > currentWave)
         	{

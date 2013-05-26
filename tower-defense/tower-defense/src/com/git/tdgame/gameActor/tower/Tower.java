@@ -39,7 +39,7 @@ public class Tower extends Actor
     	//properties
     	this.width = Integer.valueOf(properties.get("width"));
     	this.height = Integer.valueOf(properties.get("height"));
-    	this.fireRate = Integer.valueOf(properties.get("fireRate"));
+    	this.fireRate = Float.valueOf(properties.get("fireRate"));
     	this.range = Integer.valueOf(properties.get("range"));
     	this.cost = Integer.valueOf(properties.get("cost"));
     	this.projectileModel = gson.fromJson(properties.get("projectile"), ProjectileModel.class);

@@ -1,9 +1,9 @@
 {
 	"swordman" : {
-					"defaultSpeed" : "64",
+					"defaultSpeed" : "72",
 					"width" : "32",
 					"height" : "32",
-					"maxHealth" : "40",
+					"maxHealth" : "20",
 					"gold" : "10",
 					"damage" : "10",
 					"texturePath" : "data/game/enemy/ball.png"
@@ -12,7 +12,7 @@
 					"defaultSpeed" : "256",
 					"width" : "32",
 					"height" : "32",
-					"maxHealth" : "20",
+					"maxHealth" : "10",
 					"gold" : "10",
 					"damage" : "5",
 					"texturePath" : "data/game/enemy/ball.png"
