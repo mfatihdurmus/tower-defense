@@ -1,21 +1,21 @@
 {
-	"swordman" : {
+	"swordsman" : {
 					"defaultSpeed" : "72",
 					"width" : "32",
 					"height" : "32",
 					"maxHealth" : "20",
 					"gold" : "10",
 					"damage" : "10",
-					"texturePath" : "data/game/enemy/ball.png"
+					"texturePath" : "data/game/enemy/swordsmanSprite.png"
 				},
 	"pikeman" : {
-					"defaultSpeed" : "256",
+					"defaultSpeed" : "200",
 					"width" : "32",
 					"height" : "32",
 					"maxHealth" : "10",
 					"gold" : "10",
 					"damage" : "5",
-					"texturePath" : "data/game/enemy/ball.png"
+					"texturePath" : "data/game/enemy/pikemanSprite.png"
 				},
 	"knight" : {
 					"defaultSpeed" : "100",
@@ -24,6 +24,6 @@
 					"maxHealth" : "150",
 					"gold" : "25",
 					"damage" : "17",
-					"texturePath" : "data/game/enemy/ball.png"
+					"texturePath" : "data/game/enemy/knightSprite.png"
 				}
 }

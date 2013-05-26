@@ -43,6 +43,7 @@ public class Enemy extends Actor
     private double spritePos = 0;
     private int numberOfFrames = 0;
 	private ShapeRenderer shapeRenderer;
+	private int drawDirection = 1;
 
     public Enemy (Array<Vector2>path, HashMap<String,String> properties)
     {
@@ -65,7 +66,7 @@ public class Enemy extends Actor
     	direction = new Vector2();
     	direction = findNewDirection();
     	
-    	texture = new Texture(Gdx.files.internal("data/game/enemy/ball.png"));
+    	texture = new Texture(Gdx.files.internal(properties.get("texturePath")));
     	numberOfFrames = (int)(texture.getWidth()/this.width);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,this.width,this.height);
         shapeRenderer = new ShapeRenderer();
@@ -73,7 +74,13 @@ public class Enemy extends Actor
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	batch.draw(sprite,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,1,-1,0);
+    	if(drawDirection > 0)
+    	{
+    		batch.draw(sprite,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    	} else if(drawDirection < 0)
+    	{
+    		batch.draw(sprite,getX()+getWidth(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    	}
     	
     	getStage().getCamera().update();
 		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
@@ -183,6 +190,12 @@ public class Enemy extends Actor
 		{
 			newPosition.set(0,1);
 		}
+		
+    	if(newPosition.x != 0)
+    	{
+    		drawDirection = (int)newPosition.x;
+    	}
+
 		return newPosition;
     }
     
