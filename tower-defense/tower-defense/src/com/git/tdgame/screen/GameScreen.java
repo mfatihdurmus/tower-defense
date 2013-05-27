@@ -32,6 +32,8 @@ public class GameScreen implements Screen, InputProcessor{
 
 	// To access game functions
 	private TDGame game;
+	
+	private Tower hoveredTower;
 
 	// Stage
 	private Stage stage;
@@ -208,7 +210,7 @@ public class GameScreen implements Screen, InputProcessor{
 		int guiPosition = 0;
 		for( String key : towerTypes.keySet()  )
 		{
-			TowerConstructButton btn = new TowerConstructButton(towerTypes.get(key).get("texturePath"), key);
+			TowerConstructButton btn = new TowerConstructButton(towerTypes.get(key).get("texturePath"), key, Integer.valueOf(towerTypes.get(key).get("range")));
 			btn.setPosition(guiPosition, 0);
 			
 			guiPosition += 64;
@@ -287,14 +289,16 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		if(a instanceof Tower)
 		{
-			Tower t = (Tower) a;
+			hoveredTower = (Tower) a;
 			
-			towerUpgradeButton = new TowerUpgradeButton(t);
-			towerUpgradeButton.setPosition(t.getX() + 32, t.getY());
+			hoveredTower.setHovered(true);
+			
+			towerUpgradeButton = new TowerUpgradeButton(hoveredTower);
+			towerUpgradeButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY());
 			towerUpgradeButton.setZIndex(2);
 			
-			towerRemoveButton = new TowerRemoveButton(t);
-			towerRemoveButton.setPosition(t.getX() + 32, t.getY() + 64);
+			towerRemoveButton = new TowerRemoveButton(hoveredTower);
+			towerRemoveButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY() + 64);
 			towerRemoveButton.setZIndex(2);
 			
 			stage.addActor( towerUpgradeButton );
@@ -307,6 +311,7 @@ public class GameScreen implements Screen, InputProcessor{
 			{
 				selectedTower = new TowerConstructButton((TowerConstructButton) a);
 				selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
+				selectedTower.setHovered(true);
 				stage.addActor(selectedTower);
 			}
 		}
@@ -320,6 +325,11 @@ public class GameScreen implements Screen, InputProcessor{
 		if(defeat || victory)
 		{
 			game.goToLevelSelectScreen();
+		}
+		
+		if(hoveredTower != null)
+		{
+			hoveredTower.setHovered(false);
 		}
 
 		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
@@ -355,6 +365,7 @@ public class GameScreen implements Screen, InputProcessor{
 			{
 				stage.addActor(newTower);
 			}
+			selectedTower.setHovered(false);
 			selectedTower.remove();
 			selectedTower = null;
 		}

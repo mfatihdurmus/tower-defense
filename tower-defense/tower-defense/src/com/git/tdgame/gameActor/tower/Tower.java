@@ -2,9 +2,14 @@ package com.git.tdgame.gameActor.tower;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -28,10 +33,13 @@ public class Tower extends Actor
     float upgradeRatio;
     String name;
     
+    private boolean isHovered = false;
+    
     float timeToFire = 0;
     Enemy target;
     Texture texture;
     Sprite sprite;
+	private ShapeRenderer shapeRenderer;
     
     public Tower (Vector2 position, HashMap<String, String> properties)
     {
@@ -52,12 +60,26 @@ public class Tower extends Actor
     	
     	texture = new Texture(properties.get("texturePath"));
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,width,height);
-        
+        shapeRenderer = new ShapeRenderer();
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
     	batch.draw(sprite,getX(),getY()+height,getOriginX(),getOriginY(),width,height,1,-1,0);
+    	
+    	if(isHovered)
+    	{
+	    	batch.end();
+	    	Gdx.gl.glEnable(GL10.GL_BLEND);
+		    Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+			shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
+		    shapeRenderer.begin(ShapeType.FilledCircle);
+	   		shapeRenderer.setColor(new Color(0, 1, 0, 0.3f));
+	   		shapeRenderer.filledCircle(getX()+width/2, getY()+height/2, range);
+	   		shapeRenderer.end();
+	   		Gdx.gl.glDisable(GL10.GL_BLEND);
+	        batch.begin();
+    	}
     }
 
     public void act (float delta)
@@ -162,4 +184,13 @@ public class Tower extends Actor
     	this.range = this.range * this.upgradeRatio;
     	this.fireRate = this.fireRate / this.upgradeRatio;
     }
+
+	public boolean isHovered() {
+		return isHovered;
+	}
+
+	public void setHovered(boolean isHovered) {
+		this.isHovered = isHovered;
+	}
+
 }

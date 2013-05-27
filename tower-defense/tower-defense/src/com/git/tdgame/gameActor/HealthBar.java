@@ -61,12 +61,12 @@ public class HealthBar {
 
 	public void draw(Stage stage, SpriteBatch batch) {
 		
-		shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
 		float y = position.y-healthBarHeight;
 		if(y < 0)
 			y = 0;
 		float healthLeftBar = getWidth() * ((float)currentHealth/maxHealth);
     	batch.end();
+		shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
         shapeRenderer.begin(ShapeType.FilledRectangle);
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.filledRect(position.x, y, getWidth(), healthBarHeight);
