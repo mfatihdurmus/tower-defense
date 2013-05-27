@@ -42,7 +42,7 @@ public class HomingProjectile extends AbstractProjectile {
     	float degree = (float) (Math.atan(d.x/d.y)*180/Math.PI);
     	
     		
-    	if(d.y > 0)
+    	if(d.y >= 0)
     	{
     		degree += 180;
     	}

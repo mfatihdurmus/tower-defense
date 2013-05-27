@@ -3,17 +3,15 @@ package com.git.tdgame.gameActor.level;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Gold;
+import com.git.tdgame.gameActor.HealthBar;
 
 
 public class Enemy extends Actor
@@ -23,15 +21,14 @@ public class Enemy extends Actor
 	private int width;
 	private int height;
 	private int defaultSpeed;
-	private int maxHealth;
 	private int gold;
     private float speed = 128;
     private boolean alive = true;
     private float traveledDist = 0;
-    private int currentHealth = 0;
     private float slowTime = 0;
-    private final int healthBarHeight = 10;
     private int damage = 5;
+    
+    private HealthBar healthBar;
     
     // Path variables
     private Array<Vector2> path;
@@ -42,7 +39,6 @@ public class Enemy extends Actor
     private Sprite sprite;
     private double spritePos = 0;
     private int numberOfFrames = 0;
-	private ShapeRenderer shapeRenderer;
 	private int drawDirection = 1;
 
     public Enemy (Array<Vector2>path, HashMap<String,String> properties)
@@ -51,16 +47,16 @@ public class Enemy extends Actor
     	this.width = Integer.valueOf(properties.get("width"));
     	this.height = Integer.valueOf(properties.get("height"));
     	this.defaultSpeed = Integer.valueOf(properties.get("defaultSpeed"));
-    	this.maxHealth = Integer.valueOf(properties.get("maxHealth"));
     	this.gold = Integer.valueOf(properties.get("gold"));
     	this.damage = Integer.valueOf(properties.get("damage"));
-    	
     	this.path = path;
     	this.setWidth(this.width);
     	this.setHeight(this.height);
-    	this.currentHealth = this.maxHealth;
     	
-    	setPosition(path.get(currentPath).x, path.get(currentPath).y);
+    	Vector2 position = new Vector2(path.get(currentPath).x, path.get(currentPath).y);
+    	setPosition(position.x, position.y);
+        healthBar = new HealthBar(Integer.valueOf(properties.get("maxHealth")), position, this.width, this.height);
+        
     	++currentPath;
     	
     	direction = new Vector2();
@@ -69,7 +65,7 @@ public class Enemy extends Actor
     	texture = new Texture(Gdx.files.internal(properties.get("texturePath")));
     	numberOfFrames = (int)(texture.getWidth()/this.width);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,this.width,this.height);
-        shapeRenderer = new ShapeRenderer();
+        
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
@@ -83,25 +79,7 @@ public class Enemy extends Actor
     	}
     	
     	getStage().getCamera().update();
-		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
-
-		float y = getY()-healthBarHeight;
-		if(y < 0)
-			y = 0;
-		
-		float healthLeftBar = getWidth() * ((float)currentHealth/maxHealth);
-    	batch.end();
-        shapeRenderer.begin(ShapeType.Rectangle);
-        shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(getX(), y, getWidth()+2, healthBarHeight+2);
-        shapeRenderer.end();
-        shapeRenderer.begin(ShapeType.FilledRectangle);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.filledRect(getX()+1, y+1, getWidth(), healthBarHeight);
-        shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.filledRect(getX()+1, y+1, healthLeftBar, healthBarHeight);
-        shapeRenderer.end();
-        batch.begin();
+    	healthBar.draw(getStage(), batch);
     }
 
     public void act (float delta)
@@ -154,6 +132,8 @@ public class Enemy extends Actor
     	
     	setX(targetX);
     	setY(targetY);
+    	
+    	healthBar.setPosition(new Vector2(targetX, targetY));
     	
     	traveledDist += speed*delta;
     }
@@ -209,9 +189,9 @@ public class Enemy extends Actor
     
 	public void takeDamage(int d)
 	{
-		currentHealth -= d;
+		healthBar.setCurrentHealth(healthBar.getCurrentHealth()-d);
 		
-		if(currentHealth <= 0)
+		if(healthBar.getCurrentHealth() <= 0)
 		{
 			die();
 		}

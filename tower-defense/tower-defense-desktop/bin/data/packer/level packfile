@@ -143,3 +143,59 @@ level
   orig: 32, 32
   offset: 0, 0
   index: 19
+level
+  rotate: false
+  xy: 68, 204
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 20
+level
+  rotate: false
+  xy: 0, 238
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 21
+level
+  rotate: false
+  xy: 34, 238
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 22
+level
+  rotate: false
+  xy: 68, 238
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 23
+level
+  rotate: false
+  xy: 0, 272
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 24
+level
+  rotate: false
+  xy: 34, 272
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 25
+level
+  rotate: false
+  xy: 68, 272
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 26
+level
+  rotate: false
+  xy: 0, 306
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 27
