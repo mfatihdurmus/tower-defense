@@ -34,6 +34,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private TDGame game;
 	
 	private Tower hoveredTower;
+	private boolean isUpgradeDisplay = false;
 
 	// Stage
 	private Stage stage;
@@ -340,6 +341,7 @@ public class GameScreen implements Screen, InputProcessor{
 			towerUpgradeButton = (TowerUpgradeButton) a;
 			//upgrade tower
 			Tower tower = towerUpgradeButton.getTower();
+			tower.setUpgradeDisplay(false);
 			if(gold.spentGold(tower.getUpgradeCost()))
 			{
 				tower.upgrade();
@@ -422,6 +424,20 @@ public class GameScreen implements Screen, InputProcessor{
 		if(selectedTower != null)
 		{
 			selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
+		}
+		
+		Actor a = stage.hit(hover.x,hover.y,true);
+		if(a instanceof TowerUpgradeButton)
+		{
+			if(hoveredTower.isHovered())
+			{
+				isUpgradeDisplay = true;
+				hoveredTower.setUpgradeDisplay(true);
+			}
+		} else if(isUpgradeDisplay)
+		{
+			isUpgradeDisplay = false;
+			hoveredTower.setUpgradeDisplay(false);
 		}
 		
 		// TODO Auto-generated method stub

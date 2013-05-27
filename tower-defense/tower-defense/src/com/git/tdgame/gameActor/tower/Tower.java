@@ -34,6 +34,7 @@ public class Tower extends Actor
     String name;
     
     private boolean isHovered = false;
+    private boolean isUpgradeDisplay = false;
     
     float timeToFire = 0;
     Enemy target;
@@ -63,7 +64,15 @@ public class Tower extends Actor
         shapeRenderer = new ShapeRenderer();
     }
 
-    public void draw (SpriteBatch batch, float parentAlpha)
+    public boolean isUpgradeDisplay() {
+		return isUpgradeDisplay;
+	}
+
+	public void setUpgradeDisplay(boolean isUpgradeDisplay) {
+		this.isUpgradeDisplay = isUpgradeDisplay;
+	}
+
+	public void draw (SpriteBatch batch, float parentAlpha)
     {
     	batch.draw(sprite,getX(),getY()+height,getOriginX(),getOriginY(),width,height,1,-1,0);
     	
@@ -75,7 +84,12 @@ public class Tower extends Actor
 			shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
 		    shapeRenderer.begin(ShapeType.FilledCircle);
 	   		shapeRenderer.setColor(new Color(0, 1, 0, 0.3f));
-	   		shapeRenderer.filledCircle(getX()+width/2, getY()+height/2, range);
+	   		if(isUpgradeDisplay)
+	   		{
+	   			shapeRenderer.filledCircle(getX()+width/2, getY()+height/2, range * upgradeRatio);
+	   		} else {
+	   			shapeRenderer.filledCircle(getX()+width/2, getY()+height/2, range);
+	   		}
 	   		shapeRenderer.end();
 	   		Gdx.gl.glDisable(GL10.GL_BLEND);
 	        batch.begin();
