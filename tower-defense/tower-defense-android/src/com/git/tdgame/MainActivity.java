@@ -6,6 +6,8 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class MainActivity extends AndroidApplication {
+	
+	private TDGame game;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -13,6 +15,11 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new TDGame(), cfg);
+        game = new TDGame();
+        initialize(game, cfg);
+    }
+    
+    public TDGame getGameInstance(){
+    	return game;
     }
 }
