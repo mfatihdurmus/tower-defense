@@ -13,5 +13,13 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="D:/personal dev/Android SDK/platforms/android-16/android.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/personal dev/Android SDK/docs/reference"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
