@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -68,6 +69,9 @@ public class GameScreen implements Screen, InputProcessor{
 	// Selected tower
 	private TowerConstructButton selectedTower; 
 
+	// in-game music
+	private Music music;
+	
 	public GameScreen(TDGame game, LevelModel levelModel)
 	{
 		this.game = game;
@@ -228,6 +232,9 @@ public class GameScreen implements Screen, InputProcessor{
 		{
 			totalSpawnLeft += w.getEnemies().size();
 		}
+		
+		music = Gdx.audio.newMusic(Gdx.files.internal("data/game/crusade.mp3"));
+		music.play();
 	}
 	
 	public void defeat()
@@ -260,7 +267,7 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public void dispose()
 	{
-		// TODO Auto-generated method stub
+		music.dispose();
 	}
 
 	@Override
@@ -325,6 +332,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if(defeat || victory)
 		{
+			music.pause();
 			game.goToLevelSelectScreen();
 		}
 		

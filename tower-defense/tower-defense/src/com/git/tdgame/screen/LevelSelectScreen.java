@@ -5,6 +5,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,6 +24,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 	private Stage stage;
 	private List<LevelModel> levels;
 	private int unlockedLevels;
+	private Music levelScreenMusic;
 	
 	public LevelSelectScreen(TDGame game, int unlockedLevels)
 	{
@@ -75,6 +77,11 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 				++levelIndex;
 			}
 		}
+		
+		levelScreenMusic = Gdx.audio.newMusic(Gdx.files.internal("data/menu/levelScreenMusic.wav"));
+		levelScreenMusic.setLooping(true);
+		levelScreenMusic.setVolume(0.8f);
+		levelScreenMusic.play();
 	}
 
 	@Override
@@ -97,7 +104,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		levelScreenMusic.dispose();
 		
 	}
 	@Override
@@ -127,6 +134,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 		{
 			LevelBox l = (LevelBox) a;
 			game.setSelectedLevel(l.getLevel());
+			levelScreenMusic.pause();
 			game.goToGameScreen();
 			this.dispose();
 		}

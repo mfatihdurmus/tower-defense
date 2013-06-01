@@ -1,8 +1,10 @@
 package com.git.tdgame.gameActor.tower;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,6 +43,9 @@ public class Tower extends Actor
     Texture texture;
     Sprite sprite;
 	private ShapeRenderer shapeRenderer;
+	
+	Sound fireSound;
+	Sound fireSoundAlternative;
     
     public Tower (Vector2 position, HashMap<String, String> properties)
     {
@@ -54,6 +59,8 @@ public class Tower extends Actor
     	this.projectileModel = gson.fromJson(properties.get("projectile"), ProjectileModel.class);
     	this.upgradeRatio = Float.valueOf(properties.get("upgradeRatio"));
     	this.name = properties.get("name");
+    	this.fireSound = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPath")));
+    	this.fireSoundAlternative = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPathAlter")));
     	
     	setPosition(position.x, position.y);
     	setHeight(32);
@@ -181,6 +188,11 @@ public class Tower extends Actor
     public void fire()
     {
     	getStage().addActor(createProjectile());
+    	Random generator = new Random();
+    	if(generator.nextInt(2) == 0)
+    		fireSound.play();
+    	else
+    		fireSoundAlternative.play();
     }
     
     AbstractProjectile createProjectile(){
