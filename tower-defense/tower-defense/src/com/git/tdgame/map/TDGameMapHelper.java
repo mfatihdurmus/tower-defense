@@ -10,22 +10,20 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class TDGameMapHelper
-{
+public class TDGameMapHelper {
 	private FileHandle packFileDirectory;
 	private OrthographicCamera camera;
 
 	private TileAtlas tileAtlas;
 	private TileMapRenderer tileMapRenderer;
 	private TiledMap map;
-	
+
 	private final int START_POINT = 6;
 	private final int END_POINT = 7;
 	private final int PATH_LAYER = 1;
-	
-	public int[][] getTiles(int layer)
-	{
-		if(layer < map.layers.size())
+
+	public int[][] getTiles(int layer) {
+		if (layer < map.layers.size())
 			return map.layers.get(layer).tiles;
 		return null;
 	}
@@ -42,77 +40,65 @@ public class TDGameMapHelper
 		return PATH_LAYER;
 	}
 
-	public Array<Vector2> getStartPoints()
-	{
+	public Array<Vector2> getStartPoints() {
 		Array<Vector2> startPoints = new Array<Vector2>();
 		int[][] pathTiles = map.layers.get(PATH_LAYER).tiles;
-		
+
 		int y = 0;
-		for(int[] col : pathTiles)
-		{
+		for (int[] col : pathTiles) {
 			int x = 0;
-			for(int row : col)
-			{
-				if(row == START_POINT)
-					startPoints.add(new Vector2(x,y));
+			for (int row : col) {
+				if (row == START_POINT)
+					startPoints.add(new Vector2(x, y));
 				++x;
 			}
 			++y;
 		}
 		return startPoints;
 	}
-	
-	public Array<Vector2> getPath(Vector2 startPoint)
-	{
+
+	public Array<Vector2> getPath(Vector2 startPoint) {
 		// TO DO : Backtracking for branching paths
 		Array<Vector2> path = new Array<Vector2>();
-		
+
 		int[][] pathTiles = map.layers.get(PATH_LAYER).tiles;
-		
+
 		Vector2 endPoint = getEndPoint();
-		int x = (int)startPoint.x;
-		int y = (int)startPoint.y;
-		int fX = (int)endPoint.x;
-		int fY = (int)endPoint.y;
-		
+		int x = (int) startPoint.x;
+		int y = (int) startPoint.y;
+		int fX = (int) endPoint.x;
+		int fY = (int) endPoint.y;
+
 		int direction = 0;
-		while(x != fX || y != fY)
-		{
-			if(y+1 < 32 && pathTiles[y+1][x] != 0 && direction != 2)
-			{
-				if(direction != 1)
-				{
-					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
+		while (x != fX || y != fY) {
+			if (y + 1 < 32 && pathTiles[y + 1][x] != 0 && direction != 2) {
+				if (direction != 1) {
+					Vector2 newVector = new Vector2(x * map.tileWidth, y
+							* map.tileHeight);
 					path.add(newVector);
 					direction = 1;
 				}
 				y++;
-			}
-			else if(y-1 >= 0 && pathTiles[y-1][x] != 0 && direction != 1)
-			{
-				if(direction != 2)
-				{
-					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
+			} else if (y - 1 >= 0 && pathTiles[y - 1][x] != 0 && direction != 1) {
+				if (direction != 2) {
+					Vector2 newVector = new Vector2(x * map.tileWidth, y
+							* map.tileHeight);
 					path.add(newVector);
 					direction = 2;
 				}
 				y--;
-		    }        
-			else if(x+1 < 32 && pathTiles[y][x+1] != 0 && direction != 4)
-			{
-				if(direction != 3)
-				{
-					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
+			} else if (x + 1 < 32 && pathTiles[y][x + 1] != 0 && direction != 4) {
+				if (direction != 3) {
+					Vector2 newVector = new Vector2(x * map.tileWidth, y
+							* map.tileHeight);
 					path.add(newVector);
 					direction = 3;
 				}
 				x++;
-			} 
-			else if(x-1 >= 0 && pathTiles[y][x-1] != 0 && direction != 3)
-			{
-				if(direction != 4)
-				{
-					Vector2 newVector = new Vector2(x*map.tileWidth,y*map.tileHeight);
+			} else if (x - 1 >= 0 && pathTiles[y][x - 1] != 0 && direction != 3) {
+				if (direction != 4) {
+					Vector2 newVector = new Vector2(x * map.tileWidth, y
+							* map.tileHeight);
 					path.add(newVector);
 					direction = 4;
 				}
@@ -122,12 +108,11 @@ public class TDGameMapHelper
 				return path;
 			}
 		}
-		path.add(new Vector2(fX*map.tileWidth,fY*map.tileHeight));
+		path.add(new Vector2(fX * map.tileWidth, fY * map.tileHeight));
 		return path;
 	}
-	
-	public void render()
-	{
+
+	public void render() {
 		tileMapRenderer.render(getCamera());
 	}
 
@@ -149,26 +134,21 @@ public class TDGameMapHelper
 		return map.width * map.tileWidth;
 	}
 
-	public Vector2 getEndPoint()
-	{
+	public Vector2 getEndPoint() {
 		int[][] pathTiles = map.layers.get(PATH_LAYER).tiles;
-		
+
 		int y = 0;
-		for(int[] col : pathTiles)
-		{
+		for (int[] col : pathTiles) {
 			int x = 0;
-			for(int row : col)
-			{
-				if(row == END_POINT)
-					return new Vector2(x,y);
+			for (int row : col) {
+				if (row == END_POINT)
+					return new Vector2(x, y);
 				++x;
 			}
 			++y;
 		}
 		return null;
 	}
-
-
 
 	/**
 	 * Get the map, useful for iterating over the set of tiles found within
@@ -207,7 +187,7 @@ public class TDGameMapHelper
 		}
 
 		map = TiledLoader.createMap(Gdx.files.internal(tmxFile));
-		
+
 		tileAtlas = new TileAtlas(map, packFileDirectory);
 
 		tileMapRenderer = new TileMapRenderer(map, tileAtlas, 16, 16);
@@ -221,7 +201,6 @@ public class TDGameMapHelper
 	 */
 	public void prepareCamera(int screenWidth, int screenHeight) {
 		camera = new OrthographicCamera(screenWidth, screenHeight);
-
 		camera.position.set(0, 0, 0);
 	}
 

@@ -19,11 +19,16 @@ import com.git.tdgame.TDGame;
 import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Gold;
+import com.git.tdgame.gameActor.MenuButton;
+import com.git.tdgame.gameActor.MenuButton.ButtonType;
+import com.git.tdgame.gameActor.PauseButton;
+import com.git.tdgame.gameActor.PauseMenu;
 import com.git.tdgame.gameActor.level.Enemy;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.gameActor.tower.TowerConstructButton;
+import com.git.tdgame.gameActor.tower.TowerDisplay;
 import com.git.tdgame.gameActor.tower.TowerRemoveButton;
 import com.git.tdgame.gameActor.tower.TowerUpgradeButton;
 import com.git.tdgame.map.TDGameMapHelper;
@@ -46,6 +51,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private int currentWave = 0;
 	private LevelModel levelModel;
 	private Gold gold;
+	private int levelIndex;
 	
 	private HashMap<String, HashMap<String,String>> enemyTypes;
 	private HashMap<String, HashMap<String,String>> towerTypes;
@@ -68,9 +74,17 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	// Selected tower
 	private TowerConstructButton selectedTower; 
+	
+	private TowerDisplay towerDisplay;
+	
+	private MenuButton quitButton;
+	private MenuButton restartButton;
+	private MenuButton resumeButton;
 
 	// in-game music
 	private Music music;
+	
+	private boolean isPaused;
 	
 	public GameScreen(TDGame game, LevelModel levelModel)
 	{
@@ -79,6 +93,7 @@ public class GameScreen implements Screen, InputProcessor{
 		this.enemyTypes = DataProvider.getEnemyTypes();
 		this.towerTypes = DataProvider.getTowerTypes();
 		this.waves = levelModel.getWaveList();
+		this.levelIndex = levelModel.getLevelIndex();
 	}
 	
 	@Override
@@ -92,12 +107,14 @@ public class GameScreen implements Screen, InputProcessor{
 		tdGameMapHelper.render();
 
 		// Stage update
-		if(!defeat && !victory)
+		if(!defeat && !victory && !isPaused)
+		{
+	        waveDelay -= delta;
 			stage.act(delta);
+		}
         stage.draw();
 
         // Spawn enemies
-        waveDelay -= delta;
         if(waveDelay < 0 && !defeat && spawnLeft <= 0)
         {
         	if(waves.size() > currentWave)
@@ -138,7 +155,8 @@ public class GameScreen implements Screen, InputProcessor{
         
         if(spawnLeft > 0 && currentWave > 0)
         {
-        	spawnTime += delta;
+    		if(!defeat && !victory && !isPaused)
+    			spawnTime += delta;
             if(spawnTime > spawnDelay)
             {
             	spawnTime = 0;
@@ -162,8 +180,10 @@ public class GameScreen implements Screen, InputProcessor{
 		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
 
 		stage.addActor(splashImage);
-		if(!victory)
+		if(!victory && game.getUnlockedLevels() <= this.levelIndex)
+		{
 			game.unlockLevels(game.getUnlockedLevels()+1);
+		}
 		
 		victory = true;
 	}
@@ -203,14 +223,20 @@ public class GameScreen implements Screen, InputProcessor{
 		stage = new Stage();
 		stage.setCamera(new OrthographicCamera(game.getScreenWidth(),game.getScreenHeight()));
 		stage.getCamera().rotate(180,1,0,0);
-		stage.getCamera().update();
 		stage.setViewport(tdGameMapHelper.getWidth(), tdGameMapHelper.getHeight(), false);
+		stage.getCamera().update();
 		
 		gold = new Gold(new Vector2(0,(tdGameMapHelper.getMap().height-1)*tileSize.y), levelModel.getGold());
 		stage.addActor(gold);
 		
 		Vector2 endPoint = tdGameMapHelper.getEndPoint();
 		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this, levelModel.getBaseHealth()));
+		
+		// Display
+		towerDisplay = new TowerDisplay(towerTypes.keySet().size()*64);
+		towerDisplay.setSize(stage.getWidth(), 70);
+		towerDisplay.setPosition(0, 0);
+		stage.addActor(towerDisplay);
 		
 		int guiPosition = 0;
 		for( String key : towerTypes.keySet()  )
@@ -221,7 +247,7 @@ public class GameScreen implements Screen, InputProcessor{
 			guiPosition += 64;
 			
 			stage.addActor( btn );
-		}
+		}		
 		
 		if(waves.size()>currentWave)
 		{
@@ -235,6 +261,13 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		music = Gdx.audio.newMusic(Gdx.files.internal("data/game/crusade.mp3"));
 		music.play();
+		
+		PauseButton pauseBtn = new PauseButton();
+		pauseBtn.setPosition(stage.getWidth()-64, 0);
+		stage.addActor(pauseBtn);
+		
+		isPaused = false;
+		
 	}
 	
 	public void defeat()
@@ -255,7 +288,7 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public void pause()
 	{
-		// TODO Auto-generated method stub
+		pauseGame();
 	}
 
 	@Override
@@ -290,7 +323,7 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(defeat || victory)
+		if(defeat || victory || isPaused)
 			return false;
 		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
 		Actor a = stage.hit(hover.x,hover.y,true);
@@ -336,14 +369,46 @@ public class GameScreen implements Screen, InputProcessor{
 			game.goToLevelSelectScreen();
 		}
 		
+		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
+		Actor a = stage.hit(hover.x,hover.y,true);
+		
+		if(a instanceof PauseButton)
+		{
+			pauseGame();
+			return false;
+		}
+		
+		if(a instanceof MenuButton)
+		{
+			MenuButton btn = (MenuButton) a;
+			
+			if(btn.getType() == ButtonType.RESUME)
+			{
+				resumeGame();
+			}
+			else if(btn.getType() == ButtonType.RESTART)
+			{
+				game.goToGameScreen();
+				this.dispose();
+			}
+			else if(btn.getType() == ButtonType.QUIT)
+			{
+				game.goToLevelSelectScreen();
+				this.dispose();
+			}
+
+			return false;
+		}
+		
+		if(isPaused)
+			return false;
+		
+		
 		if(hoveredTower != null)
 		{
 			hoveredTower.setHovered(false);
 		}
 
-		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
-		Actor a = stage.hit(hover.x,hover.y,true);
-		
 		if(a instanceof TowerUpgradeButton)
 		{
 			towerUpgradeButton = (TowerUpgradeButton) a;
@@ -363,6 +428,13 @@ public class GameScreen implements Screen, InputProcessor{
 			Tower tower = towerUpgradeButton.getTower(); 
 			gold.addGold(tower.getRefund());
 			tower.remove();
+		}
+		
+		if(a instanceof Tower)
+		{
+			Tower tower = (Tower) a;
+			// Give display tower info
+			towerDisplay.setSelectedTower(tower);
 		}
 		
 		if(selectedTower != null)
@@ -389,8 +461,8 @@ public class GameScreen implements Screen, InputProcessor{
 		int x = (int)constructionTile.x;
 		int y = (int)constructionTile.y;
 		
-		// On first row
-		if(y <= 0)
+		// On first two row
+		if(y <= 1)
 			return false;
 		
 		// On path
@@ -461,5 +533,36 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void pauseGame()
+	{
+		isPaused = true;
+		stage.addActor(new PauseMenu());
+		resumeButton = new MenuButton(ButtonType.RESUME);
+		resumeButton.setPosition((stage.getWidth()-resumeButton.getWidth())/2, stage.getHeight()/5);
+		stage.addActor(resumeButton);
+		
+		restartButton = new MenuButton(ButtonType.RESTART);
+		restartButton.setPosition((stage.getWidth()-restartButton.getWidth())/2, stage.getHeight()*2/5);
+		stage.addActor(restartButton);
+		
+		quitButton = new MenuButton(ButtonType.QUIT);
+		quitButton.setPosition((stage.getWidth()-quitButton.getWidth())/2, stage.getHeight()*3/5);
+		stage.addActor(quitButton);
+	}
+	
+	public void resumeGame()
+	{
+		isPaused = false;
+		Array<Actor> actors = stage.getActors();
+    	for(Actor a: actors) {
+    		if(a instanceof PauseMenu)
+    			a.remove();
+    	}
+	
+		resumeButton.remove();
+		restartButton.remove();
+		quitButton.remove();
 	}
 }

@@ -28,25 +28,30 @@ public class Tower extends Actor
     // Tower Variables
     private int width 	= 32;
     private int height 	= 32;
-    float fireRate = 1f;
-    float range = 300;
-    ProjectileModel projectileModel;
-    int cost;
-    float upgradeRatio;
-    String name;
+    private float fireRate = 1f;
+    private float range = 300;
+    private ProjectileModel projectileModel;
+    private int cost;
+    private float upgradeRatio;
+    private String name;
     
     private boolean isHovered = false;
     private boolean isUpgradeDisplay = false;
     
-    float timeToFire = 0;
-    Enemy target;
-    Texture texture;
-    Sprite sprite;
+    private float timeToFire = 0;
+    private Enemy target;
+    private Texture texture;
+    private Sprite sprite;
 	private ShapeRenderer shapeRenderer;
 	
-	Sound fireSound;
-	Sound fireSoundAlternative;
+	private Sound fireSound;
+	private Sound fireSoundAlternative;
     
+	public int getDamage()
+	{
+		return projectileModel.getDamage();
+	}
+	
     public Tower (Vector2 position, HashMap<String, String> properties)
     {
     	Gson gson = new Gson();
@@ -200,7 +205,7 @@ public class Tower extends Actor
     }
     
     public int getUpgradeCost(){
-    	return (towerLevel+1)*this.cost;
+    	return (int)((towerLevel+1)*this.cost/2);
     }
     
     public void upgrade(){
@@ -219,4 +224,9 @@ public class Tower extends Actor
 		this.isHovered = isHovered;
 	}
 
+	public float getFireRate() {
+		return fireRate;
+	}
+
+	
 }

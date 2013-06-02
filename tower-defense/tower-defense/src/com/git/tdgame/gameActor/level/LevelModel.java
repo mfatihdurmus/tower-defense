@@ -9,6 +9,7 @@ public class LevelModel {
 	int gold;
 	int baseHealth;
 	List<Wave> waveList;
+	int levelIndex;
 
 	public String getName() {
 		return name;
@@ -53,4 +54,12 @@ public class LevelModel {
 				+ gold + ", baseHealth=" + baseHealth + ", waveList="
 				+ waveList + "]";
 	}
+	public int getLevelIndex() {
+		return levelIndex;
+	}
+	public void setLevelIndex(int levelIndex) {
+		this.levelIndex = levelIndex;
+	}
+	
+	
 }

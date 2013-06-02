@@ -3,7 +3,7 @@
 		"name" : "level 1",
 		"selectScreenImagePath" : "data/world/level1/splash.png",
 		"mapPath" : "data/world/level1/level.tmx",
-		"gold" : "100",
+		"gold" : "150",
 		"baseHealth" : "10",
 		"waveList": [
 						{
@@ -31,7 +31,7 @@
 		"name" : "level 2",
 		"selectScreenImagePath" : "data/world/level2/splash.png",
 		"mapPath" : "data/world/level2/level.tmx",
-		"gold" : "120",
+		"gold" : "200",
 		"baseHealth" : "12",
 		"waveList": [
 						{
@@ -77,7 +77,7 @@
 		"name" : "level 3",
 		"selectScreenImagePath" : "data/world/level3/splash.png",
 		"mapPath" : "data/world/level3/level.tmx",
-		"gold" : "150",
+		"gold" : "250",
 		"baseHealth" : "15",
 		"waveList": [
 						{
@@ -148,7 +148,7 @@
 		"name" : "level 4",
 		"selectScreenImagePath" : "data/world/level4/splash.png",
 		"mapPath" : "data/world/level4/level.tmx",
-		"gold" : "160",
+		"gold" : "280",
 		"baseHealth" : "16",
 		"waveList": [
 						{
@@ -296,7 +296,7 @@
 		"name" : "level 5",
 		"selectScreenImagePath" : "data/world/level5/splash.png",
 		"mapPath" : "data/world/level5/level.tmx",
-		"gold" : "170",
+		"gold" : "290",
 		"baseHealth" : "17",
 		"waveList": [
 						{
@@ -407,7 +407,7 @@
 		"name" : "level 6",
 		"selectScreenImagePath" : "data/world/level6/splash.png",
 		"mapPath" : "data/world/level6/level.tmx",
-		"gold" : "180",
+		"gold" : "330",
 		"baseHealth" : "18",
 		"waveList": [
 						{
@@ -550,7 +550,7 @@
 		"name" : "level 7",
 		"selectScreenImagePath" : "data/world/level7/splash.png",
 		"mapPath" : "data/world/level7/level.tmx",
-		"gold" : "100",
+		"gold" : "300",
 		"baseHealth" : "19",
 		"waveList": [
 						{
@@ -715,7 +715,7 @@
 		"name" : "level 8",
 		"selectScreenImagePath" : "data/world/level8/splash.png",
 		"mapPath" : "data/world/level8/level.tmx",
-		"gold" : "190",
+		"gold" : "390",
 		"baseHealth" : "20",
 		"waveList": [
 						{
@@ -816,7 +816,7 @@
 		"name" : "level 9",
 		"selectScreenImagePath" : "data/world/level9/splash.png",
 		"mapPath" : "data/world/level9/level.tmx",
-		"gold" : "200",
+		"gold" : "400",
 		"baseHealth" : "25",
 		"waveList": [
 						{

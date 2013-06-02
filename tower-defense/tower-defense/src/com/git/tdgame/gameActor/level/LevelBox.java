@@ -17,7 +17,7 @@ public class LevelBox extends Actor
     private Sprite sprite;
     private float viewPortHeight;
     private boolean isActive = true;
-	
+    
 	public boolean isActive() {
 		return isActive;
 	}

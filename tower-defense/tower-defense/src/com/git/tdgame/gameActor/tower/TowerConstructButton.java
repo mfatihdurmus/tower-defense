@@ -30,8 +30,8 @@ public class TowerConstructButton extends Actor {
 	public TowerConstructButton( String path, String name, int range ) {
 		towerName = name;
 		texture = new Texture(Gdx.files.internal(path));
-		setHeight(texture.getHeight());
-		setWidth(texture.getWidth());
+		setHeight(texture.getHeight()*2);
+		setWidth(texture.getWidth()*2);
         sprite = new Sprite(texture);
         this.range = range;
 	}
