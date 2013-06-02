@@ -71,10 +71,15 @@ public class TowerConstructButton extends Actor {
 			shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
 		    shapeRenderer.begin(ShapeType.FilledRectangle);
 	   		shapeRenderer.setColor(new Color(1,1,1,1));
-	   		shapeRenderer.filledRect(getX(), getY() + getHeight()-13, getWidth(), 15);
+	   		shapeRenderer.filledRect(getX()+5, getY() + getHeight()-15, getWidth()-15, 17);
+	   		shapeRenderer.end();
+		    shapeRenderer.begin(ShapeType.Rectangle);
+	   		shapeRenderer.setColor(new Color(0,0,0,1));
+	   		shapeRenderer.rect(getX()+5, getY() + getHeight()-15, getWidth()-15, 17);
 	   		shapeRenderer.end();
 	        batch.begin();
-	    	font.draw(batch, cost + "g", getX()+16, getY() + getHeight()-13);
+			String costString = String.format("%3dg", cost);
+	    	font.draw(batch, costString, getX()+12, getY() + getHeight()-14);
 		}
 	}
 	

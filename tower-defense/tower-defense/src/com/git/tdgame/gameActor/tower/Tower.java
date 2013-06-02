@@ -34,6 +34,7 @@ public class Tower extends Actor
     private int cost;
     private float upgradeRatio;
     private Color rangeColor;
+    private String name;
     
     private boolean isHovered = false;
     private boolean isUpgradeDisplay = false;
@@ -74,6 +75,7 @@ public class Tower extends Actor
     	this.fireSound = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPath")));
     	this.fireSoundAlternative = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPathAlter")));
     	this.rangeColor = new Color(0, 1, 0, 0.3f);
+    	this.name = properties.get("name");
     	
     	setPosition(position.x, position.y);
     	setHeight(32);
@@ -216,14 +218,28 @@ public class Tower extends Actor
     	return (int)((towerLevel+1)*this.cost/2);
     }
     
-    public void upgrade(){
+    public boolean isMaxLevel()
+    {
     	if(towerLevel >= 5)
-    		return;
+    		return true;
+    	return false;
+	}
+    
+    public void upgrade()
+    {
     	towerLevel += 1;
-    	this.projectileModel.setDamage((this.projectileModel.getDamage() * this.upgradeRatio));
-    	this.projectileModel.setDamageRadius(this.projectileModel.getDamageRadius() * this.upgradeRatio);
+    	if(this.projectileModel.getDamageRadius() > 0 )
+    	{
+        	this.projectileModel.setDamageRadius(this.projectileModel.getDamageRadius() * this.upgradeRatio);
+    	} else if(this.projectileModel.getSlowAmount() > 0)
+    	{
+        	this.projectileModel.setSlowAmount(this.projectileModel.getSlowAmount() * this.upgradeRatio);
+        	this.projectileModel.setSlowDuration(this.projectileModel.getSlowDuration() * this.upgradeRatio);
+    	} else {
+        	this.projectileModel.setDamage((this.projectileModel.getDamage() * this.upgradeRatio));
+        	this.fireRate /= this.upgradeRatio;
+    	}
     	this.range *= this.upgradeRatio;
-    	this.fireRate /= this.upgradeRatio;
     }
 
 	public boolean isHovered() {
@@ -238,5 +254,17 @@ public class Tower extends Actor
 		return fireRate;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Tower [towerLevel=" + towerLevel + ", width=" + width
+				+ ", height=" + height + ", fireRate=" + fireRate + ", range="
+				+ range + ", projectileModel=" + projectileModel + ", cost="
+				+ cost + ", upgradeRatio=" + upgradeRatio + ", rangeColor="
+				+ rangeColor + ", name=" + name + ", isHovered=" + isHovered
+				+ ", isUpgradeDisplay=" + isUpgradeDisplay + ", timeToFire="
+				+ timeToFire + ", target=" + target + ", texture=" + texture
+				+ ", sprite=" + sprite + ", shapeRenderer=" + shapeRenderer
+				+ ", fireSound=" + fireSound + ", fireSoundAlternative="
+				+ fireSoundAlternative + "]";
+	}
 }

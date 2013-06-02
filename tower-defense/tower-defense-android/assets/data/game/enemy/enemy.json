@@ -5,7 +5,7 @@
 					"height" : "32",
 					"maxHealth" : "20",
 					"gold" : "10",
-					"damage" : "10",
+					"damage" : "5",
 					"texturePath" : "data/game/enemy/swordsmanSprite.png"
 				},
 	"pikeman" : {
@@ -14,16 +14,16 @@
 					"height" : "32",
 					"maxHealth" : "10",
 					"gold" : "10",
-					"damage" : "5",
+					"damage" : "3",
 					"texturePath" : "data/game/enemy/pikemanSprite.png"
 				},
 	"knight" : {
-					"defaultSpeed" : "64",
+					"defaultSpeed" : "56",
 					"width" : "32",
 					"height" : "32",
-					"maxHealth" : "150",
+					"maxHealth" : "120",
 					"gold" : "40",
-					"damage" : "17",
+					"damage" : "10",
 					"texturePath" : "data/game/enemy/knightSprite.png"
 				}
 }

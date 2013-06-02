@@ -14,7 +14,7 @@ public class TDGame extends Game {
 	private int screenWidth = 0;
 	private int screenHeight = 0;
 	private LevelModel selectedLevel;
-	private int unlockedLevels = 8;
+	private int unlockedLevels = 0;
 
 	public TDGame()
 	{

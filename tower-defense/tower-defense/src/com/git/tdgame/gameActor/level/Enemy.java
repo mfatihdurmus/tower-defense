@@ -189,10 +189,11 @@ public class Enemy extends Actor
     
 	public void takeDamage(int d)
 	{
-		healthBar.setCurrentHealth(healthBar.getCurrentHealth()-d);
-		
-		if(healthBar.getCurrentHealth() <= 0)
+		if(healthBar.getCurrentHealth()-d > 0)
 		{
+			healthBar.setCurrentHealth(healthBar.getCurrentHealth()-d);
+		} else {
+			healthBar.setCurrentHealth(0);
 			die();
 		}
 	}

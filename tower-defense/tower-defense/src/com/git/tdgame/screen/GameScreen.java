@@ -335,15 +335,18 @@ public class GameScreen implements Screen, InputProcessor{
 			
 			hoveredTower.setHovered(true);
 			
-			towerUpgradeButton = new TowerUpgradeButton(hoveredTower);
-			towerUpgradeButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY());
-			towerUpgradeButton.setZIndex(2);
+			if(!hoveredTower.isMaxLevel())
+			{
+				towerUpgradeButton = new TowerUpgradeButton(hoveredTower);
+				towerUpgradeButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY());
+				towerUpgradeButton.setZIndex(2);
+				stage.addActor( towerUpgradeButton );
+			}
 			
 			towerRemoveButton = new TowerRemoveButton(hoveredTower);
 			towerRemoveButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY() + 64);
 			towerRemoveButton.setZIndex(2);
 			
-			stage.addActor( towerUpgradeButton );
 			stage.addActor( towerRemoveButton );
 		}
 		
@@ -426,7 +429,7 @@ public class GameScreen implements Screen, InputProcessor{
 		if(a instanceof TowerRemoveButton)
 		{
 			towerRemoveButton = (TowerRemoveButton) a;
-			Tower tower = towerUpgradeButton.getTower(); 
+			Tower tower = towerRemoveButton.getTower();
 			gold.addGold(tower.getRefund());
 			tower.remove();
 		}

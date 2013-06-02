@@ -3,13 +3,21 @@
 		"name" : "level 1",
 		"selectScreenImagePath" : "data/world/level1/splash.png",
 		"mapPath" : "data/world/level1/level.tmx",
-		"gold" : "150",
+		"gold" : "130",
 		"baseHealth" : "10",
 		"waveList": [
 						{
 							"delay" : "1",
 							"enemies" : [
 											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman"
+										]
+						},
+						{
+							"delay" : "5",
+							"enemies" : [
 											"swordsman",
 											"swordsman",
 											"swordsman"
@@ -31,11 +39,11 @@
 		"name" : "level 2",
 		"selectScreenImagePath" : "data/world/level2/splash.png",
 		"mapPath" : "data/world/level2/level.tmx",
-		"gold" : "200",
+		"gold" : "160",
 		"baseHealth" : "12",
 		"waveList": [
 						{
-							"delay" : "5",
+							"delay" : "3",
 							"enemies" : [
 											"swordsman",
 											"swordsman",
@@ -50,6 +58,15 @@
 											"pikeman",
 											"pikeman",
 											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "5",
+							"enemies" : [
+											"swordsman",
+											"swordsman",
+											"swordsman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
@@ -59,12 +76,6 @@
 						{
 							"delay" : "10",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"pikeman",
-											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
@@ -77,8 +88,8 @@
 		"name" : "level 3",
 		"selectScreenImagePath" : "data/world/level3/splash.png",
 		"mapPath" : "data/world/level3/level.tmx",
-		"gold" : "250",
-		"baseHealth" : "15",
+		"gold" : "200",
+		"baseHealth" : "13",
 		"waveList": [
 						{
 							"delay" : "5",
@@ -124,12 +135,14 @@
 											"swordsman",
 											"swordsman",
 											"swordsman",
+											"swordsman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
+											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -148,8 +161,8 @@
 		"name" : "level 4",
 		"selectScreenImagePath" : "data/world/level4/splash.png",
 		"mapPath" : "data/world/level4/level.tmx",
-		"gold" : "280",
-		"baseHealth" : "16",
+		"gold" : "210",
+		"baseHealth" : "15",
 		"waveList": [
 						{
 							"delay" : "5",
@@ -173,15 +186,12 @@
 											"swordsman",
 											"swordsman",
 											"swordsman",
-											"swordsman",
 											"swordsman"
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "17",
 							"enemies" : [
-											"pikeman",
-											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
@@ -223,7 +233,6 @@
 						{
 							"delay" : "15",
 							"enemies" : [
-											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -296,12 +305,38 @@
 		"name" : "level 5",
 		"selectScreenImagePath" : "data/world/level5/splash.png",
 		"mapPath" : "data/world/level5/level.tmx",
-		"gold" : "290",
-		"baseHealth" : "17",
+		"gold" : "230",
+		"baseHealth" : "16",
 		"waveList": [
 						{
 							"delay" : "5",
 							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "6",
+							"enemies" : [
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -314,31 +349,6 @@
 							"delay" : "15",
 							"enemies" : [
 											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman"
-										]
-						},
-						{
-							"delay" : "20",
-							"enemies" : [
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -407,15 +417,12 @@
 		"name" : "level 6",
 		"selectScreenImagePath" : "data/world/level6/splash.png",
 		"mapPath" : "data/world/level6/level.tmx",
-		"gold" : "330",
+		"gold" : "240",
 		"baseHealth" : "18",
 		"waveList": [
 						{
 							"delay" : "5",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -433,6 +440,16 @@
 						{
 							"delay" : "15",
 							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
@@ -541,6 +558,36 @@
 											"pikeman",
 											"pikeman",
 											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
 											"pikeman"
 										]
 						}
@@ -550,18 +597,21 @@
 		"name" : "level 7",
 		"selectScreenImagePath" : "data/world/level7/splash.png",
 		"mapPath" : "data/world/level7/level.tmx",
-		"gold" : "300",
+		"gold" : "270",
 		"baseHealth" : "19",
 		"waveList": [
 						{
 							"delay" : "2",
 							"enemies" : [
 											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
 											"swordsman"
 										]
 						},
 						{
-							"delay" : "4",
+							"delay" : "6",
 							"enemies" : [
 											"pikeman",
 											"pikeman",
@@ -572,6 +622,7 @@
 						{
 							"delay" : "4",
 							"enemies" : [
+											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -606,6 +657,8 @@
 						{
 							"delay" : "8",
 							"enemies" : [
+											"swordsman",
+											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -708,6 +761,67 @@
 											"pikeman",
 											"pikeman"
 										]
+						},
+						{
+							"delay" : "15",
+							"enemies" : [
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman"
+										]
 						}
 					]
 	},
@@ -809,6 +923,13 @@
 											"swordsman",
 											"pikeman"
 										]
+						},
+						{
+							"delay" : "15",
+							"enemies" : [
+											"knight",
+											"knight"
+										]
 						}
 					]
 	},
@@ -857,7 +978,6 @@
 											"pikeman",
 											"pikeman",
 											"pikeman",
-											"knight",
 											"knight",
 											"knight",
 											"knight",
