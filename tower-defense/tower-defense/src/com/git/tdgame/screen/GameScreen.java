@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -182,7 +183,7 @@ public class GameScreen implements Screen, InputProcessor{
 		stage.addActor(splashImage);
 		if(!victory && game.getUnlockedLevels() <= this.levelIndex)
 		{
-			game.unlockLevels(game.getUnlockedLevels()+1);
+			game.unlockLevels(this.levelIndex+1);
 		}
 		
 		victory = true;
@@ -241,7 +242,7 @@ public class GameScreen implements Screen, InputProcessor{
 		int guiPosition = 0;
 		for( String key : towerTypes.keySet()  )
 		{
-			TowerConstructButton btn = new TowerConstructButton(towerTypes.get(key).get("texturePath"), key, Integer.valueOf(towerTypes.get(key).get("range")));
+			TowerConstructButton btn = new TowerConstructButton(towerTypes.get(key).get("texturePath"), key, Integer.valueOf(towerTypes.get(key).get("range")),Integer.valueOf(towerTypes.get(key).get("cost")));
 			btn.setPosition(guiPosition, 0);
 			
 			guiPosition += 64;
@@ -372,7 +373,7 @@ public class GameScreen implements Screen, InputProcessor{
 		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
 		Actor a = stage.hit(hover.x,hover.y,true);
 		
-		if(a instanceof PauseButton)
+		if(a instanceof PauseButton && !isPaused)
 		{
 			pauseGame();
 			return false;
@@ -504,6 +505,12 @@ public class GameScreen implements Screen, InputProcessor{
 		if(selectedTower != null)
 		{
 			selectedTower.setPosition((int)(hover.x / tileSize.x) * tileSize.x, (int)(hover.y / tileSize.y) * tileSize.y);
+			if(!isConstructableTile(new Vector2(hover.x/tileSize.x, hover.y/tileSize.y)))
+			{
+				selectedTower.setRangeColor(new Color(1, 0, 0, 0.3f));
+			} else {
+				selectedTower.setRangeColor(new Color(0, 1, 0, 0.3f));
+			}
 		}
 		
 		Actor a = stage.hit(hover.x,hover.y,true);
@@ -520,7 +527,6 @@ public class GameScreen implements Screen, InputProcessor{
 			hoveredTower.setUpgradeDisplay(false);
 		}
 		
-		// TODO Auto-generated method stub
 		return false;
 	}
 

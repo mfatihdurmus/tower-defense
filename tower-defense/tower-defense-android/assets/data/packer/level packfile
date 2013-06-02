@@ -199,3 +199,17 @@ level
   orig: 32, 32
   offset: 0, 0
   index: 27
+level
+  rotate: false
+  xy: 34, 306
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 28
+level
+  rotate: false
+  xy: 68, 306
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 29

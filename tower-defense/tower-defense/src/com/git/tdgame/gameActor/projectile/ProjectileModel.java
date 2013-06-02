@@ -6,7 +6,7 @@ public class ProjectileModel {
 	int width;
 	int height;
 	float speed;
-	int damage;
+	float damage;
 	float damageRadius;
 	float slowAmount;
 	float slowDuration;
@@ -30,10 +30,10 @@ public class ProjectileModel {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-	public int getDamage() {
+	public float getDamage() {
 		return damage;
 	}
-	public void setDamage(int damage) {
+	public void setDamage(float damage) {
 		this.damage = damage;
 	}
 	public float getDamageRadius() {

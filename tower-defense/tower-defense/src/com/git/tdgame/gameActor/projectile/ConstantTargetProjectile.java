@@ -95,7 +95,7 @@ public class ConstantTargetProjectile extends AbstractProjectile
 	    	if(target instanceof Enemy)
 	    	{
 	    		Enemy e = (Enemy)target;
-	    		e.takeDamage(damage);
+	    		e.takeDamage((int)damage);
 	    		e.setProperty(slowAmount, slowDuration);
 	    		damagedEnemies.add(e);
 	    	}
@@ -120,7 +120,7 @@ public class ConstantTargetProjectile extends AbstractProjectile
         	    	if(a instanceof Enemy && !damagedEnemies.contains(a, false))
         	    	{
         	    		Enemy e = (Enemy)a;
-        	    		e.takeDamage(damage);
+        	    		e.takeDamage((int)damage);
         	    		e.setProperty(slowAmount, slowDuration);
         	    		damagedEnemies.add(e);
         	    	}

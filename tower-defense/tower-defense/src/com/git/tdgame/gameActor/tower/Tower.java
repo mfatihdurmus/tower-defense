@@ -33,7 +33,7 @@ public class Tower extends Actor
     private ProjectileModel projectileModel;
     private int cost;
     private float upgradeRatio;
-    private String name;
+    private Color rangeColor;
     
     private boolean isHovered = false;
     private boolean isUpgradeDisplay = false;
@@ -49,10 +49,18 @@ public class Tower extends Actor
     
 	public int getDamage()
 	{
-		return projectileModel.getDamage();
+		return (int)projectileModel.getDamage();
 	}
 	
-    public Tower (Vector2 position, HashMap<String, String> properties)
+    public Color getRangeColor() {
+		return rangeColor;
+	}
+
+	public void setRangeColor(Color rangeColor) {
+		this.rangeColor = rangeColor;
+	}
+
+	public Tower (Vector2 position, HashMap<String, String> properties)
     {
     	Gson gson = new Gson();
     	//properties
@@ -63,9 +71,9 @@ public class Tower extends Actor
     	this.cost = Integer.valueOf(properties.get("cost"));
     	this.projectileModel = gson.fromJson(properties.get("projectile"), ProjectileModel.class);
     	this.upgradeRatio = Float.valueOf(properties.get("upgradeRatio"));
-    	this.name = properties.get("name");
     	this.fireSound = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPath")));
     	this.fireSoundAlternative = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPathAlter")));
+    	this.rangeColor = new Color(0, 1, 0, 0.3f);
     	
     	setPosition(position.x, position.y);
     	setHeight(32);
@@ -95,7 +103,7 @@ public class Tower extends Actor
 		    Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 			shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
 		    shapeRenderer.begin(ShapeType.FilledCircle);
-	   		shapeRenderer.setColor(new Color(0, 1, 0, 0.3f));
+	   		shapeRenderer.setColor(rangeColor);
 	   		if(isUpgradeDisplay)
 	   		{
 	   			shapeRenderer.filledCircle(getX()+width/2, getY()+height/2, range * upgradeRatio);
@@ -209,11 +217,13 @@ public class Tower extends Actor
     }
     
     public void upgrade(){
-    	towerLevel+=1;
-    	this.projectileModel.setDamage((int)(this.projectileModel.getDamage()*this.upgradeRatio));
-    	this.projectileModel.setDamageRadius(this.projectileModel.getDamageRadius()*this.upgradeRatio);
-    	this.range = this.range * this.upgradeRatio;
-    	this.fireRate = this.fireRate / this.upgradeRatio;
+    	if(towerLevel >= 5)
+    		return;
+    	towerLevel += 1;
+    	this.projectileModel.setDamage((this.projectileModel.getDamage() * this.upgradeRatio));
+    	this.projectileModel.setDamageRadius(this.projectileModel.getDamageRadius() * this.upgradeRatio);
+    	this.range *= this.upgradeRatio;
+    	this.fireRate /= this.upgradeRatio;
     }
 
 	public boolean isHovered() {

@@ -12,7 +12,7 @@ public class AbstractProjectile extends Actor
     int WIDTH 	= 32;
     int HEIGHT 	= 32;
 	float speed = 1024;
-	int damage = 10;
+	float damage = 10;
     float damageRadius = 0;
     float slowAmount = 0f;
     float slowDuration = 1;

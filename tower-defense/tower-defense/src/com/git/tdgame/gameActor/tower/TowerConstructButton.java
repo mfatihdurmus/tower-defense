@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,6 +18,9 @@ public class TowerConstructButton extends Actor {
 	private boolean isHovered = false;
 	private ShapeRenderer shapeRenderer;
 	private int range;
+	private Color rangeColor;
+    private BitmapFont font;
+    private int cost;
 	
 	public TowerConstructButton( TowerConstructButton other) {
 		towerName = other.towerName;
@@ -25,15 +29,22 @@ public class TowerConstructButton extends Actor {
 		setWidth(texture.getWidth());
         sprite = new Sprite(texture);
         range = other.range;
+        rangeColor = new Color(0, 1, 0, 0.3f);
+        font = other.font;
+        cost = other.cost;
 	}
 	
-	public TowerConstructButton( String path, String name, int range ) {
+	public TowerConstructButton( String path, String name, int range, int cost ) {
 		towerName = name;
 		texture = new Texture(Gdx.files.internal(path));
 		setHeight(texture.getHeight()*2);
 		setWidth(texture.getWidth()*2);
         sprite = new Sprite(texture);
         this.range = range;
+        rangeColor = new Color(0, 1, 0, 0.3f);
+        font = new BitmapFont(true);
+        font.setColor(0, 0, 0, 1);
+        this.cost = cost;
 	}
 	
 	@Override
@@ -49,11 +60,21 @@ public class TowerConstructButton extends Actor {
 	        shapeRenderer = new ShapeRenderer();
 			shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
 		    shapeRenderer.begin(ShapeType.FilledCircle);
-	   		shapeRenderer.setColor(new Color(0, 1, 0, 0.3f));
+	   		shapeRenderer.setColor(rangeColor);
 	   		shapeRenderer.filledCircle(getX()+getWidth()/2, getY()+getHeight()/2, range);
 	   		shapeRenderer.end();
 	   		Gdx.gl.glDisable(GL10.GL_BLEND);
 	        batch.begin();
+		} else {
+	    	batch.end();
+	        shapeRenderer = new ShapeRenderer();
+			shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
+		    shapeRenderer.begin(ShapeType.FilledRectangle);
+	   		shapeRenderer.setColor(new Color(1,1,1,1));
+	   		shapeRenderer.filledRect(getX(), getY() + getHeight()-13, getWidth(), 15);
+	   		shapeRenderer.end();
+	        batch.begin();
+	    	font.draw(batch, cost + "g", getX()+16, getY() + getHeight()-13);
 		}
 	}
 	
@@ -68,5 +89,12 @@ public class TowerConstructButton extends Actor {
 	public void setHovered(boolean isHovered) {
 		this.isHovered = isHovered;
 	}
-	
+
+	public Color getRangeColor() {
+		return rangeColor;
+	}
+
+	public void setRangeColor(Color rangeColor) {
+		this.rangeColor = rangeColor;
+	}	
 }
