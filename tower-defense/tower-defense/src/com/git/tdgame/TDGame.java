@@ -1,6 +1,8 @@
 package com.git.tdgame;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.screen.GameScreen;
 import com.git.tdgame.screen.LevelSelectScreen;
@@ -18,6 +20,7 @@ public class TDGame extends Game {
 
 	public TDGame()
 	{
+		super();
 	}
 
 	public TDGame(int width, int height)
@@ -33,6 +36,8 @@ public class TDGame extends Game {
 		menuScreen = new MenuScreen(this);
 		
 		setScreen(menuScreen);
+		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
+		this.unlockedLevels = prefs.getInteger("unlockedLevels", 0);
 	}
 	
 	public void goToGameScreen()
@@ -54,6 +59,11 @@ public class TDGame extends Game {
 	public void unlockLevels(int lastLevelNumber)
 	{
 		unlockedLevels = lastLevelNumber;
+		
+		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
+		prefs.putInteger("unlockedLevels", unlockedLevels);
+		prefs.flush();
+		
 	}
 
 	
