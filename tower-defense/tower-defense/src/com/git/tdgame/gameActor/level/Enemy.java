@@ -198,13 +198,17 @@ public class Enemy extends Actor
 		}
 	}
 	
-	public void setProperty(float property, float time)
+	public void setProperty(float property, float time, String propertyName)
 	{
+		// To Do : set for all properties
 		if(slowTime <= 0)
 		{
 			slowTime = time;
-			speed *= (1-property);
+		} else {
 		}
+		speed *= (1-property);
+		if(speed <= 0)
+			speed = 0;
 	}
 	
 	public float getSpeed()

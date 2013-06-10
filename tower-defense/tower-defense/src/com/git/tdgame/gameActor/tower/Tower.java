@@ -157,7 +157,15 @@ public class Tower extends Actor
     
     public int getRefund()
     {
-    	return cost / 2;
+    	return (cost + getCurrentUpgradeCost()) / 2;
+    }
+    
+    public int getCurrentUpgradeCost()
+    {
+    	int cost = 0;
+    	for(int ctr = 1; ctr < towerLevel; ++ctr)
+    		cost += (int)((ctr+1)*this.cost/2);
+    	return cost;
     }
 
 	public int getCost() {

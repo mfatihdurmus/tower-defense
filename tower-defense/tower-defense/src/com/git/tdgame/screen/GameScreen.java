@@ -174,6 +174,16 @@ public class GameScreen implements Screen, InputProcessor{
                 --totalSpawnLeft;
             }
         }
+        
+        if(towerUpgradeButton != null)
+        {
+			if(gold.hasEnoughGold(hoveredTower.getUpgradeCost()))
+			{
+				towerUpgradeButton.setEnoughGold(true);
+			} else {
+				towerUpgradeButton.setEnoughGold(false);
+			}
+        }
 	}
 	
 	private void victory() {
@@ -339,13 +349,19 @@ public class GameScreen implements Screen, InputProcessor{
 			{
 				towerUpgradeButton = new TowerUpgradeButton(hoveredTower);
 				towerUpgradeButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY());
-				towerUpgradeButton.setZIndex(2);
+				towerUpgradeButton.setCost(hoveredTower.getUpgradeCost());
+				if(gold.hasEnoughGold(hoveredTower.getUpgradeCost()))
+				{
+					towerUpgradeButton.setEnoughGold(true);
+				} else {
+					towerUpgradeButton.setEnoughGold(false);
+				}
 				stage.addActor( towerUpgradeButton );
 			}
 			
 			towerRemoveButton = new TowerRemoveButton(hoveredTower);
 			towerRemoveButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY() + 64);
-			towerRemoveButton.setZIndex(2);
+			towerRemoveButton.setCost(hoveredTower.getRefund());
 			
 			stage.addActor( towerRemoveButton );
 		}

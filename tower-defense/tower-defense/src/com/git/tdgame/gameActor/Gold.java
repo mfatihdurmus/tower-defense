@@ -68,6 +68,15 @@ public class Gold extends Actor
 		}
 		return false;
 	}
+	
+	public boolean hasEnoughGold(int gold)
+	{
+		if(this.cash >= gold)
+		{
+			return true;
+		}
+		return false;
+	}
 
 
 }

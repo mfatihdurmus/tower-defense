@@ -96,7 +96,7 @@ public class ConstantTargetProjectile extends AbstractProjectile
 	    	{
 	    		Enemy e = (Enemy)target;
 	    		e.takeDamage((int)damage);
-	    		e.setProperty(slowAmount, slowDuration);
+	    		e.setProperty(slowAmount, slowDuration, "defaultSpeed");
 	    		damagedEnemies.add(e);
 	    	}
     	}
@@ -121,7 +121,7 @@ public class ConstantTargetProjectile extends AbstractProjectile
         	    	{
         	    		Enemy e = (Enemy)a;
         	    		e.takeDamage((int)damage);
-        	    		e.setProperty(slowAmount, slowDuration);
+        	    		e.setProperty(slowAmount, slowDuration, "defaultSpeed");
         	    		damagedEnemies.add(e);
         	    	}
         		}
