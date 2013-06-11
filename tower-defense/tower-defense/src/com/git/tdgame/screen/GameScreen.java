@@ -206,19 +206,6 @@ public class GameScreen implements Screen, InputProcessor{
         			continue;
         		}
         		
-        		// Selected objects
-        		if(newActor instanceof Tower)
-        		{
-        			Tower t = (Tower) newActor;
-        			if(t.isHovered())
-        				stage.getActors().swap(ctr2, stage.getActors().size - 1);
-        			continue;
-        		}
-        		if(selectedTower == newActor)
-        		{
-        			stage.getActors().swap(ctr2, stage.getActors().size - 1);
-        			continue;
-        		}
         		if(newActor.getY() < actor.getY())
         		{
         			maxIndex = ctr2;
@@ -226,6 +213,33 @@ public class GameScreen implements Screen, InputProcessor{
         		}
         	}
         	stage.getActors().swap(ctr, maxIndex);
+        }
+        for(int ctr = stage.getActors().size-1; ctr >= 0; --ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+    		// Selected objects
+    		if(newActor instanceof Tower)
+    		{
+    			Tower t = (Tower) newActor;
+    			if(t.isHovered())
+    				stage.getActors().swap(ctr, stage.getActors().size - 3);
+    			continue;
+    		}
+    		if(selectedTower == newActor)
+    		{
+    			stage.getActors().swap(ctr, stage.getActors().size - 3);
+    			continue;
+    		}
+    		if(newActor instanceof TowerUpgradeButton)
+    		{
+				stage.getActors().swap(ctr, stage.getActors().size - 2);
+    			continue;
+    		}
+    		if(newActor instanceof TowerRemoveButton)
+    		{
+				stage.getActors().swap(ctr, stage.getActors().size - 1);
+    			continue;
+    		}
         }
 	}
 
