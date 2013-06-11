@@ -114,6 +114,8 @@ public class GameScreen implements Screen, InputProcessor{
 			stage.act(delta);
 		}
         stage.draw();
+        
+        sortActors();
 
         // Spawn enemies
         if(waveDelay < 0 && !defeat && spawnLeft <= 0)
@@ -186,7 +188,49 @@ public class GameScreen implements Screen, InputProcessor{
         }
 	}
 	
-	private void victory() {
+	private void sortActors()
+	{
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		int maxIndex = ctr;
+    		Actor actor = stage.getActors().get(ctr);
+    		
+        	for(int ctr2 = ctr; ctr2 < stage.getActors().size; ++ctr2)
+        	{
+        		Actor newActor = stage.getActors().get(ctr2);
+        		
+        		// Other objects
+        		if(!(newActor instanceof Tower) &&
+    			   !(newActor instanceof Enemy))
+        		{
+        			continue;
+        		}
+        		
+        		// Selected objects
+        		if(newActor instanceof Tower)
+        		{
+        			Tower t = (Tower) newActor;
+        			if(t.isHovered())
+        				stage.getActors().swap(ctr2, stage.getActors().size - 1);
+        			continue;
+        		}
+        		if(selectedTower == newActor)
+        		{
+        			stage.getActors().swap(ctr2, stage.getActors().size - 1);
+        			continue;
+        		}
+        		if(newActor.getY() < actor.getY())
+        		{
+        			maxIndex = ctr2;
+        			actor = newActor;
+        		}
+        	}
+        	stage.getActors().swap(ctr, maxIndex);
+        }
+	}
+
+	private void victory()
+	{
 		splashImage = new Image(new Texture(Gdx.files.internal("data/game/victory.png")));
 		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
 
