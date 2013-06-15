@@ -204,11 +204,12 @@ public class Enemy extends Actor
 		if(slowTime <= 0)
 		{
 			slowTime = time;
+			speed *= (1-property);
+			if(speed <= 0)
+				speed = 0;
 		} else {
+			slowTime = time;
 		}
-		speed *= (1-property);
-		if(speed <= 0)
-			speed = 0;
 	}
 	
 	public float getSpeed()

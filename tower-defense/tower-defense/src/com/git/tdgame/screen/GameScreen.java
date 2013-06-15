@@ -27,6 +27,7 @@ import com.git.tdgame.gameActor.PauseMenu;
 import com.git.tdgame.gameActor.level.Enemy;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.gameActor.level.Wave;
+import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.gameActor.tower.TowerConstructButton;
 import com.git.tdgame.gameActor.tower.TowerDisplay;
@@ -201,7 +202,7 @@ public class GameScreen implements Screen, InputProcessor{
         		
         		// Other objects
         		if(!(newActor instanceof Tower) &&
-    			   !(newActor instanceof Enemy))
+    			   !(newActor instanceof Enemy) && !(newActor instanceof AbstractProjectile))
         		{
         			continue;
         		}
@@ -214,30 +215,62 @@ public class GameScreen implements Screen, InputProcessor{
         	}
         	stage.getActors().swap(ctr, maxIndex);
         }
-        for(int ctr = stage.getActors().size-1; ctr >= 0; --ctr)
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
         {
     		Actor newActor = stage.getActors().get(ctr);
-    		// Selected objects
+
+    		if(newActor instanceof Base)
+    		{
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
+    			break;
+    		}
+        }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
     		if(newActor instanceof Tower)
     		{
     			Tower t = (Tower) newActor;
     			if(t.isHovered())
-    				stage.getActors().swap(ctr, stage.getActors().size - 3);
-    			continue;
+    			{
+        			stage.getActors().removeIndex(ctr);
+        			stage.getActors().add(newActor);
+    			}
+    			break;
     		}
+        }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
     		if(selectedTower == newActor)
     		{
-    			stage.getActors().swap(ctr, stage.getActors().size - 3);
-    			continue;
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
+    			break;
     		}
-    		if(newActor instanceof TowerUpgradeButton)
-    		{
-				stage.getActors().swap(ctr, stage.getActors().size - 2);
-    			continue;
-    		}
+        }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
     		if(newActor instanceof TowerRemoveButton)
     		{
-				stage.getActors().swap(ctr, stage.getActors().size - 1);
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
+    			break;
+    		}
+        }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
+    		if(newActor instanceof TowerUpgradeButton)
+    		{
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
     			continue;
     		}
         }
@@ -401,6 +434,9 @@ public class GameScreen implements Screen, InputProcessor{
 		{
 			hoveredTower = (Tower) a;
 			
+			// Give display tower info
+			towerDisplay.setSelectedTower(hoveredTower);
+			
 			hoveredTower.setHovered(true);
 			
 			if(!hoveredTower.isMaxLevel())
@@ -506,13 +542,6 @@ public class GameScreen implements Screen, InputProcessor{
 			Tower tower = towerRemoveButton.getTower();
 			gold.addGold(tower.getRefund());
 			tower.remove();
-		}
-		
-		if(a instanceof Tower)
-		{
-			Tower tower = (Tower) a;
-			// Give display tower info
-			towerDisplay.setSelectedTower(tower);
 		}
 		
 		if(selectedTower != null)

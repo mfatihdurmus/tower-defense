@@ -9,9 +9,9 @@
 						{
 							"delay" : "1",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman"
+											"peasant",
+											"peasant",
+											"peasant"
 										]
 						},
 						{

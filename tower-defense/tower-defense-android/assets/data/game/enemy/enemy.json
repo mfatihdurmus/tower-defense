@@ -1,4 +1,13 @@
 {
+	"peasant" : {
+					"defaultSpeed" : "64",
+					"width" : "32",
+					"height" : "32",
+					"maxHealth" : "8",
+					"gold" : "10",
+					"damage" : "3",
+					"texturePath" : "data/game/enemy/peasant.png"
+				},
 	"swordsman" : {
 					"defaultSpeed" : "64",
 					"width" : "32",
@@ -6,7 +15,7 @@
 					"maxHealth" : "20",
 					"gold" : "10",
 					"damage" : "5",
-					"texturePath" : "data/game/enemy/swordsmanSprite.png"
+					"texturePath" : "data/game/enemy/swordsman.png"
 				},
 	"pikeman" : {
 					"defaultSpeed" : "128",
@@ -15,7 +24,7 @@
 					"maxHealth" : "10",
 					"gold" : "10",
 					"damage" : "3",
-					"texturePath" : "data/game/enemy/pikemanSprite.png"
+					"texturePath" : "data/game/enemy/pikeman.png"
 				},
 	"knight" : {
 					"defaultSpeed" : "56",
@@ -24,6 +33,6 @@
 					"maxHealth" : "120",
 					"gold" : "40",
 					"damage" : "10",
-					"texturePath" : "data/game/enemy/knightSprite.png"
+					"texturePath" : "data/game/enemy/knight.png"
 				}
 }
