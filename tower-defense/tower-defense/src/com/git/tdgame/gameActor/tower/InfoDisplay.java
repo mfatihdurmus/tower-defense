@@ -67,7 +67,7 @@ public class InfoDisplay extends Actor {
 					
 					// Attack Speed
 					batch.draw(attackSpeed, guiPosition + (getStage().getWidth() - guiPosition-90)/3, 0, attackSpeed.getWidth(), attackSpeed.getHeight(), 0, 0, attackSpeed.getWidth(), attackSpeed.getHeight(), false, true);
-					String speedString = String.format("Speed:%.2f", (1/tower.getFireRate()));
+					String speedString = String.format("Freq:%.2f", (1/tower.getFireRate()));
 					font.draw(batch,speedString, guiPosition + (getStage().getWidth() - guiPosition-90)/3 + 64, 16);
 		
 					// Range

@@ -222,8 +222,8 @@ public class Enemy extends Actor
 		{
 			slowTime = time;
 			speed *= (1-property);
-			if(speed <= 0)
-				speed = 0;
+			if(speed <= 1)
+				speed = 1;
 		} else {
 			slowTime = time;
 		}
