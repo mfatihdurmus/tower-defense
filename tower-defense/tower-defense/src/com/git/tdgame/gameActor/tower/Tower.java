@@ -38,6 +38,7 @@ public class Tower extends Actor
     
     private boolean isHovered = false;
     private boolean isUpgradeDisplay = false;
+    private boolean isSold = false;
     
     private float timeToFire = 0;
     private Enemy target;
@@ -53,7 +54,15 @@ public class Tower extends Actor
 		return (int)projectileModel.getDamage();
 	}
 	
-    public Color getRangeColor() {
+    public boolean isSold() {
+		return isSold;
+	}
+
+	public void setSold(boolean isSold) {
+		this.isSold = isSold;
+	}
+
+	public Color getRangeColor() {
 		return rangeColor;
 	}
 

@@ -13,7 +13,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="D:/personal dev/Android SDK/platforms/android-16/android.jar">
+	<classpathentry kind="lib" path="C:/Android/adt-bundle-windows-x86_64-20130219/adt-bundle-windows-x86_64-20130219/sdk/platforms/android-17/android.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/D:/personal dev/Android SDK/docs/reference"/>
 		</attributes>

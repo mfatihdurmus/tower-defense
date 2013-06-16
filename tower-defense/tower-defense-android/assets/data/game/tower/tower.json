@@ -36,6 +36,6 @@
 							"texturePath" : "data/game/tower/splashDamageTower.png",
 							"soundPath" : "data/game/tower/sound/blast1.wav",
 							"soundPathAlter" : "data/game/tower/sound/blast2.wav",
-							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"10\",\"damageRadius\" : \"24\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/projectile/cannonBall.png\"}"
+							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"9\",\"damageRadius\" : \"24\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/projectile/cannonBall.png\"}"
 							}
 }

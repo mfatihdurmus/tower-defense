@@ -30,7 +30,7 @@ import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.gameActor.tower.TowerConstructButton;
-import com.git.tdgame.gameActor.tower.TowerDisplay;
+import com.git.tdgame.gameActor.tower.InfoDisplay;
 import com.git.tdgame.gameActor.tower.TowerRemoveButton;
 import com.git.tdgame.gameActor.tower.TowerUpgradeButton;
 import com.git.tdgame.map.TDGameMapHelper;
@@ -77,7 +77,7 @@ public class GameScreen implements Screen, InputProcessor{
 	// Selected tower
 	private TowerConstructButton selectedTower; 
 	
-	private TowerDisplay towerDisplay;
+	private InfoDisplay infoDisplay;
 	
 	private MenuButton quitButton;
 	private MenuButton restartButton;
@@ -301,7 +301,7 @@ public class GameScreen implements Screen, InputProcessor{
 		Gdx.input.setInputProcessor(this);
 		// Map load
 		tdGameMapHelper = new TDGameMapHelper();
-		tdGameMapHelper.setPackerDirectory("data/packer");
+		tdGameMapHelper.setPackerDirectory("data/world/packer");
 		tdGameMapHelper.loadMap(levelModel.getMapPath());
 		tileSize = new Vector2(tdGameMapHelper.getMap().tileWidth,tdGameMapHelper.getMap().tileHeight);
 
@@ -335,10 +335,10 @@ public class GameScreen implements Screen, InputProcessor{
 		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this, levelModel.getBaseHealth()));
 		
 		// Display
-		towerDisplay = new TowerDisplay(towerTypes.keySet().size()*64);
-		towerDisplay.setSize(stage.getWidth(), 70);
-		towerDisplay.setPosition(0, 0);
-		stage.addActor(towerDisplay);
+		infoDisplay = new InfoDisplay(towerTypes.keySet().size()*64);
+		infoDisplay.setSize(stage.getWidth(), 70);
+		infoDisplay.setPosition(0, 0);
+		stage.addActor(infoDisplay);
 		
 		int guiPosition = 0;
 		for( String key : towerTypes.keySet()  )
@@ -435,7 +435,7 @@ public class GameScreen implements Screen, InputProcessor{
 			hoveredTower = (Tower) a;
 			
 			// Give display tower info
-			towerDisplay.setSelectedTower(hoveredTower);
+			infoDisplay.setSelectedActor(a);
 			
 			hoveredTower.setHovered(true);
 			
@@ -458,6 +458,12 @@ public class GameScreen implements Screen, InputProcessor{
 			towerRemoveButton.setCost(hoveredTower.getRefund());
 			
 			stage.addActor( towerRemoveButton );
+		}
+		
+		if(a instanceof Enemy)
+		{
+			// Give display enemy info
+			infoDisplay.setSelectedActor(a);
 		}
 		
 		if(a instanceof TowerConstructButton)
@@ -541,6 +547,7 @@ public class GameScreen implements Screen, InputProcessor{
 			towerRemoveButton = (TowerRemoveButton) a;
 			Tower tower = towerRemoveButton.getTower();
 			gold.addGold(tower.getRefund());
+			tower.setSold(true);
 			tower.remove();
 		}
 		

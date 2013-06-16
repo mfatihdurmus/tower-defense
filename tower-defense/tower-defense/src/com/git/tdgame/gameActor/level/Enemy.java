@@ -182,6 +182,23 @@ public class Enemy extends Actor
     public boolean isAlive(){
     	return alive;
     }
+    
+    public int getCurrentHealth()
+    {
+    	return healthBar.getCurrentHealth();
+    }
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
 
 	public float getTraveledDist() {
 		return traveledDist;
