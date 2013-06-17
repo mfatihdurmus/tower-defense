@@ -26,13 +26,13 @@
 					"damage" : "4",
 					"texturePath" : "data/game/enemy/pikeman.png"
 				},
-	"knight" : {
-					"defaultSpeed" : "56",
+	"paladin" : {
+					"defaultSpeed" : "64",
 					"width" : "32",
 					"height" : "32",
-					"maxHealth" : "100",
-					"gold" : "40",
+					"maxHealth" : "50",
+					"gold" : "20",
 					"damage" : "10",
-					"texturePath" : "data/game/enemy/knight.png"
+					"texturePath" : "data/game/enemy/paladin.png"
 				}
 }

@@ -3,7 +3,7 @@
 		"name" : "level 1",
 		"selectScreenImagePath" : "data/world/level1/splash.png",
 		"mapPath" : "data/world/level1/level.tmx",
-		"gold" : "130",
+		"gold" : "150",
 		"baseHealth" : "10",
 		"waveList": [
 						{
@@ -21,17 +21,26 @@
 											"peasant",
 											"peasant",
 											"peasant",
+											"peasant",
+											"peasant",
 											"peasant"
 										]
 						},
 						{
 							"delay" : "10",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman"
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant"
 										]
 						}
 					]
@@ -60,7 +69,16 @@
 						{
 							"delay" : "10",
 							"enemies" : [
-											"swordsman",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -69,29 +87,16 @@
 										]
 						},
 						{
-							"delay" : "10",
+							"delay" : "15",
 							"enemies" : [
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman"
-										]
-						},
-						{
-							"delay" : "10",
-							"enemies" : [
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman"
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman"
 										]
 						}
 					]
@@ -118,29 +123,6 @@
 						{
 							"delay" : "15",
 							"enemies" : [
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman"
-										]
-						},
-						{
-							"delay" : "15",
-							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -158,6 +140,41 @@
 											"swordsman",
 											"swordsman",
 											"swordsman"
+										]
+						},
+						{
+							"delay" : "15",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
 										]
 						}
 					]
@@ -193,7 +210,7 @@
 										]
 						},
 						{
-							"delay" : "17",
+							"delay" : "15",
 							"enemies" : [
 											"pikeman",
 											"pikeman",
@@ -234,7 +251,7 @@
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "17",
 							"enemies" : [
 											"swordsman",
 											"swordsman",
@@ -356,7 +373,17 @@
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "10",
+							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman"
+										]
+						},
+						{
+							"delay" : "5",
 							"enemies" : [
 											"swordsman",
 											"swordsman",
@@ -427,7 +454,7 @@
 		"name" : "level 6",
 		"selectScreenImagePath" : "data/world/level6/splash.png",
 		"mapPath" : "data/world/level6/level.tmx",
-		"gold" : "240",
+		"gold" : "220",
 		"baseHealth" : "18",
 		"waveList": [
 						{
@@ -444,25 +471,14 @@
 											"swordsman",
 											"swordsman",
 											"swordsman",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant"
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman"
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "10",
 							"enemies" : [
 											"pikeman",
 											"pikeman",
@@ -537,6 +553,50 @@
 											"swordsman",
 											"swordsman",
 											"swordsman"
+										]
+						},
+						{
+							"delay" : "20",
+							"enemies" : [
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant"
 										]
 						},
 						{
@@ -651,9 +711,6 @@
 											"swordsman",
 											"swordsman",
 											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
 											"swordsman"
 										]
 						},
@@ -681,11 +738,7 @@
 						{
 							"delay" : "8",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
+											"paladin",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -789,9 +842,11 @@
 						{
 							"delay" : "15",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
-											"swordsman",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -859,14 +914,10 @@
 						{
 							"delay" : "2",
 							"enemies" : [
-											"knight",
-											"pikeman",
-											"pikeman",
-											"swordsman",
-											"swordsman",
-											"peasant",
-											"peasant",
-											"peasant"
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin"
 										]
 						},
 						{
@@ -884,8 +935,9 @@
 						{
 							"delay" : "10",
 							"enemies" : [
-											"swordsman",
-											"swordsman",
+											"paladin",
+											"paladin",
+											"paladin",
 											"swordsman",
 											"swordsman",
 											"swordsman",
@@ -954,8 +1006,11 @@
 						{
 							"delay" : "15",
 							"enemies" : [
-											"knight",
-											"knight"
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin"
 										]
 						}
 					]
@@ -970,26 +1025,59 @@
 						{
 							"delay" : "1",
 							"enemies" : [
-											"knight"
+											"paladin",
+											"paladin",
+											"paladin"
 										]
 						},
 						{
 							"delay" : "2",
 							"enemies" : [
 											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
+											"swordsman",
 											"swordsman"
 										]
 						},
 						{
-							"delay" : "5",
+							"delay" : "15",
 							"enemies" : [
-											"knight",
-											"knight"
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin"
 										]
 						},
 						{
 							"delay" : "10",
 							"enemies" : [
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
+											"pikeman",
 											"pikeman",
 											"pikeman",
 											"pikeman",
@@ -1001,25 +1089,17 @@
 						{
 							"delay" : "10",
 							"enemies" : [
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"knight",
-											"knight",
-											"knight",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"pikeman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"swordsman",
-											"knight",
-											"knight",
-											"knight",
-											"knight"
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin",
+											"paladin"
 										]
 						}
 					]

@@ -115,7 +115,6 @@ public class GameScreen implements Screen, InputProcessor{
 			stage.act(delta);
 		}
         stage.draw();
-        
         sortActors();
 
         // Spawn enemies
@@ -230,6 +229,27 @@ public class GameScreen implements Screen, InputProcessor{
         {
     		Actor newActor = stage.getActors().get(ctr);
 
+    		if(newActor instanceof PauseMenu)
+    		{
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
+    			break;
+    		}
+        }
+        for(int ctr = stage.getActors().size-1; ctr >= 0; --ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
+    		if(newActor instanceof MenuButton)
+    		{
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
+    		}
+        }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
     		if(newActor instanceof Tower)
     		{
     			Tower t = (Tower) newActor;
@@ -237,19 +257,23 @@ public class GameScreen implements Screen, InputProcessor{
     			{
         			stage.getActors().removeIndex(ctr);
         			stage.getActors().add(newActor);
+        			break;
     			}
-    			break;
     		}
         }
         for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
         {
     		Actor newActor = stage.getActors().get(ctr);
 
-    		if(selectedTower == newActor)
+    		if(newActor instanceof TowerConstructButton)
     		{
-    			stage.getActors().removeIndex(ctr);
-    			stage.getActors().add(newActor);
-    			break;
+    			TowerConstructButton t = (TowerConstructButton) newActor;
+	    		if(selectedTower == t)
+	    		{
+	    			stage.getActors().removeIndex(ctr);
+	    			stage.getActors().add(newActor);
+	    			break;
+	    		}
     		}
         }
         for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
@@ -458,15 +482,11 @@ public class GameScreen implements Screen, InputProcessor{
 			towerRemoveButton.setCost(hoveredTower.getRefund());
 			
 			stage.addActor( towerRemoveButton );
-		}
-		
-		if(a instanceof Enemy)
+		} else if(a instanceof Enemy)
 		{
 			// Give display enemy info
 			infoDisplay.setSelectedActor(a);
-		}
-		
-		if(a instanceof TowerConstructButton)
+		} else if(a instanceof TowerConstructButton)
 		{
 			if( selectedTower == null )
 			{
@@ -475,6 +495,9 @@ public class GameScreen implements Screen, InputProcessor{
 				selectedTower.setHovered(true);
 				stage.addActor(selectedTower);
 			}
+		} else if(a instanceof Base)
+		{
+			infoDisplay.setSelectedActor(a);
 		}
 		
 		return false;

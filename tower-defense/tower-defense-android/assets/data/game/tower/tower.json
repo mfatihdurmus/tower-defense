@@ -19,11 +19,11 @@
 						"fireRate" : "2",
 						"range" : "120",
 						"cost" : "60",
-						"upgradeRatio" : "1.2",
+						"upgradeRatio" : "1.1",
 						"texturePath" : "data/game/tower/slowTower.png",
 						"soundPath" : "data/game/tower/sound/slow1.wav",
 						"soundPathAlter" : "data/game/tower/sound/slow2.wav",
-						"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"3\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0.7\",\"slowDuration\" : \"2\",\"texturePath\" : \"data/game/projectile/snowBall.png\"}"
+						"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"3\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0.3\",\"slowDuration\" : \"3\",\"texturePath\" : \"data/game/projectile/snowBall.png\"}"
 						},
 	"splashDamageTower" : {
 							"name" : "Splash Damage Tower",

@@ -70,5 +70,10 @@ public class Base extends Actor
 	{
 		return alive;
 	}
+	
+	public int getCurrentHealth()
+	{
+		return this.healthBar.getCurrentHealth();
+	}
 
 }

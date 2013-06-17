@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.level.Enemy;
 
 public class InfoDisplay extends Actor {
@@ -96,9 +97,16 @@ public class InfoDisplay extends Actor {
 		
 					// Health
 					batch.draw(health, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3, 0, health.getWidth(), health.getHeight(), 0, 0, health.getWidth(), health.getHeight(), false, true);
-					String rangeString = String.format("Health:%d", enemy.getCurrentHealth());
-					font.draw(batch,rangeString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 64, 16);
+					String healthString = String.format("Health:%d", enemy.getCurrentHealth());
+					font.draw(batch,healthString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 64, 16);
 				}
+			} else if(actor instanceof Base) {
+				Base base = (Base) actor;
+				
+				// Health
+				batch.draw(health, guiPosition, 0, health.getWidth(), health.getHeight(), 0, 0, health.getWidth(), health.getHeight(), false, true);
+				String healthString = String.format("Health:%d", base.getCurrentHealth());
+				font.draw(batch,healthString, guiPosition + 64, 16);
 			}
 		}
 	}
