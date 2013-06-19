@@ -466,7 +466,7 @@ public class GameScreen implements Screen, InputProcessor{
 			if(!hoveredTower.isMaxLevel())
 			{
 				towerUpgradeButton = new TowerUpgradeButton(hoveredTower);
-				towerUpgradeButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY());
+				towerUpgradeButton.setPosition(hoveredTower.getX() + 32, hoveredTower.getY()-20);
 				towerUpgradeButton.setCost(hoveredTower.getUpgradeCost());
 				if(gold.hasEnoughGold(hoveredTower.getUpgradeCost()))
 				{

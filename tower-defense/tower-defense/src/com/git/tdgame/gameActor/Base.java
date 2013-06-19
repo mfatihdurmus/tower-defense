@@ -11,8 +11,6 @@ import com.git.tdgame.screen.GameScreen;
 public class Base extends Actor
 {
 	// Actor variables
-    private final int WIDTH 	= 32;
-    private final int HEIGHT 	= 32;
     private GameScreen gameScreen;
     boolean alive = true;
     private HealthBar healthBar;
@@ -23,20 +21,19 @@ public class Base extends Actor
     
     public Base (Vector2 position, GameScreen gameScreen, int health)
     {
-    	this.setWidth(WIDTH);
-    	this.setHeight(HEIGHT);
     	this.gameScreen = gameScreen;
-    	
-    	healthBar = new HealthBar(health, position, WIDTH, 10);
     	
     	setPosition(position.x, position.y);
     	texture = new Texture(Gdx.files.internal("data/game/base/base.png"));
-        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
+    	this.setWidth(texture.getWidth());
+    	this.setHeight(texture.getHeight());
+    	healthBar = new HealthBar(health, position, (int)getWidth(), 10);
+        sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,(int)getWidth(),(int)getHeight());
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
+    	batch.draw(sprite,getX(),getY()+(int)getHeight(),getOriginX(),getOriginY(),(int)getWidth(),(int)getHeight(),1,-1,0);
     	
     	getStage().getCamera().update();
 

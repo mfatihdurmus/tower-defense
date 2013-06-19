@@ -51,14 +51,14 @@ public class TowerUpgradeButton extends Actor {
 		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
 	    shapeRenderer.begin(ShapeType.FilledRectangle);
    		shapeRenderer.setColor(new Color(1,1,1,1));
-   		shapeRenderer.filledRect(getX(), getY(), getWidth()-15, 17);
+   		shapeRenderer.filledRect(getX()+7, getY()-13, getWidth()-15, 17);
    		shapeRenderer.end();
 	    shapeRenderer.begin(ShapeType.Rectangle);
    		shapeRenderer.setColor(new Color(0,0,0,1));
-   		shapeRenderer.rect(getX(), getY(), getWidth()-15, 17);
+   		shapeRenderer.rect(getX()+7, getY()-13, getWidth()-15, 17);
    		shapeRenderer.end();
         batch.begin();
-		font.draw(batch, new String(cost + " g"), getX()+1, getY());
+		font.draw(batch, new String(cost + " g"), getX()+8, getY()-13);
 		
 		if(!isEnoughGold)
 		{
