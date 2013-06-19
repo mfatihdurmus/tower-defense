@@ -19,20 +19,20 @@ import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.Base;
+import com.git.tdgame.gameActor.Enemy;
 import com.git.tdgame.gameActor.Gold;
-import com.git.tdgame.gameActor.MenuButton;
-import com.git.tdgame.gameActor.MenuButton.ButtonType;
-import com.git.tdgame.gameActor.PauseButton;
-import com.git.tdgame.gameActor.PauseMenu;
-import com.git.tdgame.gameActor.level.Enemy;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.gameActor.tower.TowerConstructButton;
-import com.git.tdgame.gameActor.tower.InfoDisplay;
 import com.git.tdgame.gameActor.tower.TowerRemoveButton;
 import com.git.tdgame.gameActor.tower.TowerUpgradeButton;
+import com.git.tdgame.guiActor.InfoDisplay;
+import com.git.tdgame.guiActor.GameMenuButton;
+import com.git.tdgame.guiActor.PauseButton;
+import com.git.tdgame.guiActor.PauseMenu;
+import com.git.tdgame.guiActor.GameMenuButton.ButtonType;
 import com.git.tdgame.map.TDGameMapHelper;
 
 
@@ -43,6 +43,7 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	private Tower hoveredTower;
 	private boolean isUpgradeDisplay = false;
+	private boolean isRemoveDisplay = false;
 
 	// Stage
 	private Stage stage;
@@ -79,9 +80,9 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	private InfoDisplay infoDisplay;
 	
-	private MenuButton quitButton;
-	private MenuButton restartButton;
-	private MenuButton resumeButton;
+	private GameMenuButton quitButton;
+	private GameMenuButton restartButton;
+	private GameMenuButton resumeButton;
 
 	// in-game music
 	private Music music;
@@ -240,7 +241,7 @@ public class GameScreen implements Screen, InputProcessor{
         {
     		Actor newActor = stage.getActors().get(ctr);
 
-    		if(newActor instanceof MenuButton)
+    		if(newActor instanceof GameMenuButton)
     		{
     			stage.getActors().removeIndex(ctr);
     			stage.getActors().add(newActor);
@@ -521,9 +522,9 @@ public class GameScreen implements Screen, InputProcessor{
 			return false;
 		}
 		
-		if(a instanceof MenuButton)
+		if(a instanceof GameMenuButton)
 		{
-			MenuButton btn = (MenuButton) a;
+			GameMenuButton btn = (GameMenuButton) a;
 			
 			if(btn.getType() == ButtonType.RESUME)
 			{
@@ -562,7 +563,9 @@ public class GameScreen implements Screen, InputProcessor{
 			{
 				tower.upgrade();
 			}
-			
+			isUpgradeDisplay = false;
+			hoveredTower.setUpgradeDisplay(false);
+			hoveredTower.setRangeColor(new Color(0, 1, 0, 0.3f));
 		}
 		
 		if(a instanceof TowerRemoveButton)
@@ -656,11 +659,26 @@ public class GameScreen implements Screen, InputProcessor{
 			{
 				isUpgradeDisplay = true;
 				hoveredTower.setUpgradeDisplay(true);
+				hoveredTower.setRangeColor(new Color(0, 0.4f, 1, 0.3f));
 			}
 		} else if(isUpgradeDisplay)
 		{
 			isUpgradeDisplay = false;
 			hoveredTower.setUpgradeDisplay(false);
+			hoveredTower.setRangeColor(new Color(0, 1, 0, 0.3f));
+		}
+		
+		if(a instanceof TowerRemoveButton)
+		{
+			if(hoveredTower.isHovered())
+			{
+				isRemoveDisplay = true;
+				hoveredTower.setRangeColor(new Color(1, 0, 0, 0.3f));
+			}
+		} else if(isRemoveDisplay)
+		{
+			isRemoveDisplay = false;
+			hoveredTower.setRangeColor(new Color(0, 1, 0, 0.3f));
 		}
 		
 		return false;
@@ -681,15 +699,15 @@ public class GameScreen implements Screen, InputProcessor{
 	{
 		isPaused = true;
 		stage.addActor(new PauseMenu());
-		resumeButton = new MenuButton(ButtonType.RESUME);
+		resumeButton = new GameMenuButton(ButtonType.RESUME);
 		resumeButton.setPosition((stage.getWidth()-resumeButton.getWidth())/2, stage.getHeight()/5);
 		stage.addActor(resumeButton);
 		
-		restartButton = new MenuButton(ButtonType.RESTART);
+		restartButton = new GameMenuButton(ButtonType.RESTART);
 		restartButton.setPosition((stage.getWidth()-restartButton.getWidth())/2, stage.getHeight()*2/5);
 		stage.addActor(restartButton);
 		
-		quitButton = new MenuButton(ButtonType.QUIT);
+		quitButton = new GameMenuButton(ButtonType.QUIT);
 		quitButton.setPosition((stage.getWidth()-quitButton.getWidth())/2, stage.getHeight()*3/5);
 		stage.addActor(quitButton);
 	}

@@ -1,14 +1,18 @@
 package com.git.tdgame.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.git.tdgame.TDGame;
+import com.git.tdgame.guiActor.MenuButton;
+import com.git.tdgame.guiActor.MenuButton.ButtonType;
 
 
 public class MenuScreen implements Screen, InputProcessor{
@@ -16,6 +20,10 @@ public class MenuScreen implements Screen, InputProcessor{
 	public TDGame game;
 	private Stage stage;
 	private Image splashImage;
+	private MenuButton playButton;
+	private MenuButton optionsButton;
+	private MenuButton hoveredButton;
+	
 	public MenuScreen(TDGame game)
 	{
 		this.game = game;
@@ -29,18 +37,27 @@ public class MenuScreen implements Screen, InputProcessor{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		stage.setViewport(1024, 512, false);
-
 	}
 
 	@Override
 	public void show() {
 		stage = new Stage();
+		stage.setViewport(game.getScreenWidth(), game.getScreenHeight(), false);
 		splashImage = new Image(new Texture(Gdx.files.internal("data/menu/splash.png")));
+		playButton = new MenuButton(ButtonType.PLAY, 0, 0);
+		playButton.setX(1024/2-(playButton.getWidth()/2));
+		playButton.setY(512/4);
 
+		optionsButton = new MenuButton(ButtonType.OPTIONS, 0, 0);
+		optionsButton.setX(1024/2-(playButton.getWidth()/2));
+		optionsButton.setY(512/14);
+		
 		stage.addActor(splashImage);
+		stage.addActor(playButton);
+		stage.addActor(optionsButton);
 		Gdx.input.setInputProcessor(this);
+		hoveredButton = null;
 	}
 
 	@Override
@@ -93,7 +110,17 @@ public class MenuScreen implements Screen, InputProcessor{
 		return false;
 	}
 	@Override
-	public boolean touchDown(int arg0, int arg1, int arg2, int arg3) {
+	public boolean touchDown(int screenX, int screenY, int pointer, int button)
+	{
+		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
+		Actor a = stage.hit(hover.x,hover.y,true);
+		
+		if(a instanceof MenuButton)
+		{
+			MenuButton m = (MenuButton) a;
+			m.setHover(true);
+			hoveredButton = m;
+		}
 		return false;
 	}
 	@Override
@@ -102,11 +129,29 @@ public class MenuScreen implements Screen, InputProcessor{
 		return false;
 	}
 	@Override
-	public boolean touchUp(int arg0, int arg1, int arg2, int arg3)
+	public boolean touchUp(int screenX, int screenY, int pointer, int button)
 	{
-		Gdx.input.setInputProcessor(null);
-		game.goToLevelSelectScreen();
-		this.dispose();
+		Vector2 hover = stage.screenToStageCoordinates(new Vector2(screenX,screenY));
+		Actor a = stage.hit(hover.x,hover.y,true);
+		
+		if(a instanceof MenuButton)
+		{
+			MenuButton m = (MenuButton) a;
+			
+			if(m.getType() == ButtonType.PLAY)
+			{
+				game.goToLevelSelectScreen();
+				this.dispose();
+			} else if(m.getType() == ButtonType.OPTIONS)
+			{
+				// To Do : Go to options screen
+			}
+		} else {
+			if(hoveredButton != null)
+			{
+				hoveredButton.setHover(false);
+			}
+		}
 		return false;
 	}
 

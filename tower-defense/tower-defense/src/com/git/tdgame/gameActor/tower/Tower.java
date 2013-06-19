@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.gameActor.level.Enemy;
+import com.git.tdgame.gameActor.Enemy;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 import com.git.tdgame.gameActor.projectile.HomingProjectile;
 import com.git.tdgame.gameActor.projectile.ProjectileModel;

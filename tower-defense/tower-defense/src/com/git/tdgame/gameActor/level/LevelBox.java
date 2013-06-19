@@ -1,10 +1,12 @@
 package com.git.tdgame.gameActor.level;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class LevelBox extends Actor
@@ -61,8 +63,38 @@ public class LevelBox extends Actor
     {
     	if(isActive)
     	{
-        	batch.draw(sprite,getX(),viewPortHeight-getY()-this.height,getOriginX(),getOriginY(),this.width,this.height,1,1,0);
+        	batch.end();
+    		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
+            shapeRenderer.begin(ShapeType.FilledCircle);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.filledCircle(getX()+(int)(getWidth()/2), viewPortHeight-getY()-(int)(getHeight()/2+1), (int)(getWidth()/2 + 5));
+            shapeRenderer.end();
+            shapeRenderer.begin(ShapeType.FilledCircle);
+            shapeRenderer.setColor(new Color(0, 0.5f, 1f, 1));
+            shapeRenderer.filledCircle(getX()+(int)(getWidth()/2), viewPortHeight-getY()-(int)(getHeight()/2+1), (int)(getWidth()/2 + 4));
+            shapeRenderer.end();
+            shapeRenderer.begin(ShapeType.FilledCircle);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.filledCircle(getX()+(int)(getWidth()/2), viewPortHeight-getY()-(int)(getHeight()/2+1), (int)(getWidth()/2 + 3));
+            shapeRenderer.end();
+            batch.begin();
+        	batch.draw(sprite,getX()-0.5f,viewPortHeight-getY()-this.height-0.5f,getOriginX(),getOriginY(),this.width,this.height,1,1,0);
     	} else {
+        	batch.end();
+    		shapeRenderer.setProjectionMatrix(getStage().getCamera().combined);
+            shapeRenderer.begin(ShapeType.FilledCircle);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.filledCircle(getX()+(int)(getWidth()/2), viewPortHeight-getY()-(int)(getHeight()/2+1), (int)(getWidth()/2 + 5));
+            shapeRenderer.end();
+            shapeRenderer.begin(ShapeType.FilledCircle);
+            shapeRenderer.setColor(new Color(0.5f, 0, 0, 1));
+            shapeRenderer.filledCircle(getX()+(int)(getWidth()/2), viewPortHeight-getY()-(int)(getHeight()/2+1), (int)(getWidth()/2 + 4));
+            shapeRenderer.end();
+            shapeRenderer.begin(ShapeType.FilledCircle);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.filledCircle(getX()+(int)(getWidth()/2), viewPortHeight-getY()-(int)(getHeight()/2+1), (int)(getWidth()/2 + 3));
+            shapeRenderer.end();
+            batch.begin();
     		batch.setColor(1, 1, 1, 0.5f);
     		batch.draw(sprite,getX(),viewPortHeight-getY()-this.height,getOriginX(),getOriginY(),this.width,this.height,1,1,0);
     		batch.setColor(1, 1, 1, 1);

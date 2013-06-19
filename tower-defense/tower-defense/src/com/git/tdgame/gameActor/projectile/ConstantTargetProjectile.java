@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.gameActor.level.Enemy;
+import com.git.tdgame.gameActor.Enemy;
 
 public class ConstantTargetProjectile extends AbstractProjectile
 {
