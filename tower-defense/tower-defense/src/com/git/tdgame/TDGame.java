@@ -7,11 +7,13 @@ import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.screen.GameScreen;
 import com.git.tdgame.screen.LevelSelectScreen;
 import com.git.tdgame.screen.MenuScreen;
+import com.git.tdgame.screen.OptionsScreen;
 
 public class TDGame extends Game {
 	private MenuScreen menuScreen;
 	private LevelSelectScreen levelSelectScreen;
 	private GameScreen gameScreen;
+	private OptionsScreen optionsScreen;
 
 	private int screenWidth = 0;
 	private int screenHeight = 0;
@@ -38,12 +40,19 @@ public class TDGame extends Game {
 		setScreen(menuScreen);
 		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
 		this.unlockedLevels = prefs.getInteger("unlockedLevels", 0);
+		prefs.getFloat("volume", 1);
 	}
 	
 	public void goToGameScreen()
 	{
 		gameScreen = new GameScreen(this, selectedLevel);
 		setScreen(gameScreen);
+	}
+	
+	public void goToOptionsScreen()
+	{
+		optionsScreen = new OptionsScreen(this);
+		setScreen(optionsScreen);
 	}
 	
 	public void setSelectedLevel(LevelModel selectedLevel)
@@ -63,7 +72,6 @@ public class TDGame extends Game {
 		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
 		prefs.putInteger("unlockedLevels", unlockedLevels);
 		prefs.flush();
-		
 	}
 
 	

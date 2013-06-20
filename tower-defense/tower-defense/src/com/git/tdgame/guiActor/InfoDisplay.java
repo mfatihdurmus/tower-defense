@@ -28,19 +28,19 @@ public class InfoDisplay extends Actor {
 	{
 		actor = null;
 		
-		texture = new Texture(Gdx.files.internal("data/menu/displaybackground.jpg"));
-		attackSpeed = new Texture(Gdx.files.internal("data/menu/attackSpeed.png"));
-		movementSpeed = new Texture(Gdx.files.internal("data/menu/movementSpeed.png"));
-		damage = new Texture(Gdx.files.internal("data/menu/damage.png"));
-		range = new Texture(Gdx.files.internal("data/menu/range.png"));
-		health = new Texture(Gdx.files.internal("data/menu/health.png"));
+		texture = new Texture(Gdx.files.internal("data/game/gui/displaybackground.jpg"));
+		attackSpeed = new Texture(Gdx.files.internal("data/game/gui/attackSpeed.png"));
+		movementSpeed = new Texture(Gdx.files.internal("data/game/gui/movementSpeed.png"));
+		damage = new Texture(Gdx.files.internal("data/game/gui/damage.png"));
+		range = new Texture(Gdx.files.internal("data/game/gui/range.png"));
+		health = new Texture(Gdx.files.internal("data/game/gui/health.png"));
 		
 		texture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
         sprite = new Sprite(texture);
         
         this.guiPosition = guiPosition;
         
-        font = new BitmapFont(Gdx.files.internal("data/menu/font.fnt"), true);
+        font = new BitmapFont(Gdx.files.internal("data/game/gui/font.fnt"), true);
         font.setColor(0, 0, 0, 1);
 	}
 	

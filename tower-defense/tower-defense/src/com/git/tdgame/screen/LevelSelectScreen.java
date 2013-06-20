@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,6 +27,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 	private List<LevelModel> levels;
 	private int unlockedLevels;
 	private Music levelScreenMusic;
+	private float volume;
 	
 	public LevelSelectScreen(TDGame game, int unlockedLevels)
 	{
@@ -53,7 +55,7 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 		stage = new Stage();
 		Gdx.input.setInputProcessor(this);
 
-		Image world = new Image(new Texture(Gdx.files.internal("data/menu/world.png")));
+		Image world = new Image(new Texture(Gdx.files.internal("data/levelSelect/world.png")));
 		world.setPosition(0, 0);
 		world.setSize(stage.getWidth(), stage.getHeight());
 		stage.addActor(world);
@@ -261,9 +263,12 @@ public class LevelSelectScreen implements Screen, InputProcessor{
 			}
 		}*/
 		
-		levelScreenMusic = Gdx.audio.newMusic(Gdx.files.internal("data/menu/levelScreenMusic.wav"));
+		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
+		volume = prefs.getFloat("volume", 1);
+		
+		levelScreenMusic = Gdx.audio.newMusic(Gdx.files.internal("data/levelSelect/levelScreenMusic.wav"));
 		levelScreenMusic.setLooping(true);
-		levelScreenMusic.setVolume(0.8f);
+		levelScreenMusic.setVolume(volume);
 		levelScreenMusic.play();
 	}
 

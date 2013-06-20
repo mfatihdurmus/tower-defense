@@ -31,7 +31,7 @@ public class Gold extends Actor
     	
     	setPosition(position.x,position.y);
     	
-    	texture = new Texture(Gdx.files.internal("data/game/gold.png"));
+    	texture = new Texture(Gdx.files.internal("data/game/gui/gold.png"));
     	numberOfFrames = (int)(texture.getWidth()/WIDTH);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
         font = new BitmapFont(true);

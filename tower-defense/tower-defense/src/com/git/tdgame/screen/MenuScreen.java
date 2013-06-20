@@ -144,7 +144,7 @@ public class MenuScreen implements Screen, InputProcessor{
 				this.dispose();
 			} else if(m.getType() == ButtonType.OPTIONS)
 			{
-				// To Do : Go to options screen
+				game.goToOptionsScreen();
 			}
 		} else {
 			if(hoveredButton != null)

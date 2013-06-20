@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class GameMenuButton extends Actor {
 	
-	private final String quitButtonFile = "data/menu/quit.png";
-	private final String restartButtonFile = "data/menu/restart.png";
-	private final String resumeButtonFile = "data/menu/resume.png";
+	private final String quitButtonFile = "data/game/gui/quit.png";
+	private final String restartButtonFile = "data/game/gui/restart.png";
+	private final String resumeButtonFile = "data/game/gui/resume.png";
 	
 	public enum ButtonType { QUIT, RESUME, RESTART };
 	

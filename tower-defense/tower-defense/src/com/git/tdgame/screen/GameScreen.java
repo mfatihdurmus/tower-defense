@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
@@ -85,7 +86,8 @@ public class GameScreen implements Screen, InputProcessor{
 	private GameMenuButton resumeButton;
 
 	// in-game music
-	private Music music;
+	private Music gameMusic;
+	private float musicVolume;
 	
 	private boolean isPaused;
 	
@@ -303,7 +305,7 @@ public class GameScreen implements Screen, InputProcessor{
 
 	private void victory()
 	{
-		splashImage = new Image(new Texture(Gdx.files.internal("data/game/victory.png")));
+		splashImage = new Image(new Texture(Gdx.files.internal("data/game/gui/victory.png")));
 		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
 
 		stage.addActor(splashImage);
@@ -386,9 +388,14 @@ public class GameScreen implements Screen, InputProcessor{
 			totalSpawnLeft += w.getEnemies().size();
 		}
 		
-		music = Gdx.audio.newMusic(Gdx.files.internal("data/game/crusade.mp3"));
-		music.play();
+		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
+		musicVolume = prefs.getFloat("volume", 1);
+		prefs.getFloat("effectsVolume", 1);
 		
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("data/game/gui/crusade.mp3"));
+		gameMusic.setVolume(musicVolume);
+		gameMusic.play();
+
 		PauseButton pauseBtn = new PauseButton();
 		pauseBtn.setPosition(stage.getWidth()-64, 0);
 		stage.addActor(pauseBtn);
@@ -399,7 +406,7 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	public void defeat()
 	{
-		splashImage = new Image(new Texture(Gdx.files.internal("data/game/defeat.png")));
+		splashImage = new Image(new Texture(Gdx.files.internal("data/game/gui/defeat.png")));
 		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
 
 		stage.addActor(splashImage);
@@ -427,7 +434,7 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public void dispose()
 	{
-		music.dispose();
+		gameMusic.dispose();
 	}
 
 	@Override
@@ -509,7 +516,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if(defeat || victory)
 		{
-			music.pause();
+			gameMusic.pause();
 			game.goToLevelSelectScreen();
 		}
 		
@@ -537,7 +544,7 @@ public class GameScreen implements Screen, InputProcessor{
 			}
 			else if(btn.getType() == ButtonType.QUIT)
 			{
-				game.goToLevelSelectScreen();
+				game.goToMenuScreen();
 				this.dispose();
 			}
 

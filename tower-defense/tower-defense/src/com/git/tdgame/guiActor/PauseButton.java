@@ -11,7 +11,7 @@ public class PauseButton extends Actor {
 	private Sprite sprite;
 	
 	public PauseButton() {
-		texture = new Texture(Gdx.files.internal("data/menu/pause.png"));
+		texture = new Texture(Gdx.files.internal("data/game/gui/pause.png"));
 		setHeight(texture.getHeight());
 		setWidth(texture.getWidth());
 		sprite = new Sprite(texture);

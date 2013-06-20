@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -48,6 +49,8 @@ public class Tower extends Actor
 	
 	private Sound fireSound;
 	private Sound fireSoundAlternative;
+
+	private float effectsVolume;
     
 	public int getDamage()
 	{
@@ -93,6 +96,9 @@ public class Tower extends Actor
     	texture = new Texture(properties.get("texturePath"));
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,width,height);
         shapeRenderer = new ShapeRenderer();
+
+		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
+        this.effectsVolume = prefs.getFloat("effectsVolume", 1);
     }
 
     public boolean isUpgradeDisplay() {
@@ -222,9 +228,13 @@ public class Tower extends Actor
     	getStage().addActor(createProjectile());
     	Random generator = new Random();
     	if(generator.nextInt(2) == 0)
-    		fireSound.play();
-    	else
-    		fireSoundAlternative.play();
+    	{
+    		long id = fireSound.play();
+    		fireSound.setVolume(id, effectsVolume);
+    	} else {
+    		long id = fireSoundAlternative.play();
+    		fireSoundAlternative.setVolume(id, effectsVolume);
+    	}
     }
     
     AbstractProjectile createProjectile(){
