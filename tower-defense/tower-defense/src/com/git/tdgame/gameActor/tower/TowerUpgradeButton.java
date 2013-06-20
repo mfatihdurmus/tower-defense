@@ -24,7 +24,7 @@ public class TowerUpgradeButton extends Actor {
 	public TowerUpgradeButton( Tower t ) {
 		mTower = t;
 		
-		texture = new Texture(Gdx.files.internal("data/game/upgrade.png"));
+		texture = new Texture(Gdx.files.internal("data/game/gui/upgrade.png"));
 		setHeight(texture.getHeight());
 		setWidth(texture.getWidth());
         sprite = new Sprite(texture);

@@ -25,6 +25,12 @@ public class TDGame extends Game {
 		super();
 	}
 
+	
+	public void setUnlockedLevels(int unlockedLevels) {
+		this.unlockedLevels = unlockedLevels;
+	}
+
+
 	public TDGame(int width, int height)
 	{
 		super();

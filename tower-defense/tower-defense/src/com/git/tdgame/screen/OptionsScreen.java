@@ -11,9 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.git.tdgame.TDGame;
-import com.git.tdgame.guiActor.MenuButton;
 import com.git.tdgame.guiActor.OptionsButton;
-import com.git.tdgame.guiActor.MenuButton.ButtonType;
 
 
 public class OptionsScreen implements Screen, InputProcessor{
@@ -177,6 +175,7 @@ public class OptionsScreen implements Screen, InputProcessor{
 			{
 				Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
 				prefs.putInteger("unlockedLevels", 0);
+				game.setUnlockedLevels(0);
 				prefs.putFloat("volume", 1);
 				prefs.putFloat("effectsVolume", 1);
 				musicButton.setHover(false);

@@ -22,7 +22,7 @@ public class TowerRemoveButton extends Actor {
 	public TowerRemoveButton( Tower t ) {
 		mTower = t;
 		
-		texture = new Texture(Gdx.files.internal("data/game/remove.png"));
+		texture = new Texture(Gdx.files.internal("data/game/gui/remove.png"));
 		setHeight(texture.getHeight());
 		setWidth(texture.getWidth());
         sprite = new Sprite(texture);
