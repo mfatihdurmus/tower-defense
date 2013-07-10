@@ -28,8 +28,8 @@ public class GameMenuButton extends Actor {
 		else if(type == ButtonType.RESUME)
 			texture = new Texture(Gdx.files.internal(resumeButtonFile));
 		
-		setHeight(texture.getHeight());
-		setWidth(texture.getWidth());
+		setHeight(texture.getHeight() * 2/3);
+		setWidth(texture.getWidth() * 2/3);
         sprite = new Sprite(texture);
 	}
 	

@@ -68,7 +68,7 @@ public class GameScreen implements Screen, InputProcessor{
 	// Wave variables
 	private float spawnTime = 0;
 	private int spawnLeft;
-	private final float spawnDelay = 0.5f;
+	private final float spawnDelay = 1.1f;
 	private float waveDelay;
 	private int totalSpawnLeft = 0;
 	
@@ -232,6 +232,17 @@ public class GameScreen implements Screen, InputProcessor{
         {
     		Actor newActor = stage.getActors().get(ctr);
 
+    		if(newActor instanceof Gold)
+    		{
+    			stage.getActors().removeIndex(ctr);
+    			stage.getActors().add(newActor);
+    			break;
+    		}
+        }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
     		if(newActor instanceof PauseMenu)
     		{
     			stage.getActors().removeIndex(ctr);
@@ -306,7 +317,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private void victory()
 	{
 		splashImage = new Image(new Texture(Gdx.files.internal("data/game/gui/victory.png")));
-		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
+		splashImage.setPosition(tdGameMapHelper.getWidth()*0.30f, tdGameMapHelper.getHeight()*0.25f);
 
 		stage.addActor(splashImage);
 		if(!victory && game.getUnlockedLevels() <= this.levelIndex)
@@ -328,7 +339,7 @@ public class GameScreen implements Screen, InputProcessor{
 		Gdx.input.setInputProcessor(this);
 		// Map load
 		tdGameMapHelper = new TDGameMapHelper();
-		tdGameMapHelper.setPackerDirectory("data/world/packer");
+		tdGameMapHelper.setPackerDirectory("data/world/level packfile");
 		tdGameMapHelper.loadMap(levelModel.getMapPath());
 		tileSize = new Vector2(tdGameMapHelper.getMap().tileWidth,tdGameMapHelper.getMap().tileHeight);
 
@@ -407,7 +418,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public void defeat()
 	{
 		splashImage = new Image(new Texture(Gdx.files.internal("data/game/gui/defeat.png")));
-		splashImage.setPosition(tdGameMapHelper.getWidth()*0.25f, tdGameMapHelper.getHeight()*0.25f);
+		splashImage.setPosition(tdGameMapHelper.getWidth()*0.30f, tdGameMapHelper.getHeight()*0.25f);
 
 		stage.addActor(splashImage);
 		defeat = true;
@@ -613,8 +624,12 @@ public class GameScreen implements Screen, InputProcessor{
 			return false;
 		
 		// On path
-		if(tdGameMapHelper.getTiles(tdGameMapHelper.getPATH_LAYER())[y][x] != 0)
-			return false;
+		
+		for(int ctr = 1; ctr < tdGameMapHelper.getMap().layers.size(); ++ctr)
+		{
+			if(tdGameMapHelper.getTiles(ctr)[y][x] != 0)
+				return false;
+		}
 		
 		// On other tower
 		for(Actor a : stage.getActors())

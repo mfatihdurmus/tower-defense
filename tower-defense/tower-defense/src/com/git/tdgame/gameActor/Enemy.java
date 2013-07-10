@@ -140,15 +140,18 @@ public class Enemy extends Actor
     	Vector2 newPosition = new Vector2();
     	if(currentPath >= path.size)
     	{
-        	Array<Actor> actors=getStage().getActors();
-        	for(Actor a: actors){
-        		if(a instanceof Base)
-        		{
-        			Base b = (Base)a;
-        			if(b.isAlive())
-        				b.takeDamage(damage);
-        		}
-        	}
+			if(this.getStage() != null)
+			{
+	        	Array<Actor> actors=getStage().getActors();
+	        	for(Actor a: actors){
+	        		if(a instanceof Base)
+	        		{
+	        			Base b = (Base)a;
+	        			if(b.isAlive())
+	        				b.takeDamage(damage);
+	        		}
+	        	}
+			}
 
     		die();
     		return newPosition;
@@ -240,14 +243,17 @@ public class Enemy extends Actor
 	{
 		if(alive)
 		{
-			Array<Actor> actors = getStage().getActors();
-			for(Actor a : actors)
+			if(this.getStage() != null)
 			{
-				if(a instanceof Gold)
+				Array<Actor> actors = getStage().getActors();
+				for(Actor a : actors)
 				{
-					Gold g = (Gold) a;
-					g.addGold(gold);
-					break;
+					if(a instanceof Gold)
+					{
+						Gold g = (Gold) a;
+						g.addGold(gold);
+						break;
+					}
 				}
 			}
 		}

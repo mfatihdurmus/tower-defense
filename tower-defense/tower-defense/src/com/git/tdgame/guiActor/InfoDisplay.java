@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Enemy;
@@ -23,6 +24,7 @@ public class InfoDisplay extends Actor {
 	private int guiPosition;
 	private BitmapFont font;
 	private Actor actor;
+	private Vector2 defaultSize;
 	
 	public InfoDisplay( int guiPosition )
 	{
@@ -34,6 +36,7 @@ public class InfoDisplay extends Actor {
 		damage = new Texture(Gdx.files.internal("data/game/gui/damage.png"));
 		range = new Texture(Gdx.files.internal("data/game/gui/range.png"));
 		health = new Texture(Gdx.files.internal("data/game/gui/health.png"));
+		defaultSize = new Vector2(32, 32);
 		
 		texture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
         sprite = new Sprite(texture);
@@ -63,19 +66,19 @@ public class InfoDisplay extends Actor {
 				} else {
 				
 					// Damage
-					batch.draw(damage, guiPosition, 0, damage.getWidth(), damage.getHeight(), 0, 0, damage.getWidth(), damage.getHeight(), false, true);
-					String damageString = String.format("Damage:%d", tower.getDamage());
-					font.draw(batch,damageString, guiPosition + 64, 16);
+					batch.draw(damage, guiPosition, 16, defaultSize.x, defaultSize.y, 0, 0, damage.getWidth(), damage.getHeight(), false, true);
+					String damageString = String.format("Dmg:%d", tower.getDamage());
+					font.draw(batch,damageString, guiPosition + 34, 22);
 					
 					// Attack Speed
-					batch.draw(attackSpeed, guiPosition + (getStage().getWidth() - guiPosition-90)/3, 0, attackSpeed.getWidth(), attackSpeed.getHeight(), 0, 0, attackSpeed.getWidth(), attackSpeed.getHeight(), false, true);
-					String speedString = String.format("Freq:%.2f", (1/tower.getFireRate()));
-					font.draw(batch,speedString, guiPosition + (getStage().getWidth() - guiPosition-90)/3 + 64, 16);
+					batch.draw(attackSpeed, guiPosition + (getStage().getWidth() - guiPosition-90)/3, 16, defaultSize.x, defaultSize.y, 0, 0, attackSpeed.getWidth(), attackSpeed.getHeight(), false, true);
+					String speedString = String.format("Frq:%.2f", (1/tower.getFireRate()));
+					font.draw(batch,speedString, guiPosition + (getStage().getWidth() - guiPosition-90)/3 + 34, 22);
 		
 					// Range
-					batch.draw(range, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3, 0, range.getWidth(), range.getHeight(), 0, 0, range.getWidth(), range.getHeight(), false, true);
-					String rangeString = String.format("Range:%.0f", tower.getRange());
-					font.draw(batch,rangeString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 64, 16);
+					batch.draw(range, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3, 16, defaultSize.x, defaultSize.y, 0, 0, range.getWidth(), range.getHeight(), false, true);
+					String rangeString = String.format("Rng:%.0f", tower.getRange());
+					font.draw(batch,rangeString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 34, 22);
 				}
 				
 			} else if(actor instanceof Enemy)
@@ -87,27 +90,27 @@ public class InfoDisplay extends Actor {
 				} else {
 				
 					// Damage
-					batch.draw(damage, guiPosition, 0, damage.getWidth(), damage.getHeight(), 0, 0, damage.getWidth(), damage.getHeight(), false, true);
-					String damageString = String.format("Damage:%d", enemy.getDamage());
-					font.draw(batch,damageString, guiPosition + 64, 16);
+					batch.draw(damage, guiPosition, 16, defaultSize.x, defaultSize.y, 0, 0, damage.getWidth(), damage.getHeight(), false, true);
+					String damageString = String.format("Dmg:%d", enemy.getDamage());
+					font.draw(batch,damageString, guiPosition + 34, 22);
 					
 					// Movement Speed
-					batch.draw(movementSpeed, guiPosition + (getStage().getWidth() - guiPosition-90)/3, 0, movementSpeed.getWidth(), movementSpeed.getHeight(), 0, 0, movementSpeed.getWidth(), movementSpeed.getHeight(), false, true);
-					String speedString = String.format("Speed:%d", ((int)enemy.getSpeed()));
-					font.draw(batch,speedString, guiPosition + (getStage().getWidth() - guiPosition-90)/3 + 64, 16);
+					batch.draw(movementSpeed, guiPosition + (getStage().getWidth() - guiPosition-90)/3, 16, defaultSize.x, defaultSize.y, 0, 0, movementSpeed.getWidth(), movementSpeed.getHeight(), false, true);
+					String speedString = String.format("Spd:%d", ((int)enemy.getSpeed()));
+					font.draw(batch,speedString, guiPosition + (getStage().getWidth() - guiPosition-90)/3 + 34, 22);
 		
 					// Health
-					batch.draw(health, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3, 0, health.getWidth(), health.getHeight(), 0, 0, health.getWidth(), health.getHeight(), false, true);
-					String healthString = String.format("Health:%d", enemy.getCurrentHealth());
-					font.draw(batch,healthString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 64, 16);
+					batch.draw(health, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3, 16, defaultSize.x, defaultSize.y, 0, 0, health.getWidth(), health.getHeight(), false, true);
+					String healthString = String.format("Hlth:%d", enemy.getCurrentHealth());
+					font.draw(batch,healthString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 34, 22);
 				}
 			} else if(actor instanceof Base) {
 				Base base = (Base) actor;
 				
 				// Health
-				batch.draw(health, guiPosition, 0, health.getWidth(), health.getHeight(), 0, 0, health.getWidth(), health.getHeight(), false, true);
+				batch.draw(health, guiPosition, 16, defaultSize.x, defaultSize.y, 0, 0, health.getWidth(), health.getHeight(), false, true);
 				String healthString = String.format("Health:%d", base.getCurrentHealth());
-				font.draw(batch,healthString, guiPosition + 64, 16);
+				font.draw(batch,healthString, guiPosition + 34, 22);
 			}
 		}
 	}

@@ -18,8 +18,8 @@ public class TDGameMapHelper {
 	private TileMapRenderer tileMapRenderer;
 	private TiledMap map;
 
-	private final int START_POINT = 6;
-	private final int END_POINT = 7;
+	private final int START_POINT = 3;
+	private final int END_POINT = 4;
 	private final int PATH_LAYER = 1;
 
 	public int[][] getTiles(int layer) {
@@ -71,7 +71,7 @@ public class TDGameMapHelper {
 
 		int direction = 0;
 		while (x != fX || y != fY) {
-			if (y + 1 < 32 && pathTiles[y + 1][x] != 0 && direction != 2) {
+			if (y + 1 < map.height && pathTiles[y + 1][x] != 0 && direction != 2) {
 				if (direction != 1) {
 					Vector2 newVector = new Vector2(x * map.tileWidth, y
 							* map.tileHeight);
@@ -87,7 +87,7 @@ public class TDGameMapHelper {
 					direction = 2;
 				}
 				y--;
-			} else if (x + 1 < 32 && pathTiles[y][x + 1] != 0 && direction != 4) {
+			} else if (x + 1 < map.width && pathTiles[y][x + 1] != 0 && direction != 4) {
 				if (direction != 3) {
 					Vector2 newVector = new Vector2(x * map.tileWidth, y
 							* map.tileHeight);
