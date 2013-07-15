@@ -6,7 +6,8 @@
 					"maxHealth" : "16",
 					"gold" : "5",
 					"damage" : "3",
-					"texturePath" : "data/game/enemy/peasant.png"
+					"texturePath" : "data/game/enemy/peasant.png",
+					"slowedTexturePath" : "data/game/enemy/peasantSlowed.png"
 				},
 	"swordsman" : {
 					"defaultSpeed" : "48",
@@ -15,7 +16,8 @@
 					"maxHealth" : "24",
 					"gold" : "10",
 					"damage" : "5",
-					"texturePath" : "data/game/enemy/swordsman.png"
+					"texturePath" : "data/game/enemy/swordsman.png",
+					"slowedTexturePath" : "data/game/enemy/swordsmanSlowed.png"
 				},
 	"pikeman" : {
 					"defaultSpeed" : "64",
@@ -24,7 +26,8 @@
 					"maxHealth" : "16",
 					"gold" : "7",
 					"damage" : "4",
-					"texturePath" : "data/game/enemy/pikeman.png"
+					"texturePath" : "data/game/enemy/pikeman.png",
+					"slowedTexturePath" : "data/game/enemy/pikemanSlowed.png"
 				},
 	"paladin" : {
 					"defaultSpeed" : "48",
@@ -33,6 +36,7 @@
 					"maxHealth" : "64",
 					"gold" : "20",
 					"damage" : "10",
-					"texturePath" : "data/game/enemy/paladin.png"
+					"texturePath" : "data/game/enemy/paladin.png",
+					"slowedTexturePath" : "data/game/enemy/paladinSlowed.png"
 				}
 }

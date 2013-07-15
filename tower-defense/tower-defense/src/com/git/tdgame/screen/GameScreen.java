@@ -19,12 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.git.tdgame.TDGame;
 import com.git.tdgame.data.DataProvider;
-import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Enemy;
 import com.git.tdgame.gameActor.Gold;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
+import com.git.tdgame.gameActor.tower.MainTower;
 import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.gameActor.tower.TowerConstructButton;
 import com.git.tdgame.gameActor.tower.TowerRemoveButton;
@@ -221,7 +221,7 @@ public class GameScreen implements Screen, InputProcessor{
         {
     		Actor newActor = stage.getActors().get(ctr);
 
-    		if(newActor instanceof Base)
+    		if(newActor instanceof MainTower)
     		{
     			stage.getActors().removeIndex(ctr);
     			stage.getActors().add(newActor);
@@ -370,7 +370,7 @@ public class GameScreen implements Screen, InputProcessor{
 		stage.addActor(gold);
 		
 		Vector2 endPoint = tdGameMapHelper.getEndPoint();
-		stage.addActor(new Base(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this, levelModel.getBaseHealth()));
+		stage.addActor(new MainTower(new Vector2(endPoint.x*tileSize.x,endPoint.y*tileSize.y),this, levelModel.getBaseHealth()));
 		
 		// Display
 		infoDisplay = new InfoDisplay(towerTypes.keySet().size()*64);
@@ -514,7 +514,7 @@ public class GameScreen implements Screen, InputProcessor{
 				selectedTower.setHovered(true);
 				stage.addActor(selectedTower);
 			}
-		} else if(a instanceof Base)
+		} else if(a instanceof MainTower)
 		{
 			infoDisplay.setSelectedActor(a);
 		}

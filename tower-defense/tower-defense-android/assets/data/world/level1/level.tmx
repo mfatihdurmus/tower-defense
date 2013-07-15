@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Background" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBjcgHGE4hoc4j149OCToxUmxU5kP82hsbtobf5gx7jSz2DFAxVfAAHyBfw=
+   eJxjYBjcgJHGOBUJ09ouUnANDvEePPI9BPjUcgMldsyhovtwmYuNPxB4IN1AKP0MNjxQYQUAaPIKeg==
   </data>
  </layer>
  <layer name="Path" width="20" height="16">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBheoBCIiwfIvC4gzmVE8LuxyKPLyULVzybRXbOgdCkQlyGJg8yZCcRMZJgJAuj+7YKaBcLVVDCPCU0emU/I/GxGTPMyyHATMoCZV8WAiLs0LG6DgVlYxLCZRwlAtgNmXieU34mpHAPgU4NuHghUEmkGKIxgYQMKq2oGTP/KMOJ3Az63dWJxXyeSmeQAQvEBAFvNHg4=
+   eJxjYBheoBCIi2lkXicBtV1QWghKd6Pp60JS243EbgPi2WS6rxSIy5D4s6H2MKGpY0FiY/PHLCiNHn5MUIzPffjCBVt8wMyEsdOg7GoizMdmXgYe+7GZ0YnEh5lXhaY+jQE1DNH9OIsBO6BG+iPkX1ygnAF/3GIzTxAJEwKgMBJC4lcjmQezF5d5+NIILv8Sym/EAELhBwCAMh6t
   </data>
  </layer>
 </map>

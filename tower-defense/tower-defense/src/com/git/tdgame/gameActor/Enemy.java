@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.tower.MainTower;
 
 
 public class Enemy extends Actor
@@ -24,6 +25,8 @@ public class Enemy extends Actor
     private float traveledDist = 0;
     private float slowTime = 0;
     private int damage = 5;
+    private float defaultSpriteStep = 0.2f;
+    private float spriteStep = 0.2f;
     
     private HealthBar healthBar;
     
@@ -34,6 +37,7 @@ public class Enemy extends Actor
     // Sprite variables
     private Texture texture;
     private Sprite sprite;
+    private Sprite spriteSlowed;
     private double spritePos = 0;
     private int numberOfFrames = 0;
 	private int drawDirection = 1;
@@ -62,6 +66,8 @@ public class Enemy extends Actor
     	texture = new Texture(Gdx.files.internal(properties.get("texturePath")));
     	numberOfFrames = (int)(texture.getWidth()/this.width);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,this.width,this.height);
+    	texture = new Texture(Gdx.files.internal(properties.get("slowedTexturePath")));
+        spriteSlowed = new com.badlogic.gdx.graphics.g2d.Sprite(texture,this.width,this.height);
         
     }
 
@@ -69,10 +75,20 @@ public class Enemy extends Actor
     {
     	if(drawDirection > 0)
     	{
-    		batch.draw(sprite,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    		if(slowTime <= 0)
+    		{
+    			batch.draw(sprite,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    		} else {
+    			batch.draw(spriteSlowed,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    		}
     	} else if(drawDirection < 0)
     	{
-    		batch.draw(sprite,getX()+getWidth(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    		if(slowTime <= 0)
+    		{
+    			batch.draw(sprite,getX()+getWidth(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    		} else {
+    			batch.draw(spriteSlowed,getX()+getWidth(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    		}
     	}
     	
     	getStage().getCamera().update();
@@ -84,8 +100,9 @@ public class Enemy extends Actor
     	super.act(delta);
     	
     	// Move sprite region
-    	spritePos = (spritePos+0.2) % numberOfFrames;
+		spritePos = (spritePos+spriteStep) % numberOfFrames;
     	sprite.setRegion((int)spritePos*this.width, 0, this.width, this.height);
+    	spriteSlowed.setRegion((int)spritePos*this.width, 0, this.width, this.height);
     	
     	
     	slowTime -= delta;
@@ -144,9 +161,9 @@ public class Enemy extends Actor
 			{
 	        	Array<Actor> actors=getStage().getActors();
 	        	for(Actor a: actors){
-	        		if(a instanceof Base)
+	        		if(a instanceof MainTower)
 	        		{
-	        			Base b = (Base)a;
+	        			MainTower b = (MainTower)a;
 	        			if(b.isAlive())
 	        				b.takeDamage(damage);
 	        		}
@@ -218,13 +235,17 @@ public class Enemy extends Actor
 	public void setProperty(float property, float time, String propertyName)
 	{
 		// To Do : set for all properties
+		
+		// First slow
 		if(slowTime <= 0)
 		{
+			spriteStep = defaultSpriteStep - defaultSpriteStep * property;
 			slowTime = time;
-			speed *= (1-property);
+			speed = defaultSpeed * (1-property);
 			if(speed <= 1)
 				speed = 1;
 		} else {
+			// Sequels
 			slowTime = time;
 		}
 	}

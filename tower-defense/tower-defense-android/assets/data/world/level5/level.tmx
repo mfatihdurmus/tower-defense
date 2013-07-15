@@ -10,12 +10,12 @@
  </layer>
  <layer name="Path" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1AJMRGJSzKNUDTMWu/G5ixT34XMDuebhcye55mFj4xMbSPMoSS+k2o9uDwsRaqiVtgcLAAAeLwCE
+   eJxjYBgF1AJMRGJSzKNUDQsWu/G5ixT34XMDuebhcye55mFj4xMbSPMoSS+k2o9uDzMRaqiVtgcLAAAgWwCE
   </data>
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJzlkmEKgCAMhcUjdMjsBpFeIOsE1WVrsMFjONF+9KcPxhxsb0/Ruf+ROTTnE8cLrZnzZvQMcN4bNUvU/F0wl6H2sD9xLvnUvjxriDbWPchuz3lVtYa8lXwm1Ufz5HnhPtSz3s+C+iNrSOh9ur8V654lImf8L+JDdk7GbOjYI+h/IF4D6EVXZ4Rz7c3e+PuCG9/kGUk=
+   eJzlUlsKgDAMk91Aj+iHeANx/vnl4wTqZbXQQgjdVPDPQOi6tWk2VhT/w6xk7Be3TF8JRK1O45Loq2C93uiZpoecv8PJRSfA/EGj53OlPIDmQfkb2OygcaKcId48nwPVSb947rUO9VLvl4LUR9Uw8jyuf4rUPT1EjfhfzIfNbF/oCfbMGf8Dz2t09hANrL03qz/m+DFPcoUpaw==
   </data>
  </layer>
 </map>

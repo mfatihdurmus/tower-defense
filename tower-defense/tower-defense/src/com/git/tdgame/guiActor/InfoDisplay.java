@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.git.tdgame.gameActor.Base;
 import com.git.tdgame.gameActor.Enemy;
+import com.git.tdgame.gameActor.tower.MainTower;
 import com.git.tdgame.gameActor.tower.Tower;
 
 public class InfoDisplay extends Actor {
@@ -104,8 +104,8 @@ public class InfoDisplay extends Actor {
 					String healthString = String.format("Hlth:%d", enemy.getCurrentHealth());
 					font.draw(batch,healthString, guiPosition + (getStage().getWidth() - guiPosition-90)*2/3 + 34, 22);
 				}
-			} else if(actor instanceof Base) {
-				Base base = (Base) actor;
+			} else if(actor instanceof MainTower) {
+				MainTower base = (MainTower) actor;
 				
 				// Health
 				batch.draw(health, guiPosition, 16, defaultSize.x, defaultSize.y, 0, 0, health.getWidth(), health.getHeight(), false, true);

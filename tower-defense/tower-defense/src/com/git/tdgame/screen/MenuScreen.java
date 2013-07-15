@@ -22,6 +22,8 @@ public class MenuScreen implements Screen, InputProcessor{
 	private Image splashImage;
 	private MenuButton playButton;
 	private MenuButton optionsButton;
+	private MenuButton encyclopediaButton;
+	private MenuButton creditsButton;
 	private MenuButton hoveredButton;
 	
 	public MenuScreen(TDGame game)
@@ -46,16 +48,26 @@ public class MenuScreen implements Screen, InputProcessor{
 		stage.setViewport(game.getScreenWidth(), game.getScreenHeight(), false);
 		splashImage = new Image(new Texture(Gdx.files.internal("data/menu/splash.png")));
 		playButton = new MenuButton(ButtonType.PLAY, 0, 0);
-		playButton.setX(1024/2-(playButton.getWidth()/2));
-		playButton.setY(512/4);
+		playButton.setX(200);
+		playButton.setY(150);
 
 		optionsButton = new MenuButton(ButtonType.OPTIONS, 0, 0);
-		optionsButton.setX(1024/2-(playButton.getWidth()/2));
-		optionsButton.setY(512/14);
+		optionsButton.setX(200);
+		optionsButton.setY(50);
+		
+		encyclopediaButton = new MenuButton(ButtonType.ENCYCLOPEDIA, 0, 0);
+		encyclopediaButton.setX(1024-(playButton.getWidth())-200);
+		encyclopediaButton.setY(150);
+		
+		creditsButton = new MenuButton(ButtonType.CREDITS, 0, 0);
+		creditsButton.setX(1024-(playButton.getWidth())-200);
+		creditsButton.setY(50);
 		
 		stage.addActor(splashImage);
 		stage.addActor(playButton);
 		stage.addActor(optionsButton);
+		stage.addActor(encyclopediaButton);
+		stage.addActor(creditsButton);
 		Gdx.input.setInputProcessor(this);
 		hoveredButton = null;
 	}
@@ -145,6 +157,12 @@ public class MenuScreen implements Screen, InputProcessor{
 			} else if(m.getType() == ButtonType.OPTIONS)
 			{
 				game.goToOptionsScreen();
+			} else if(m.getType() == ButtonType.ENCYCLOPEDIA)
+			{
+				// To do : Go to encyclopedia screen
+			} else if(m.getType() == ButtonType.CREDITS)
+			{
+				// To do : Go to credits screen
 			}
 		} else {
 			if(hoveredButton != null)

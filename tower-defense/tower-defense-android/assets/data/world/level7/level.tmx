@@ -5,17 +5,17 @@
  </tileset>
  <layer name="Background" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBjcgHGQ4BoamdtDJz3Y/EIrP9Eb96DR1AqnkYqplS4Ga/jPQWIDAEPdBuI=
+   eJxjYBjcgJEOOJUAHyaWikOOVrgGj3tAuAdJDTY5erlzDpqd2NxEyD30DFdsbicWExOu2PyCri+VBPOohbHFC7r/a3CI09uttIxDZPUAo/wO/g==
   </data>
  </layer>
  <layer name="Path" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFxAIWEtQyIWF8akgxD5ceYuwi1TxSAbJ52DADFnkQYMaihhQ34PIHNj4hM5HVEOMeXH7F5W9C5pEChqJ5lGJaAAASRwCO
+   eJxjYBgF1ARMeDA+NfjMIySOroaQedjsxGUeIfcR4wZ8biXFPFxhiQyYiVSHz15ywpyQmeSaRygtoashxU5cAJsaSs0jNs2TEq7EABYC8gAopwCK
   </data>
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJzVUl0LwjAMLPunIrhnkfkxfRbX+a5Tf6w5yCAeadc+ehCaJcsl1zSE/8ZQGKvBQ+xpuA7qN2J39Vun31t9nFFjY2KmaPzW8OG/q+bRb6MncDI1K7E1cZ0zmnrN35wcZtyK7Qq5GC/qw7BcfC8NfQMT1YOzE9sT1yUxjzdDTz1mvXYvMdTp9vpY1HAxL+v9FNZiF1P43Qk0enqBY4ZrTMRzfCks3dUSavfivRcPX3jnKMQ=
+   eJzdUlsOgzAMi6qdYOOMO8G+ygXYOAGcliLVmhU5AX6xFPUR13KSmt0H3+TuIziev7ZY6DwFmtBDjjk/x3v2dU44M/mLvMFfBvav6t1RhZ8Mu9dR+DsL5fnVYrC4t+pNpf0o8vBX6M7XuNgxqul5KMBnVAfjav+gib/yphzm4TmqL6yVIfLnZ8Faj75OfY8c5gvw7FCH98q6RcTZ/vlai2T99TY4/iEe
   </data>
  </layer>
 </map>

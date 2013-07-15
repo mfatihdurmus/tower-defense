@@ -10,12 +10,12 @@
  </layer>
  <layer name="Path" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBjegIXK5jHRwTwmIjCp5pHqBnLdR0ielPAjN6zJdRcud6K7gxx3oZtHibtwhSM10iYzFdxFKPzIAbjCj1L3AQB1XwDc
+   eJxjYBgFpAAWKpvHhEOMECbVPFLdQK77CMkTcgux7iKkjxx34XInujvIcRe6eZS4C1c4khteyICZCu4iFH7kAFzhR6n7AGx/ANo=
   </data>
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJzNkjEKgDAMRYtnFgRddaiuKuhmvagpJPAJ0ap18EFIiu3nEXTu//iL7tXdiSpQ7VQlz7FvPOO7CmbM8ipvPMkbjfva2coTv5bnVvn1Rh4ywDxTdVBBnXNYOS/2hStSJ7zOviOY9zV6f0+89JtcrH9DPN54Cc1LF8sHKVyel3B3f9on5RfJ8RJkfwcFmCrk
+   eJzNkUsKgDAMRIs3Va8gCLrVRXWrgu7UixohgTDEX7txYDCt7fQ1de7/8jdfD2tH8kbeySk5I+fklef1vlLVOstD3sB5BWcUnDcY65HZyhO+husG+DojT6tX9URulTcYh2hmL5y3qLlT1QPX1X/rjFP4FrHC/n3hwj2xsu4jHCFcojqQ5am/iYvjEr3tH/K8ef8YLpH07wD9Ri3E
   </data>
  </layer>
 </map>

@@ -67,7 +67,8 @@ public class HomingProjectile extends AbstractProjectile {
     	{
     		Enemy e = (Enemy)target;
     		e.takeDamage((int)damage);
-    		e.setProperty(slowAmount, slowDuration, "defaultSpeed");
+    		if(slowAmount > 0)
+    			e.setProperty(slowAmount, slowDuration, "defaultSpeed");
     		damagedEnemies.add(e);
     	}
 

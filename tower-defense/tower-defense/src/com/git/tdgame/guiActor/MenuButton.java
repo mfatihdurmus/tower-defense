@@ -12,8 +12,12 @@ public class MenuButton extends Actor
 	private final String playButtonFileClicked = "data/menu/playClicked.png";
 	private final String optionsButtonFile = "data/menu/options.png";
 	private final String optionsButtonFileClicked = "data/menu/optionsClicked.png";
+	private final String encyclopediaButtonFile = "data/menu/encyclopedia.png";
+	private final String encyclopediaButtonFileClicked = "data/menu/encyclopediaClicked.png";
+	private final String creditsButtonFile = "data/menu/credits.png";
+	private final String creditsButtonFileClicked = "data/menu/creditsClicked.png";
 	
-	public enum ButtonType { PLAY, OPTIONS };
+	public enum ButtonType { PLAY, OPTIONS, ENCYCLOPEDIA, CREDITS };
 	
 	private Texture texture;
 	private Texture textureClicked;
@@ -33,6 +37,12 @@ public class MenuButton extends Actor
 		} else if(type == ButtonType.OPTIONS) {
 			texture = new Texture(Gdx.files.internal(optionsButtonFile));
 			textureClicked = new Texture(Gdx.files.internal(optionsButtonFileClicked));
+		} else if(type == ButtonType.ENCYCLOPEDIA) {
+			texture = new Texture(Gdx.files.internal(encyclopediaButtonFile));
+			textureClicked = new Texture(Gdx.files.internal(encyclopediaButtonFileClicked));
+		} else if(type == ButtonType.CREDITS) {
+			texture = new Texture(Gdx.files.internal(creditsButtonFile));
+			textureClicked = new Texture(Gdx.files.internal(creditsButtonFileClicked));
 		}
 		
 		setHeight(texture.getHeight());

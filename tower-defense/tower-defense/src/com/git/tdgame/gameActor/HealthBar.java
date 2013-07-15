@@ -11,11 +11,16 @@ public class HealthBar {
 
 	private float width;
 	private float height;
-	private int maxHealth = 20;
-    private int currentHealth = 20;
+	private int maxHealth;
+    private int currentHealth;
     private final int healthBarHeight = 10;
     private Vector2 position;
 	private ShapeRenderer shapeRenderer;
+	
+	public int getHealthRatio()
+	{
+		return (int)(((float)currentHealth / (float)maxHealth) * 100);
+	}
 
 	public HealthBar(int health, Vector2 position, float width, float height) {
 		this.maxHealth = health;

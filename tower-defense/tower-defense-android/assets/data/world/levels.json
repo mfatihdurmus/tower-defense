@@ -42,6 +42,27 @@
 											"peasant",
 											"peasant"
 										]
+						},
+						{
+							"delay" : "15",
+							"enemies" : [
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant",
+											"peasant"
+										]
 						}
 					]
 	},
