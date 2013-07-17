@@ -13,7 +13,8 @@ public class Effect extends Actor
     private Sprite sprite;
     private double spritePos = 0;
     private int numberOfFrames = 0;
-    private float spriteStep = 0.15f;
+    private float spriteStep = 10f;
+    private boolean isFinished = false;
     
     public Effect (Vector2 pos, String effect)
     {
@@ -34,10 +35,14 @@ public class Effect extends Actor
     	super.act(delta);
     	
     	// Move sprite region
-		spritePos = (spritePos+spriteStep) % numberOfFrames;
+		spritePos = (spritePos+delta*spriteStep) % numberOfFrames;
     	sprite.setRegion((int)spritePos*texture.getHeight(), 0, texture.getHeight(), texture.getHeight());
-    	
-    	if(spritePos < 0.15)
+    	if((int)spritePos == numberOfFrames - 1)
+    	{
+    		isFinished = true;
+    		return;
+    	}
+    	if(isFinished)
     	{
     		finish();
     	}

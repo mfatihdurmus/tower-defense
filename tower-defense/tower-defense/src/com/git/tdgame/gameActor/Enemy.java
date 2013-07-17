@@ -25,8 +25,8 @@ public class Enemy extends Actor
     private float traveledDist = 0;
     private float slowTime = 0;
     private int damage = 5;
-    private float defaultSpriteStep = 0.2f;
-    private float spriteStep = 0.2f;
+    private float defaultSpriteStep = 10;
+    private float spriteStep = 10;
     
     private HealthBar healthBar;
     
@@ -100,7 +100,7 @@ public class Enemy extends Actor
     	super.act(delta);
     	
     	// Move sprite region
-		spritePos = (spritePos+spriteStep) % numberOfFrames;
+		spritePos = (spritePos+delta*(int)spriteStep) % numberOfFrames;
     	sprite.setRegion((int)spritePos*this.width, 0, this.width, this.height);
     	spriteSlowed.setRegion((int)spritePos*this.width, 0, this.width, this.height);
     	
@@ -247,6 +247,13 @@ public class Enemy extends Actor
 		} else {
 			// Sequels
 			slowTime = time;
+			float newSpeed = defaultSpeed * (1-property);
+			if(newSpeed < speed)
+			{
+				speed = newSpeed;
+			}
+			if(speed <= 1)
+				speed = 1;
 		}
 	}
 	
