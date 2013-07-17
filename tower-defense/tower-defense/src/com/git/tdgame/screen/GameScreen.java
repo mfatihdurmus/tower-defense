@@ -29,11 +29,11 @@ import com.git.tdgame.gameActor.tower.Tower;
 import com.git.tdgame.gameActor.tower.TowerConstructButton;
 import com.git.tdgame.gameActor.tower.TowerRemoveButton;
 import com.git.tdgame.gameActor.tower.TowerUpgradeButton;
-import com.git.tdgame.guiActor.InfoDisplay;
 import com.git.tdgame.guiActor.GameMenuButton;
+import com.git.tdgame.guiActor.GameMenuButton.ButtonType;
+import com.git.tdgame.guiActor.InfoDisplay;
 import com.git.tdgame.guiActor.PauseButton;
 import com.git.tdgame.guiActor.PauseMenu;
-import com.git.tdgame.guiActor.GameMenuButton.ButtonType;
 import com.git.tdgame.map.TDGameMapHelper;
 
 

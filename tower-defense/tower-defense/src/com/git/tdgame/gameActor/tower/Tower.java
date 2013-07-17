@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.git.tdgame.gameActor.Effect;
 import com.git.tdgame.gameActor.Enemy;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
 import com.git.tdgame.gameActor.projectile.HomingProjectile;
@@ -36,6 +37,7 @@ public class Tower extends Actor
     private float upgradeRatio;
     private Color rangeColor;
     private String name;
+    private String effectString;
     
     private boolean isHovered = false;
     private boolean isUpgradeDisplay = false;
@@ -88,6 +90,7 @@ public class Tower extends Actor
     	this.fireSoundAlternative = Gdx.audio.newSound(Gdx.files.internal(properties.get("soundPathAlter")));
     	this.rangeColor = new Color(0, 1, 0, 0.3f);
     	this.name = properties.get("name");
+    	this.effectString = properties.get("effect");
     	
     	setPosition(position.x, position.y);
     	setHeight(32);
@@ -226,6 +229,8 @@ public class Tower extends Actor
     public void fire()
     {
     	getStage().addActor(createProjectile());
+    	if(!effectString.isEmpty())
+    		getStage().addActor(createEffect());
     	Random generator = new Random();
     	if(generator.nextInt(2) == 0)
     	{
@@ -239,6 +244,10 @@ public class Tower extends Actor
     
     AbstractProjectile createProjectile(){
     	return new HomingProjectile(this, target, projectileModel);
+    }
+    
+    Effect createEffect(){
+		return new Effect(new Vector2(this.getX(), this.getY()), effectString);
     }
     
     public int getUpgradeCost(){

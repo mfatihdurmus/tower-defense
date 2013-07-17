@@ -13,7 +13,7 @@ public class HealthBar {
 	private float height;
 	private int maxHealth;
     private int currentHealth;
-    private final int healthBarHeight = 10;
+    private final int healthBarHeight = 8;
     private Vector2 position;
 	private ShapeRenderer shapeRenderer;
 	
