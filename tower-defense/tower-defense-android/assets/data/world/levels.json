@@ -2,13 +2,25 @@
 	{
 		"name" : "level 1",
 		"selectScreenImagePath" : "data/world/level1/splash.png",
+		"mapImagePath" : "data/world/level1/level.png",
 		"mapPath" : "data/world/level1/level.tmx",
-		"gold" : "150",
+		"gold" : "100",
 		"baseHealth" : "10",
 		"waveList": [
 						{
-							"delay" : "5",
+							"delay" : "2",
 							"enemies" : [
+											"peasant",
+											"peasant",
+											"peasant"
+										]
+						},
+						{
+							"delay" : "7",
+							"enemies" : [
+											"peasant",
+											"peasant",
+											"peasant",
 											"peasant",
 											"peasant",
 											"peasant"
@@ -17,19 +29,6 @@
 						{
 							"delay" : "10",
 							"enemies" : [
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant"
-										]
-						},
-						{
-							"delay" : "10",
-							"enemies" : [
-											"peasant",
 											"peasant",
 											"peasant",
 											"peasant",
@@ -69,6 +68,7 @@
 	{
 		"name" : "level 2",
 		"selectScreenImagePath" : "data/world/level2/splash.png",
+		"mapImagePath" : "data/world/level2/level.png",
 		"mapPath" : "data/world/level2/level.tmx",
 		"gold" : "160",
 		"baseHealth" : "12",
@@ -88,17 +88,7 @@
 										]
 						},
 						{
-							"delay" : "10",
-							"enemies" : [
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant"
-										]
-						},
-						{
-							"delay" : "10",
+							"delay" : "15",
 							"enemies" : [
 											"swordsman",
 											"swordsman",
@@ -108,7 +98,7 @@
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "10",
 							"enemies" : [
 											"swordsman",
 											"swordsman",
@@ -125,6 +115,7 @@
 	{
 		"name" : "level 3",
 		"selectScreenImagePath" : "data/world/level3/splash.png",
+		"mapImagePath" : "data/world/level3/level.png",
 		"mapPath" : "data/world/level3/level.tmx",
 		"gold" : "200",
 		"baseHealth" : "13",
@@ -164,7 +155,7 @@
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "20",
 							"enemies" : [
 											"pikeman",
 											"pikeman",
@@ -173,7 +164,7 @@
 										]
 						},
 						{
-							"delay" : "10",
+							"delay" : "15",
 							"enemies" : [
 											"pikeman",
 											"pikeman",
@@ -203,6 +194,7 @@
 	{
 		"name" : "level 4",
 		"selectScreenImagePath" : "data/world/level4/splash.png",
+		"mapImagePath" : "data/world/level4/level.png",
 		"mapPath" : "data/world/level4/level.tmx",
 		"gold" : "210",
 		"baseHealth" : "15",
@@ -345,6 +337,7 @@
 	{
 		"name" : "level 5",
 		"selectScreenImagePath" : "data/world/level5/splash.png",
+		"mapImagePath" : "data/world/level5/level.png",
 		"mapPath" : "data/world/level5/level.tmx",
 		"gold" : "230",
 		"baseHealth" : "16",
@@ -474,6 +467,7 @@
 	{
 		"name" : "level 6",
 		"selectScreenImagePath" : "data/world/level6/splash.png",
+		"mapImagePath" : "data/world/level6/level.png",
 		"mapPath" : "data/world/level6/level.tmx",
 		"gold" : "220",
 		"baseHealth" : "18",
@@ -701,6 +695,7 @@
 	{
 		"name" : "level 7",
 		"selectScreenImagePath" : "data/world/level7/splash.png",
+		"mapImagePath" : "data/world/level7/level.png",
 		"mapPath" : "data/world/level7/level.tmx",
 		"gold" : "270",
 		"baseHealth" : "19",
@@ -928,6 +923,7 @@
 	{
 		"name" : "level 8",
 		"selectScreenImagePath" : "data/world/level8/splash.png",
+		"mapImagePath" : "data/world/level8/level.png",
 		"mapPath" : "data/world/level8/level.tmx",
 		"gold" : "390",
 		"baseHealth" : "20",
@@ -1039,6 +1035,7 @@
 	{
 		"name" : "level 9",
 		"selectScreenImagePath" : "data/world/level9/splash.png",
+		"mapImagePath" : "data/world/level9/level.png",
 		"mapPath" : "data/world/level9/level.tmx",
 		"gold" : "400",
 		"baseHealth" : "25",

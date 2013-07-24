@@ -12,8 +12,8 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/tower-defense/libs/gson-2.2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="C:/Android/adt-bundle-windows-x86_64-20130219/adt-bundle-windows-x86_64-20130219/sdk/platforms/android-17/android.jar">
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="C:/Users/FurkanYavuz/Documents/Exe/Programs/adt-bundle-windows-x86_64-20130717/adt-bundle-windows-x86_64-20130717/sdk/platforms/android-17/android.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/D:/personal dev/Android SDK/docs/reference"/>
 		</attributes>

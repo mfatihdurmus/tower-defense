@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="16" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Tiles" tilewidth="32" tileheight="32">
-  <image source="../packer/level.png" width="512" height="1024"/>
+  <image source="../packer/tiles.png" width="256" height="256"/>
  </tileset>
  <layer name="Background" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBjcgBGKU5Ew4yDCNVC6B00cxkd2L7L7mYk0PxWH+QONYf6eg8fNNVS2k5phgM3d1AyXgYoPWocbNTExcUCreIJhAAS5C8U=
+   eJxjYBjcgGMUj+JRPIpphAE7nQjB
   </data>
  </layer>
  <layer name="Path" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBh5gAkLptQ8fHxSADMB8yhxOzY9lLgdm1p6mEesmcSYh0tssJlHjJmkuIUYM7GlNXx6qJWfcJlLbTNZgBgA8MAAcA==
+   eJxjYBgFyIAXiLnQMCUAXT8h85iQ7OWjgnmE1KKLcTMQ729izCMkTq55xLiTFPOIkccmB3MHtrgixzxCctQ2jxuPHK3swoZ5yLSLHMCMxAYAcCwCIA==
   </data>
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJzVkksKgDAMREv1oh7B7qwr3ak30MvaQAMhZtrqzoHQX/KY0Dj3b23gbkwRjCDtKv+osAfACqCOdYlV7slbB3g+xQx42jdL9qq5Vj3zY14ng4f8taoX+wWwEO9UZ59Dei79r65vEeKh+ap5Rj0jlTxzzxbzjaRvyVwBL7qn0GzqfPb6VcirfqvVolxi0kzdDqYwwg==
+   eJxjYBh+QAiIBXHgwW4eFxnmSQCxKBXdh8+dlABs7qQGQHbnSDBPgsrmgQDMjSPBPFAeg6VFAMemBCE=
+  </data>
+ </layer>
+ <layer name="Objects" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBg6QBYLWxZNjRyJ5sD4xOgTIEINOYCQucS4jRaACYlNjt/Rw3kwAkUC8rQIe1LDRZEBtzvJdR8hf5MCWKhoFggoMeB3H7F+Rg83bGYCACxKAuA=
   </data>
  </layer>
 </map>

@@ -5,12 +5,19 @@ import java.util.List;
 public class LevelModel {
 	String name;
 	String selectScreenImagePath;
+	String mapImagePath;
 	String mapPath;
 	int gold;
 	int baseHealth;
 	List<Wave> waveList;
 	int levelIndex;
-
+	
+	public String getMapImagePath() {
+		return mapImagePath;
+	}
+	public void setMapImagePath(String mapImagePath) {
+		this.mapImagePath = mapImagePath;
+	}
 	public String getName() {
 		return name;
 	}

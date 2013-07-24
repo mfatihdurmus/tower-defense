@@ -18,8 +18,8 @@ public class TDGameMapHelper {
 	private TileMapRenderer tileMapRenderer;
 	private TiledMap map;
 
-	private final int START_POINT = 3;
-	private final int END_POINT = 4;
+	private final int START_POINT = 2;
+	private final int END_POINT = 3;
 	private final int PATH_LAYER = 1;
 
 	public int[][] getTiles(int layer) {

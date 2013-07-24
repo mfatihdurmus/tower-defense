@@ -49,6 +49,7 @@ public class GameScreen implements Screen, InputProcessor{
 	// Stage
 	private Stage stage;
 	private Image splashImage;
+	private Image mapImage;
 	private boolean defeat = false;
 	private boolean victory = false;
 	private List<Wave> waves;
@@ -107,9 +108,6 @@ public class GameScreen implements Screen, InputProcessor{
 		// Clear screen
         Gdx.gl.glClearColor( 0f, 0f, 0f, 1f );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
-
-        // Map render
-		tdGameMapHelper.render();
 
 		// Stage update
 		if(!defeat && !victory && !isPaused)
@@ -312,6 +310,20 @@ public class GameScreen implements Screen, InputProcessor{
     			continue;
     		}
         }
+        for(int ctr = 0; ctr < stage.getActors().size; ++ctr)
+        {
+    		Actor newActor = stage.getActors().get(ctr);
+
+    		if(newActor instanceof Image)
+    		{
+    			if(mapImage.equals(newActor))
+    			{
+	    			stage.getActors().removeIndex(ctr);
+	    			stage.getActors().insert(0, newActor);
+	    			continue;
+    			}
+    		}
+        }
 	}
 
 	private void victory()
@@ -365,6 +377,12 @@ public class GameScreen implements Screen, InputProcessor{
 		stage.getCamera().rotate(180,1,0,0);
 		stage.setViewport(tdGameMapHelper.getWidth(), tdGameMapHelper.getHeight(), false);
 		stage.getCamera().update();
+		
+        mapImage = new Image(new Texture(levelModel.getMapImagePath()));
+        mapImage.setSize(stage.getWidth(), stage.getHeight());
+        mapImage.setScale(1, -1);
+        mapImage.setPosition(0, stage.getHeight());
+        stage.addActor(mapImage);
 		
 		gold = new Gold(new Vector2(0,(tdGameMapHelper.getMap().height-1)*tileSize.y), levelModel.getGold());
 		stage.addActor(gold);

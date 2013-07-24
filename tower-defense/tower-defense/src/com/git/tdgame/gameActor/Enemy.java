@@ -27,6 +27,7 @@ public class Enemy extends Actor
     private int damage = 5;
     private float defaultSpriteStep = 10;
     private float spriteStep = 10;
+    private int modelPosition;
     
     private HealthBar healthBar;
     
@@ -56,7 +57,8 @@ public class Enemy extends Actor
     	
     	Vector2 position = new Vector2(path.get(currentPath).x, path.get(currentPath).y);
     	setPosition(position.x, position.y);
-        healthBar = new HealthBar(Integer.valueOf(properties.get("maxHealth")), position, this.width, this.height);
+    	Vector2 barPosition = new Vector2(position.x, position.y-16);
+        healthBar = new HealthBar(Integer.valueOf(properties.get("maxHealth")), barPosition, this.width, this.height);
         
     	++currentPath;
     	
@@ -73,21 +75,22 @@ public class Enemy extends Actor
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
+    	modelPosition = (int)getY()-16;
     	if(drawDirection > 0)
     	{
     		if(slowTime <= 0)
     		{
-    			batch.draw(sprite,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    			batch.draw(sprite,getX(),modelPosition+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
     		} else {
-    			batch.draw(spriteSlowed,getX(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    			batch.draw(spriteSlowed,getX(),modelPosition+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
     		}
     	} else if(drawDirection < 0)
     	{
     		if(slowTime <= 0)
     		{
-    			batch.draw(sprite,getX()+getWidth(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    			batch.draw(sprite,getX()+getWidth(),modelPosition+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
     		} else {
-    			batch.draw(spriteSlowed,getX()+getWidth(),getY()+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
+    			batch.draw(spriteSlowed,getX()+getWidth(),modelPosition+this.height,getOriginX(),getOriginY(),this.width,this.height,drawDirection,-1,0);
     		}
     	}
     	
@@ -147,7 +150,7 @@ public class Enemy extends Actor
     	setX(targetX);
     	setY(targetY);
     	
-    	healthBar.setPosition(new Vector2(targetX, targetY));
+    	healthBar.setPosition(new Vector2(targetX, targetY-16));
     	
     	traveledDist += speed*delta;
     }

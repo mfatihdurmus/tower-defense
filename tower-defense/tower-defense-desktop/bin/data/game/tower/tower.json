@@ -4,32 +4,41 @@
 								"width" : "32",
 								"height" : "32",
 								"fireRate" : "1.2",
-								"range" : "300",
+								"range" : "84",
 								"cost" : "50",
 								"upgradeRatio" : "1.2",
 								"texturePath" : "data/game/tower/tower.png",
-								"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"1024\",\"damage\" : \"4\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/projectile/arrow.png\"}"
+								"soundPath" : "data/game/tower/sound/arrow1.wav",
+								"soundPathAlter" : "data/game/tower/sound/arrow2.wav",
+								"effect" : "",
+								"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"1024\",\"damage\" : \"4\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/arrow.png\"}"
 							},
 	"slowingTower" : {
 						"name" : "Slowing Tower",
 						"width" : "32",
 						"height" : "32",
 						"fireRate" : "2",
-						"range" : "300",
-						"cost" : "70",
+						"range" : "72",
+						"cost" : "60",
 						"upgradeRatio" : "1.1",
 						"texturePath" : "data/game/tower/slowTower.png",
-						"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"3\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0.5\",\"slowDuration\" : \"2\",\"texturePath\" : \"data/game/projectile/snowBall.png\"}"
+						"soundPath" : "data/game/tower/sound/slow1.wav",
+						"soundPathAlter" : "data/game/tower/sound/slow2.wav",
+						"effect" : "data/game/tower/effect/snowball.png",
+						"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"3\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0.3\",\"slowDuration\" : \"3\",\"texturePath\" : \"data/game/tower/projectile/snowBall.png\"}"
 						},
 	"splashDamageTower" : {
 							"name" : "Splash Damage Tower",
 							"width" : "32",
 							"height" : "32",
-							"fireRate" : "3",
-							"range" : "150",
+							"fireRate" : "2.8",
+							"range" : "64",
 							"cost" : "100",
-							"upgradeRatio" : "1.3",
+							"upgradeRatio" : "1.1",
 							"texturePath" : "data/game/tower/splashDamageTower.png",
-							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"10\",\"damageRadius\" : \"32\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/projectile/cannonBall.png\"}"
+							"soundPath" : "data/game/tower/sound/blast1.wav",
+							"soundPathAlter" : "data/game/tower/sound/blast2.wav",
+							"effect" : "data/game/tower/effect/cannon.png",
+							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"9\",\"damageRadius\" : \"24\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/cannonBall.png\"}"
 							}
 }
