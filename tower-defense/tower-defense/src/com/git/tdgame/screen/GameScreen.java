@@ -392,7 +392,7 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		// Display
 		infoDisplay = new InfoDisplay(towerTypes.keySet().size()*64);
-		infoDisplay.setSize(stage.getWidth(), 70);
+		infoDisplay.setSize(stage.getWidth(), 64);
 		infoDisplay.setPosition(0, 0);
 		stage.addActor(infoDisplay);
 		
