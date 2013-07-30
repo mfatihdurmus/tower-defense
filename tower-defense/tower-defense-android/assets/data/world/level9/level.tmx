@@ -5,22 +5,22 @@
  </tileset>
  <layer name="Background" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBjcgGMUj+JRPIpphAE7nQjB
+   eJxjYBjcgG8Uj+JRPIpphAGkjw9R
   </data>
  </layer>
  <layer name="Path" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFpAJmKpvHRQfzeKHi5GAeOriZmwL38VHZLSMt/GgZhkwUugtfGFIDAAA63gOW
+   eJxjYBgFpAImKpvHwsBwgNbmsULEF5CDWbGYx0JNB0Pcl8BCJgbqXUBNt4y08KNlGDIykB9uhMKQGgAAtawvsQ==
   </data>
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBh+gBUJS6HRlJong0ZTah46HgWjYDgBroF2AAEAAPbuAMw=
+   eJxjYBh+gAsJi6LRlJonxsBwAJmm1Dx0PApGwXACLAwMCwbaDfgAAO3PAyU=
   </data>
  </layer>
  <layer name="Objects" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBj8QBZKy6HxQUAeSisgiamSaD7MXE0sdsLMYyPgNg0S7FMBYmUkzIDGJgRkCSuBAznCSogGpNhLCMgTVkIykGXA7kZK3K1AgV50c6jtZ1qYSQ6gZrogBBQYMP2sgMYnJI/sXgCAvASo
+   eJxjYBj8QBZKy6HxQUAaSssgiSmRaD7MXE0sdhIyD6ZOGoucFA49ikCsgIQZ0NiEgCxhJXAgR1gJ0YAUewcCyDJgdyMl7pYhrIRoc7ClkcFmJjmAnukCm5/R44iQPLJ7Aa2xBEg=
   </data>
  </layer>
 </map>

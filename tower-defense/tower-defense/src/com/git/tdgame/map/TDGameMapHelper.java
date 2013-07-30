@@ -18,8 +18,8 @@ public class TDGameMapHelper {
 	private TileMapRenderer tileMapRenderer;
 	private TiledMap map;
 
-	private final int START_POINT = 2;
-	private final int END_POINT = 3;
+	private final int START_POINT = 1;
+	private final int END_POINT = 2;
 	private final int PATH_LAYER = 1;
 
 	public int[][] getTiles(int layer) {
@@ -74,7 +74,7 @@ public class TDGameMapHelper {
 			if (y + 1 < map.height && pathTiles[y + 1][x] != 0 && direction != 2) {
 				if (direction != 1) {
 					Vector2 newVector = new Vector2(x * map.tileWidth, y
-							* map.tileHeight);
+							* map.tileHeight+64);
 					path.add(newVector);
 					direction = 1;
 				}
@@ -82,7 +82,7 @@ public class TDGameMapHelper {
 			} else if (y - 1 >= 0 && pathTiles[y - 1][x] != 0 && direction != 1) {
 				if (direction != 2) {
 					Vector2 newVector = new Vector2(x * map.tileWidth, y
-							* map.tileHeight);
+							* map.tileHeight+64);
 					path.add(newVector);
 					direction = 2;
 				}
@@ -105,6 +105,8 @@ public class TDGameMapHelper {
 				x--;
 			} else {
 				// Dead end
+				Vector2 newVector = new Vector2(x * map.tileWidth, y * map.tileHeight);
+				path.add(newVector);
 				return path;
 			}
 		}

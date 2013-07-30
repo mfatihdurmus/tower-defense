@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets</name>
+			<type>2</type>
+			<location>C:/Users/FurkanYavuz/Documents/2 Hobiler/OyunGeliştirme/GoldenTower/tower-defense/tower-defense/tower-defense-android/assets</location>
+		</link>
+	</linkedResources>
 </projectDescription>

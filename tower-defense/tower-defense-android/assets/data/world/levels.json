@@ -5,23 +5,11 @@
 		"mapImagePath" : "data/world/level1/level.png",
 		"mapPath" : "data/world/level1/level.tmx",
 		"gold" : "100",
-		"baseHealth" : "10",
+		"baseHealth" : "20",
 		"waveList": [
 						{
 							"delay" : "2",
 							"enemies" : [
-											"peasant",
-											"peasant",
-											"peasant"
-										]
-						},
-						{
-							"delay" : "7",
-							"enemies" : [
-											"peasant",
-											"peasant",
-											"peasant",
-											"peasant",
 											"peasant",
 											"peasant"
 										]
@@ -33,6 +21,15 @@
 											"peasant",
 											"peasant",
 											"peasant",
+											"peasant"
+										]
+						},
+						{
+							"delay" : "12",
+							"enemies" : [
+											"peasant",
+											"peasant",
+											"peasant",
 											"peasant",
 											"peasant",
 											"peasant",
@@ -43,9 +40,8 @@
 										]
 						},
 						{
-							"delay" : "15",
+							"delay" : "18",
 							"enemies" : [
-											"peasant",
 											"peasant",
 											"peasant",
 											"peasant",
