@@ -14,7 +14,7 @@ public class Gold extends Actor
     private final int WIDTH 	= 32;
     private final int HEIGHT 	= 32;
     private int cash = 0;
-    private float incomeTimer = 0; // Add 5 gold each second
+    private float incomeTimer = 0; // Add 1 gold each second
     
     // Sprite variables
     private Texture texture;
@@ -37,6 +37,7 @@ public class Gold extends Actor
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,WIDTH,HEIGHT);
         font = new BitmapFont(true);
         font.setColor(0.9f, 0.9f, 0, 1);
+    	font.setScale(1.5f, 1.5f);
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
@@ -47,14 +48,14 @@ public class Gold extends Actor
     	
     	batch.draw(sprite,getX(),getY()+HEIGHT,getOriginX(),getOriginY(),WIDTH,HEIGHT,1,-1,0);
     	
-    	font.draw(batch, new String(cash + " g"), WIDTH, getY()+HEIGHT/2);
+    	font.draw(batch, new String(cash + " g"), WIDTH, getY()+HEIGHT/4);
     }
 
     public void act (float delta)
     {
     	incomeTimer += delta*1000;
     	
-    	if(incomeTimer > 500)
+    	if(incomeTimer > 1000)
     	{
     		this.cash += 1;
     		incomeTimer -= 1000;

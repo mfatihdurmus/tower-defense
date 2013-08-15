@@ -21,6 +21,7 @@ import com.git.tdgame.TDGame;
 import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.Enemy;
 import com.git.tdgame.gameActor.Gold;
+import com.git.tdgame.gameActor.TRImage;
 import com.git.tdgame.gameActor.level.LevelModel;
 import com.git.tdgame.gameActor.level.Wave;
 import com.git.tdgame.gameActor.projectile.AbstractProjectile;
@@ -48,7 +49,7 @@ public class GameScreen implements Screen, InputProcessor{
 
 	// Stage
 	private Stage stage;
-	private Image splashImage;
+	private TRImage splashImage;
 	private Image mapImage;
 	private boolean defeat = false;
 	private boolean victory = false;
@@ -328,8 +329,8 @@ public class GameScreen implements Screen, InputProcessor{
 
 	private void victory()
 	{
-		splashImage = new Image(new Texture(Gdx.files.internal("data/game/gui/victory.png")));
-		splashImage.setPosition(tdGameMapHelper.getWidth()*0.30f, tdGameMapHelper.getHeight()*0.25f);
+		Vector2 pos = new Vector2(tdGameMapHelper.getWidth()*0.30f, tdGameMapHelper.getHeight()*0.25f);
+		splashImage = new TRImage(pos, new Texture(Gdx.files.internal("data/game/gui/victory.png")));
 
 		stage.addActor(splashImage);
 		if(!victory && game.getUnlockedLevels() <= this.levelIndex)
@@ -435,8 +436,8 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	public void defeat()
 	{
-		splashImage = new Image(new Texture(Gdx.files.internal("data/game/gui/defeat.png")));
-		splashImage.setPosition(tdGameMapHelper.getWidth()*0.30f, tdGameMapHelper.getHeight()*0.25f);
+		Vector2 pos = new Vector2(tdGameMapHelper.getWidth()*0.30f, tdGameMapHelper.getHeight()*0.25f);
+		splashImage = new TRImage(pos, new Texture(Gdx.files.internal("data/game/gui/defeat.png")));
 
 		stage.addActor(splashImage);
 		defeat = true;
