@@ -14,6 +14,7 @@ public class Gold extends Actor
     private final int WIDTH 	= 32;
     private final int HEIGHT 	= 32;
     private int cash = 0;
+    private float incomeTimer = 0; // Add 5 gold each second
     
     // Sprite variables
     private Texture texture;
@@ -51,6 +52,13 @@ public class Gold extends Actor
 
     public void act (float delta)
     {
+    	incomeTimer += delta*1000;
+    	
+    	if(incomeTimer > 500)
+    	{
+    		this.cash += 1;
+    		incomeTimer -= 1000;
+    	}
     	super.act(delta);
     }
     
