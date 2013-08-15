@@ -7,7 +7,7 @@
     <uses-sdk android:minSdkVersion="5" android:targetSdkVersion="16" />
 
     <application
-        android:icon="@drawable/tower_defence_icon"
+        android:icon="@drawable/tower_rangers_icon"
         android:label="@string/app_name" >
         <activity
             android:name=".MainActivity"

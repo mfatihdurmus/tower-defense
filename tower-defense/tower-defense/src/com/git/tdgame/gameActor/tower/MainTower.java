@@ -18,8 +18,6 @@ public class MainTower extends Actor
 
     // Sprite variables
     Texture texture;
-    Texture textureDamage;
-    Sprite spriteDamage;
     Sprite sprite;
     
     public MainTower (Vector2 position, GameScreen gameScreen, int health)
@@ -28,21 +26,19 @@ public class MainTower extends Actor
     	
     	setPosition(position.x, position.y);
     	texture = new Texture(Gdx.files.internal("data/game/mainTower/mainTower.png"));
-    	textureDamage = new Texture(Gdx.files.internal("data/game/mainTower/mainTowerDamage.png"));
     	this.setWidth(texture.getWidth());
     	this.setHeight(texture.getHeight());
     	healthBar = new HealthBar(health, position, (int)getWidth(), 10);
         sprite = new com.badlogic.gdx.graphics.g2d.Sprite(texture,(int)getWidth(),(int)getHeight());
-        spriteDamage = new com.badlogic.gdx.graphics.g2d.Sprite(textureDamage,(int)getWidth(),(int)getHeight());
     }
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-    	if(healthBar.getHealthRatio() > 25)
+    	if(getX()<10)
     	{
-        	batch.draw(sprite,getX(),getY()+(int)getHeight(),getOriginX(),getOriginY(),(int)getWidth(),(int)getHeight(),1,-1,0);
+        	batch.draw(sprite,getX()+getWidth(),getY()+(int)getHeight(),getOriginX(),getOriginY(),(int)getWidth(),(int)getHeight(),-1,-1,0);
     	} else {
-        	batch.draw(spriteDamage,getX(),getY()+(int)getHeight(),getOriginX(),getOriginY(),(int)getWidth(),(int)getHeight(),1,-1,0);
+        	batch.draw(sprite,getX(),getY()+(int)getHeight(),getOriginX(),getOriginY(),(int)getWidth(),(int)getHeight(),1,-1,0);
     	}
     	
     	getStage().getCamera().update();

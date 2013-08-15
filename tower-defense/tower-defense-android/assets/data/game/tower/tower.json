@@ -11,7 +11,7 @@
 								"soundPath" : "data/game/tower/sound/arrow1.wav",
 								"soundPathAlter" : "data/game/tower/sound/arrow2.wav",
 								"effect" : "",
-								"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"1024\",\"damage\" : \"4\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/arrow.png\"}"
+								"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"1024\",\"damage\" : \"4\", \"damageRadius\" : \"0\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/arrow.png\"}"
 							},
 	"slowingTower" : {
 						"name" : "Slowing Tower",
@@ -39,6 +39,6 @@
 							"soundPath" : "data/game/tower/sound/blast1.wav",
 							"soundPathAlter" : "data/game/tower/sound/blast2.wav",
 							"effect" : "data/game/tower/effect/cannon.png",
-							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"9\",\"damageRadius\" : \"24\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/cannonBall.png\"}"
+							"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"9\", \"damageRadius\" : \"24\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/cannonBall.png\"}"
 							}
 }

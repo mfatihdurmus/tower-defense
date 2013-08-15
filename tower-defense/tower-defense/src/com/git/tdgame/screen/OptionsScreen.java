@@ -46,7 +46,7 @@ public class OptionsScreen implements Screen, InputProcessor{
 	public void show() {
 		stage = new Stage();
 		stage.setViewport(game.getScreenWidth(), game.getScreenHeight(), false);
-		splashImage = new Image(new Texture(Gdx.files.internal("data/options/wall.png")));
+		splashImage = new Image(new Texture(Gdx.files.internal("data/options/background.png")));
 
 		int gapY = (int)stage.getHeight() / 30;
 		musicButton = new OptionsButton(com.git.tdgame.guiActor.OptionsButton.ButtonType.MUSIC, 0, 0);

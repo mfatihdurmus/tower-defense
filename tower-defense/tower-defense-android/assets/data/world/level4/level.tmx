@@ -13,12 +13,12 @@
    eJxjYBjZQAKIxRkYEnBhoPwCJHULkDEjFvPECdgHlD+ATBMC+MyTgGCSzJOA+Avsfpjf0N1Ginm49KPzJXCEK7nmYVELBkwQNobfyDUPF3+4m4ceX9A4I9s8YgBy2kTH6HZTCwAApoEnfA==
   </data>
  </layer>
- <layer name="Foreground" width="20" height="16" visible="0">
+ <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
    eJxjYBjcQAAJDzbzxBkYFgxm99HCvMEOQHEyUHZLQu2H4YFyxyggHgAAfmEEnQ==
   </data>
  </layer>
- <layer name="Objects" width="20" height="16" visible="0">
+ <layer name="Objects" width="20" height="16">
   <data encoding="base64" compression="zlib">
    eJxjYBi6QAqI5aBsmYF0CJ2BLIXy+IAcGp+fArPIAbjcjk2cXH8i+5EfidYCYm0izKWGvTDASaReSuKU2nlDCo3PD8WyDLjTCzXdIIVGyyDxsYUxPgAA+/cDRg==
   </data>

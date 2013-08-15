@@ -1,6 +1,7 @@
 package com.git.tdgame.gameActor.projectile;
 
 
+
 public class ProjectileModel {
 	
 	int width;

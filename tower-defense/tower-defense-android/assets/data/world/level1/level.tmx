@@ -10,12 +10,12 @@
  </layer>
  <layer name="Path" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQw3wADE3A0MCMgaKLSDXPKD+A1jEyAakmMcIkVsAwuh+gPoTJE6W+9DdgU/PSDOPB5JuFiBjJuxqkNPYAWxmDWUAAPqpEK4=
+   eJxjYBgFQw3wADE3A0MCDLMwMCxgBWJyzQOacQBdjIUC95FiHiNE/QIQ5kHzA9SfIHGy3IfuDm48akeaeayQdIOCmdDU8CClMRDGFg9DHQAAJH0Pkw==
   </data>
  </layer>
  <layer name="Foreground" width="20" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBg+QBiCD4yaN3TM42ZgWEBN80gBo+ahAmBcJFDTPFLBQJgHABj3Das=
+   eJxjYBg+QBiCD4yaN3TM42ZgWEBN80gBo+ahAhYGhgRqmkcqGAjzABJLDaQ=
   </data>
  </layer>
  <layer name="Objects" width="20" height="16">
