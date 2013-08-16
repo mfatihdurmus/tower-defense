@@ -364,14 +364,6 @@ public class GameScreen implements Screen, InputProcessor{
 			paths.add(tdGameMapHelper.getPath(spawnPoint));
 		}
 		
-		// Camera configuration
-		tdGameMapHelper.prepareCamera(game.getScreenWidth(), game.getScreenHeight());
-		tdGameMapHelper.getCamera().viewportWidth = tdGameMapHelper.getWidth();
-		tdGameMapHelper.getCamera().viewportHeight = tdGameMapHelper.getHeight();
-		tdGameMapHelper.getCamera().position.x = tdGameMapHelper.getWidth()/2;
-		tdGameMapHelper.getCamera().position.y = tdGameMapHelper.getHeight()/2;
-		tdGameMapHelper.getCamera().update();
-
 		// Stage configuration
 		stage = new Stage();
 		stage.setCamera(new OrthographicCamera(game.getScreenWidth(),game.getScreenHeight()));
@@ -425,13 +417,13 @@ public class GameScreen implements Screen, InputProcessor{
 		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("data/game/gui/crusade.mp3"));
 		gameMusic.setVolume(musicVolume);
 		gameMusic.play();
+		gameMusic.setLooping(true);
 
 		PauseButton pauseBtn = new PauseButton();
 		pauseBtn.setPosition(stage.getWidth()-64, 0);
 		stage.addActor(pauseBtn);
 		
 		isPaused = false;
-		
 	}
 	
 	public void defeat()
