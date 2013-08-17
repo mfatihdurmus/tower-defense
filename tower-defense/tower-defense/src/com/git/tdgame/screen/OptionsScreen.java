@@ -48,10 +48,9 @@ public class OptionsScreen implements Screen, InputProcessor{
 		stage.setViewport(game.getScreenWidth(), game.getScreenHeight(), false);
 		splashImage = new Image(new Texture(Gdx.files.internal("data/options/background.png")));
 
-		int gapY = (int)stage.getHeight() / 30;
 		musicButton = new OptionsButton(com.git.tdgame.guiActor.OptionsButton.ButtonType.MUSIC, 0, 0);
 		musicButton.setX(1024/2-(musicButton.getWidth()/2));
-		musicButton.setY(512 * 4 / 6);
+		musicButton.setY(512-musicButton.getHeight()-40);
 		
 		Preferences prefs = Gdx.app.getPreferences("TowerDefenceProperties");
 		float volume = prefs.getFloat("volume", 1);
@@ -62,7 +61,7 @@ public class OptionsScreen implements Screen, InputProcessor{
 
 		soundButton = new OptionsButton(com.git.tdgame.guiActor.OptionsButton.ButtonType.SOUND, 0, 0);
 		soundButton.setX(1024/2-(soundButton.getWidth()/2));
-		soundButton.setY(512 * 3 / 6 - gapY);
+		soundButton.setY(512-soundButton.getHeight()*2-20);
 		
 		float sound = prefs.getFloat("effectsVolume", 1);
 		if(sound == 0)
@@ -72,11 +71,11 @@ public class OptionsScreen implements Screen, InputProcessor{
 
 		resetButton = new OptionsButton(com.git.tdgame.guiActor.OptionsButton.ButtonType.RESET, 0, 0);
 		resetButton.setX(1024/2-(resetButton.getWidth()/2));
-		resetButton.setY(512 * 2 / 6 - 2*gapY);
+		resetButton.setY(512-resetButton.getHeight()*3);
 		
 		backButton = new OptionsButton(com.git.tdgame.guiActor.OptionsButton.ButtonType.BACK, 0, 0);
 		backButton.setX(1024/2-(backButton.getWidth()/2));
-		backButton.setY(512 * 1 / 6 - 3*gapY);
+		backButton.setY(512-backButton.getHeight()*4+20);
 		
 		stage.addActor(splashImage);
 		stage.addActor(musicButton);
