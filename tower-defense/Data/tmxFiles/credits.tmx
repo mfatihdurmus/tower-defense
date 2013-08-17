@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="16" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tiles" tilewidth="32" tileheight="32">
+  <image source="../world/packer/tiles.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Background" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBjcgG8Uj+JRPIpphAGkjw9R
+  </data>
+ </layer>
+ <layer name="Objects" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJzVU8ENwyAM9LciiEd+PNpHVbVjdJSMklEYJaMVhEmvJ5O0+dWShY3t89kCkf+TSP4o8sy6HKk/G/Y3eMxhSxCv1QW1Q6fmoudJzyGrE0lFES+841OJ+XxmO+3xc8AF8ZzeRcrFXkJ+gBzEi3SPXL1ybTM58H2NL3eD3wA1HnaAfazZS/xh4KH4mrf2N2A+8Hjeq8hs5TA/yknae2r2WHXG3Rj7WfNRomEf/R+3TpzxrH333t8eP6775Z/1+G3hvABTkykF
+  </data>
+ </layer>
+ <layer name="Foreground" width="20" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFtATKQKxCRfN4GRgSyNEnRUU3UNOsoQRA/ubHIQeM4wZizOBmYFiAjEHxiS7GDlTHwUB+XI8C4gEArcsH9w==
+  </data>
+ </layer>
+</map>

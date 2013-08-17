@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.git.tdgame.gameActor.level.LevelModel;
+import com.git.tdgame.screen.CreditsScreen;
 import com.git.tdgame.screen.GameScreen;
 import com.git.tdgame.screen.LevelSelectScreen;
 import com.git.tdgame.screen.MenuScreen;
@@ -14,6 +15,7 @@ public class TDGame extends Game {
 	private LevelSelectScreen levelSelectScreen;
 	private GameScreen gameScreen;
 	private OptionsScreen optionsScreen;
+	private CreditsScreen creditsScreen;
 
 	private int screenWidth = 0;
 	private int screenHeight = 0;
@@ -59,6 +61,12 @@ public class TDGame extends Game {
 	{
 		optionsScreen = new OptionsScreen(this);
 		setScreen(optionsScreen);
+	}
+	
+	public void goToCreditsScreen()
+	{
+		creditsScreen = new CreditsScreen(this);
+		setScreen(creditsScreen);
 	}
 	
 	public void setSelectedLevel(LevelModel selectedLevel)

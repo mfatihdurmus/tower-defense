@@ -48,26 +48,26 @@ public class MenuScreen implements Screen, InputProcessor{
 		stage.setViewport(game.getScreenWidth(), game.getScreenHeight(), false);
 		splashImage = new Image(new Texture(Gdx.files.internal("data/menu/splash.png")));
 		playButton = new MenuButton(ButtonType.PLAY, 0, 0);
-		playButton.setX(512-playButton.getWidth()/2);
+		playButton.setX(200);
 		playButton.setY(130);
 
 		optionsButton = new MenuButton(ButtonType.OPTIONS, 0, 0);
-		optionsButton.setX(512-optionsButton.getWidth()/2);
+		optionsButton.setX(200);
 		optionsButton.setY(20);
 		
 		encyclopediaButton = new MenuButton(ButtonType.ENCYCLOPEDIA, 0, 0);
-		encyclopediaButton.setX(1024-(encyclopediaButton.getWidth())-200);
-		encyclopediaButton.setY(150);
+		encyclopediaButton.setX(824-encyclopediaButton.getWidth());
+		encyclopediaButton.setY(130);
 		
 		creditsButton = new MenuButton(ButtonType.CREDITS, 0, 0);
-		creditsButton.setX(1024-creditsButton.getWidth());
-		creditsButton.setY(0);
+		creditsButton.setX(824-creditsButton.getWidth());
+		creditsButton.setY(20);
 		
 		stage.addActor(splashImage);
 		stage.addActor(playButton);
 		stage.addActor(optionsButton);
-		//stage.addActor(encyclopediaButton);
-		//stage.addActor(creditsButton);
+		stage.addActor(encyclopediaButton);
+		stage.addActor(creditsButton);
 		Gdx.input.setInputProcessor(this);
 		hoveredButton = null;
 	}
@@ -162,7 +162,7 @@ public class MenuScreen implements Screen, InputProcessor{
 				// To do : Go to encyclopedia screen
 			} else if(m.getType() == ButtonType.CREDITS)
 			{
-				// To do : Go to credits screen
+				game.goToCreditsScreen();
 			}
 		} else {
 			if(hoveredButton != null)
