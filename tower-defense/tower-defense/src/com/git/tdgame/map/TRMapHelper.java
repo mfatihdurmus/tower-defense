@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class TDGameMapHelper {
+public class TRMapHelper {
 	private FileHandle packFileDirectory;
 	private OrthographicCamera camera;
 

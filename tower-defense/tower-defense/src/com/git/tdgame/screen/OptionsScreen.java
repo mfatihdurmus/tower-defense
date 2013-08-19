@@ -10,13 +10,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.git.tdgame.TDGame;
+import com.git.tdgame.TRGame;
 import com.git.tdgame.guiActor.OptionsButton;
 
 
 public class OptionsScreen implements Screen, InputProcessor{
 
-	public TDGame game;
+	public TRGame game;
 	private Stage stage;
 	private Image splashImage;
 	
@@ -26,7 +26,7 @@ public class OptionsScreen implements Screen, InputProcessor{
 	private OptionsButton backButton;
 	private OptionsButton hoveredButton;
 	
-	public OptionsScreen(TDGame game)
+	public OptionsScreen(TRGame game)
 	{
 		this.game = game;
 	}

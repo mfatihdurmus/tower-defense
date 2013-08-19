@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
-import com.git.tdgame.TDGame;
+import com.git.tdgame.TRGame;
 import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.Enemy;
 import com.git.tdgame.gameActor.Gold;
@@ -35,13 +35,13 @@ import com.git.tdgame.guiActor.GameMenuButton.ButtonType;
 import com.git.tdgame.guiActor.InfoDisplay;
 import com.git.tdgame.guiActor.PauseButton;
 import com.git.tdgame.guiActor.PauseMenu;
-import com.git.tdgame.map.TDGameMapHelper;
+import com.git.tdgame.map.TRMapHelper;
 
 
 public class GameScreen implements Screen, InputProcessor{
 
 	// To access game functions
-	private TDGame game;
+	private TRGame game;
 	
 	private Tower hoveredTower;
 	private boolean isUpgradeDisplay = false;
@@ -63,7 +63,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private HashMap<String, HashMap<String,String>> towerTypes;
 
 	// Map variables
-	private TDGameMapHelper tdGameMapHelper;
+	private TRMapHelper tdGameMapHelper;
 	private Array<Array<Vector2>> paths;
 	private Vector2 tileSize;
 	
@@ -93,7 +93,7 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	private boolean isPaused;
 	
-	public GameScreen(TDGame game, LevelModel levelModel)
+	public GameScreen(TRGame game, LevelModel levelModel)
 	{
 		this.game = game;
 		this.levelModel = levelModel;
@@ -351,7 +351,7 @@ public class GameScreen implements Screen, InputProcessor{
 	{
 		Gdx.input.setInputProcessor(this);
 		// Map load
-		tdGameMapHelper = new TDGameMapHelper();
+		tdGameMapHelper = new TRMapHelper();
 		tdGameMapHelper.setPackerDirectory("data/world/level packfile");
 		tdGameMapHelper.loadMap(levelModel.getMapPath());
 		tileSize = new Vector2(tdGameMapHelper.getMap().tileWidth,tdGameMapHelper.getMap().tileHeight);

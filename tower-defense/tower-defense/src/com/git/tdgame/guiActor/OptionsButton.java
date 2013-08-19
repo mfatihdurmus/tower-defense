@@ -51,6 +51,16 @@ public class OptionsButton extends Actor
         spriteClicked = new Sprite(textureClicked);
 	}
 	
+	public void changeTexture(String newTexture, String newTextureClicked, int newHeight, int newWidth)
+	{
+		texture = new Texture(Gdx.files.internal(newTexture));
+		textureClicked = new Texture(Gdx.files.internal(newTextureClicked));
+		setHeight(newHeight);
+		setWidth(newWidth);
+        sprite = new Sprite(texture);
+        spriteClicked = new Sprite(textureClicked);
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		

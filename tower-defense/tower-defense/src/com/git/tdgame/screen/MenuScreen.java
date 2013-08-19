@@ -10,14 +10,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.git.tdgame.TDGame;
+import com.git.tdgame.TRGame;
 import com.git.tdgame.guiActor.MenuButton;
 import com.git.tdgame.guiActor.MenuButton.ButtonType;
 
 
 public class MenuScreen implements Screen, InputProcessor{
 
-	public TDGame game;
+	public TRGame game;
 	private Stage stage;
 	private Image splashImage;
 	private MenuButton playButton;
@@ -26,7 +26,7 @@ public class MenuScreen implements Screen, InputProcessor{
 	private MenuButton creditsButton;
 	private MenuButton hoveredButton;
 	
-	public MenuScreen(TDGame game)
+	public MenuScreen(TRGame game)
 	{
 		this.game = game;
 	}
@@ -159,7 +159,7 @@ public class MenuScreen implements Screen, InputProcessor{
 				game.goToOptionsScreen();
 			} else if(m.getType() == ButtonType.ENCYCLOPEDIA)
 			{
-				// To do : Go to encyclopedia screen
+				game.goToGuideScreen();
 			} else if(m.getType() == ButtonType.CREDITS)
 			{
 				game.goToCreditsScreen();

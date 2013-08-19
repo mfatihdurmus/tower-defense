@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.git.tdgame.TDGame;
+import com.git.tdgame.TRGame;
 import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.gameActor.level.Footprint;
 import com.git.tdgame.gameActor.level.LevelBox;
@@ -22,14 +22,14 @@ import com.git.tdgame.gameActor.level.LevelModel;
 
 public class LevelSelectScreen implements Screen, InputProcessor{
 
-	public TDGame game;
+	public TRGame game;
 	private Stage stage;
 	private List<LevelModel> levels;
 	private int unlockedLevels;
 	private Music levelScreenMusic;
 	private float volume;
 	
-	public LevelSelectScreen(TDGame game, int unlockedLevels)
+	public LevelSelectScreen(TRGame game, int unlockedLevels)
 	{
 		levels = DataProvider.getLevels();
 		this.game = game;

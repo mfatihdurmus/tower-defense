@@ -7,7 +7,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class MainActivity extends AndroidApplication {
 	
-	private TDGame game;
+	private TRGame game;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,11 +15,11 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        game = new TDGame();
+        game = new TRGame();
         initialize(game, cfg);
     }
     
-    public TDGame getGameInstance(){
+    public TRGame getGameInstance(){
     	return game;
     }
 }
