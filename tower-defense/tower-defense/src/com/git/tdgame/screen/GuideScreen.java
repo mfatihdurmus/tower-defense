@@ -1,5 +1,8 @@
 package com.git.tdgame.screen;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -10,7 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.git.tdgame.TRGame;
+import com.git.tdgame.data.DataProvider;
 import com.git.tdgame.guiActor.GuideButton;
+import com.git.tdgame.guiActor.GuideElement;
+import com.git.tdgame.guiActor.GuideElement.ElementType;
 
 
 public class GuideScreen implements Screen, InputProcessor{
@@ -24,6 +30,12 @@ public class GuideScreen implements Screen, InputProcessor{
 	private GuideButton towersButton;
 	private GuideButton hoveredButton;
 	
+	private HashMap<String, HashMap<String,String>> enemyTypes;
+	private HashMap<String, HashMap<String,String>> towerTypes;
+	
+	private ArrayList<GuideElement> enemies;
+	private ArrayList<GuideElement> towers;
+	
 	public GuideScreen(TRGame game)
 	{
 		this.game = game;
@@ -32,6 +44,7 @@ public class GuideScreen implements Screen, InputProcessor{
 	public void render(float delta) {
         Gdx.gl.glClearColor( 0f, 0f, 0f, 1f );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
+		stage.act(delta);
         stage.draw();
 	}
 
@@ -39,9 +52,58 @@ public class GuideScreen implements Screen, InputProcessor{
 	public void resize(int width, int height) {
 		stage.setViewport(1024, 512, false);
 	}
+	
+	private void addEnemies() {
+		int column = 0;
+		int row = 0;
+		for(GuideElement g : enemies)
+		{
+			g.setPosition(190+(row*100), 512-(120+column*100));
+			stage.addActor(g);
+			++row;
+			if(row >= 3)
+			{
+				row = 0;
+				column++;
+			}
+		}
+	}
 
+	private void addTowers() {
+		int column = 0;
+		int row = 0;
+		for(GuideElement g : towers)
+		{
+			g.setPosition(190+(row*100), 512-(120+column*100));
+			stage.addActor(g);
+			++row;
+			if(row >= 3)
+			{
+				row = 0;
+				column++;
+			}
+		}
+	}
+	
 	@Override
 	public void show() {
+		this.enemyTypes = DataProvider.getEnemyTypes();
+		this.towerTypes = DataProvider.getTowerTypes();
+		enemies = new ArrayList<GuideElement>();
+		towers = new ArrayList<GuideElement>();
+		
+		for(Object value : enemyTypes.values()){
+			@SuppressWarnings("unchecked")
+			GuideElement enemy = new GuideElement(ElementType.ENEMY, (HashMap<String,String>)value);
+			enemies.add(enemy);
+		}
+		
+		for(Object value : towerTypes.values()){
+			@SuppressWarnings("unchecked")
+			GuideElement tower = new GuideElement(ElementType.TOWER, (HashMap<String,String>)value);
+			towers.add(tower);
+		}
+		
 		stage = new Stage();
 		stage.setViewport(game.getScreenWidth(), game.getScreenHeight(), false);
 		splashImage = new Image(new Texture(Gdx.files.internal("data/guide/background.png")));
@@ -67,6 +129,9 @@ public class GuideScreen implements Screen, InputProcessor{
 		stage.addActor(backButton);
 		stage.addActor(enemiesButton);
 		stage.addActor(towersButton);
+		addEnemies();
+		addTowers();
+		hideTowers();
 		Gdx.input.setInputProcessor(this);
 		hoveredButton = null;
 	}
@@ -117,20 +182,14 @@ public class GuideScreen implements Screen, InputProcessor{
 		if(a instanceof GuideButton)
 		{
 			GuideButton g = (GuideButton) a;
-			boolean isSelected;
 			if(!g.isHovered())
-			{
 				g.setHover(true);
-				isSelected = true;
-			} else {
-				g.setHover(false);
-				isSelected = false;
-			}
+			
 			if(g.equals(enemiesButton))
 			{
-				towersButton.setHover(!isSelected);
-			} else {
-				enemiesButton.setHover(!isSelected);
+				towersButton.setHover(false);
+			} else if(g.equals(towersButton)){
+				enemiesButton.setHover(false);
 			}
 			hoveredButton = g;
 		}
@@ -145,6 +204,10 @@ public class GuideScreen implements Screen, InputProcessor{
 		{
 			if(hoveredButton.getType() == com.git.tdgame.guiActor.GuideButton.ButtonType.BACK) {
 				game.goToMenuScreen();
+			} else if(hoveredButton.getType() == com.git.tdgame.guiActor.GuideButton.ButtonType.ENEMIES) {
+				hideTowers();
+			} else if(hoveredButton.getType() == com.git.tdgame.guiActor.GuideButton.ButtonType.TOWERS) {
+				hideEnemies();
 			}
 		} else {
 			if(hoveredButton != null)
@@ -156,6 +219,33 @@ public class GuideScreen implements Screen, InputProcessor{
 			}
 		}
 		return false;
+	}
+	private void hideEnemies() {
+		for(Actor a : stage.getActors())
+		{
+			if(a instanceof GuideElement) {
+				GuideElement g = (GuideElement) a;
+				if(g.getType() == com.git.tdgame.guiActor.GuideElement.ElementType.ENEMY)
+				{
+					g.setVisible(false);
+				} else if(g.getType() == com.git.tdgame.guiActor.GuideElement.ElementType.TOWER) {
+					g.setVisible(true);
+				}
+			}
+		}
+	}
+	private void hideTowers() {
+		for(Actor a : stage.getActors())
+		{
+			if(a instanceof GuideElement) {
+				GuideElement g = (GuideElement) a;
+				if(g.getType() == com.git.tdgame.guiActor.GuideElement.ElementType.TOWER)
+				{
+					g.setVisible(false);
+				} else if(g.getType() == com.git.tdgame.guiActor.GuideElement.ElementType.ENEMY)
+					g.setVisible(true);
+			}
+		}
 	}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
