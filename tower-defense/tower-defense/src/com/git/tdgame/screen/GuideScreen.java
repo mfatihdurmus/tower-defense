@@ -58,7 +58,9 @@ public class GuideScreen implements Screen, InputProcessor{
 		int row = 0;
 		for(GuideElement g : enemies)
 		{
-			g.setPosition(190+(row*100), 512-(120+column*100));
+			g.setPosition(185+(row*100), 512-(120+column*100));
+			if( row == 0 && column == 0)
+				g.setHover(true);
 			stage.addActor(g);
 			++row;
 			if(row >= 3)
@@ -74,7 +76,9 @@ public class GuideScreen implements Screen, InputProcessor{
 		int row = 0;
 		for(GuideElement g : towers)
 		{
-			g.setPosition(190+(row*100), 512-(120+column*100));
+			g.setPosition(185+(row*100), 512-(120+column*100));
+			if( row == 0 && column == 0)
+				g.setHover(true);
 			stage.addActor(g);
 			++row;
 			if(row >= 3)
@@ -192,6 +196,19 @@ public class GuideScreen implements Screen, InputProcessor{
 				enemiesButton.setHover(false);
 			}
 			hoveredButton = g;
+		} else if(a instanceof GuideElement) {
+			GuideElement e = (GuideElement) a;
+			for(Actor t : stage.getActors())
+			{
+				if(t instanceof GuideElement)
+				{
+					GuideElement r = (GuideElement) t;
+					if(r.getType() == e.getType())
+						r.setHover(false);
+				}
+			}
+			if(!e.isHovered())
+				e.setHover(true);
 		}
 		return false;
 	}

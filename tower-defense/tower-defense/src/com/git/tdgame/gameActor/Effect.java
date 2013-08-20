@@ -15,6 +15,7 @@ public class Effect extends Actor
     private int numberOfFrames = 0;
     private float spriteStep = 10f;
     private boolean isFinished = false;
+    private boolean isFliped = false;
     
     public Effect (Vector2 pos, String effect)
     {
@@ -50,10 +51,24 @@ public class Effect extends Actor
 
     public void draw (SpriteBatch batch, float parentAlpha)
     {
-		batch.draw(sprite,getX(),getY()+this.getHeight(),getOriginX(),getOriginY(),this.getWidth(),this.getHeight(),1,-1,0);
+    	if(!isFliped)
+    	{
+    		batch.draw(sprite,getX(),getY()+this.getHeight(),getOriginX(),getOriginY(),this.getWidth(),this.getHeight(),1,-1,0);
+    	} else {
+    		batch.draw(sprite,getX(),getY()-this.getHeight()/3*2,getOriginX(),getOriginY(),this.getWidth(),this.getHeight(),1,1,0);
+    	}
     }
     
-    public void finish()
+    
+    public boolean isFliped() {
+		return isFliped;
+	}
+
+	public void setFliped(boolean isFliped) {
+		this.isFliped = isFliped;
+	}
+
+	public void finish()
     {
 		this.remove();
     }

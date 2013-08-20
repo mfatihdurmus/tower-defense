@@ -1,6 +1,6 @@
 {
 	"singleTargetTower" : {
-								"name" : "Single Target Tower",
+								"name" : "Archer Tower",
 								"width" : "32",
 								"height" : "32",
 								"fireRate" : "1.2",
@@ -14,7 +14,7 @@
 								"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"1024\",\"damage\" : \"4\", \"damageRadius\" : \"0\",\"slowAmount\" : \"0\",\"slowDuration\" : \"0\",\"texturePath\" : \"data/game/tower/projectile/arrow.png\"}"
 							},
 	"slowingTower" : {
-						"name" : "Slowing Tower",
+						"name" : "Icy Tower",
 						"width" : "32",
 						"height" : "32",
 						"fireRate" : "2",
@@ -28,7 +28,7 @@
 						"projectile" : "{\"width\" : \"32\",\"height\" : \"32\",\"speed\" : \"768\",\"damage\" : \"3\",\"damageRadius\" : \"0\",\"slowAmount\" : \"0.3\",\"slowDuration\" : \"3\",\"texturePath\" : \"data/game/tower/projectile/snowBall.png\"}"
 						},
 	"splashDamageTower" : {
-							"name" : "Splash Damage Tower",
+							"name" : "Cannon Tower",
 							"width" : "32",
 							"height" : "32",
 							"fireRate" : "2.8",
